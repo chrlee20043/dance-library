@@ -3,6 +3,12 @@
 
 const client = require("./client");
 
+const { createUser, getAllUsers } = require("./helpers/users");
+const { createInstructor } = require("./helpers/instructors");
+const { createVideoLibrary } = require("./helpers/videoLibraries");
+const { createSubscription } = require("./helpers/subscriptions");
+
+// imports
 const {
   users,
   instructors,
@@ -15,10 +21,10 @@ const dropTables = async () => {
   try {
     console.log("Starting to drop tables");
     await client.query(`
-        DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS instructors;
-        DROP TABLE IF EXISTS videoLibraries;
-        DROP TABLE IF EXISTS subscriptions;
+        DROP TABLE IF EXISTS users CASCADE;
+        DROP TABLE IF EXISTS instructors CASCADE;
+        DROP TABLE IF EXISTS videoLibraries CASCADE;
+        DROP TABLE IF EXISTS subscriptions CASCADE;
         `);
     console.log("Tables dropped");
   } catch (error) {
@@ -50,14 +56,14 @@ const createTables = async () => {
 
         CREATE TABLE videoLibraries (
             video_id SERIAL PRIMARY KEY,
-            main_instructor_id INTEGER REFERENCES instructors(instructor_id),
+            instructor_id INTEGER REFERENCES instructors(instructor_id),
             style varchar(255) NOT NULL,
             level varchar(255) NOT NULL,
             "videoURL" varchar(255) NOT NULL
         );
 
         CREATE TABLE subscriptions (
-            subscription_user_id INTEGER REFERENCES users(user_id),
+            user_id INTEGER REFERENCES users(user_id),
             annual BOOLEAN NOT NULL,
             monthly BOOLEAN NOT NULL,
             "studentDiscount" BOOLEAN NOT NULL
@@ -68,6 +74,57 @@ const createTables = async () => {
 
 // Insert mock data from seedData
 
+// Create users
+const createInitialUsers = async () => {
+  try {
+    // Loop through the "users" array from the seedData
+    for (const user of users) {
+      // Insert each user into the table
+      await createUser(user);
+      await getAllUsers();
+    }
+    console.log("created users");
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Create instructors
+const createInitialInstructors = async () => {
+  try {
+    for (const instructor of instructors) {
+      await createInstructor(instructor);
+    }
+    console.log("created instructors");
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Create videoLibraries
+const createVideoLibraries = async () => {
+  try {
+    for (const videoLibrary of videoLibraries) {
+      await createVideoLibrary(videoLibrary);
+    }
+    console.log("created videoLibraries");
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Create subscriptions
+const createSubscriptions = async () => {
+  try {
+    for (const subscription of subscriptions) {
+      await createSubscription(subscription);
+    }
+    console.log("created subscriptions");
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Call all functions and 'BUILD' my database
 
 const rebuildDb = async () => {
@@ -77,6 +134,13 @@ const rebuildDb = async () => {
     // run our functions
     await dropTables();
     await createTables();
+
+    // Generating starting data
+    console.log("starting to seed...");
+    await createInitialUsers();
+    await createInitialInstructors();
+    await createVideoLibraries();
+    await createSubscriptions();
   } catch (error) {
     console.error(error);
   } finally {
