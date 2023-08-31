@@ -3,22 +3,33 @@
 
 const client = require("./client");
 
+const {
+  users,
+  instructors,
+  videoLibraries,
+  subscriptions,
+} = require("./seedData");
+
 // Drop tables
 const dropTables = async () => {
   try {
+    console.log("Starting to drop tables");
     await client.query(`
         DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS instructors;
         DROP TABLE IF EXISTS videoLibraries;
         DROP TABLE IF EXISTS subscriptions;
         `);
+    console.log("Tables dropped");
   } catch (error) {
+    console.log("Error dropping tables");
     throw error;
   }
 };
 
 // Create tables
 const createTables = async () => {
+  console.log("Building tables");
   await client.query(`
         CREATE TABLE users (
             user_id SERIAL PRIMARY KEY,
@@ -52,6 +63,7 @@ const createTables = async () => {
             studentDiscount BOOLEAN NOT NULL
         );
     `);
+  console.log("Tables built!");
 };
 
 // Insert mock data from seedData

@@ -3,9 +3,9 @@ const { Client } = require("pg");
 
 // Establishing connect to database
 
-const danceLibrary = "danceLibrary";
+const dancelibrary = "dancelibrary";
 
-const client = new Client(`postgres://localhost:5431/${danceLibrary}`);
+const client = new Client(`postgres://localhost:5431/${dancelibrary}`);
 
 // Export for use in other files
 
