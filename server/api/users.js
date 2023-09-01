@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAllUsers } = require("../db/helpers/users");
+const { getAllUsers, getUserById } = require("../db/helpers/users");
 
-const { users } = require("../db/seedData");
+const users = require("../db/seedData");
 
-// Get - api/users - get all users
+// GET - api/users - get all users
 
 router.get("/", async (req, res, next) => {
   try {
@@ -14,6 +14,17 @@ router.get("/", async (req, res, next) => {
   } catch (error) {
     console.log("error", error);
     res.send([]);
+    next(error);
+  }
+});
+
+// GET - /api/users/:userId - get user by id
+
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const user = await getUserById(req.params.userId);
+    res.send(user);
+  } catch (error) {
     next(error);
   }
 });

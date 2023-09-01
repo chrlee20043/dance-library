@@ -44,4 +44,17 @@ const getAllUsers = async () => {
   }
 };
 
-module.exports = { createUser, getAllUsers };
+const getUserById = async (userId) => {
+  try {
+    const {
+      rows: [users],
+    } = await client.query(`
+      SELECT *
+      FROM users
+      WHERE user_id = ${userId};
+    `);
+    return users;
+  } catch {}
+};
+
+module.exports = { createUser, getAllUsers, getUserById };
