@@ -8,14 +8,14 @@ const {
   createInstructor,
   getInstructorsById,
 } = require("./helpers/instructors");
-const { createVideoLibrary } = require("./helpers/videoLibraries");
+const { createVideoClass } = require("./helpers/videoClasses");
 const { createSubscription } = require("./helpers/subscriptions");
 
 // imports
 const {
   users,
   instructors,
-  videoLibraries,
+  videoClasses,
   subscriptions,
 } = require("./seedData");
 
@@ -26,7 +26,7 @@ const dropTables = async () => {
     await client.query(`
         DROP TABLE IF EXISTS users CASCADE;
         DROP TABLE IF EXISTS instructors CASCADE;
-        DROP TABLE IF EXISTS videoLibraries CASCADE;
+        DROP TABLE IF EXISTS videoClasses CASCADE;
         DROP TABLE IF EXISTS subscriptions CASCADE;
         `);
     console.log("Tables dropped");
@@ -57,16 +57,16 @@ const createTables = async () => {
             "imageURL" varchar(255) NOT NULL
         );
 
-        CREATE TABLE videoLibraries (
+        CREATE TABLE videoclasses (
             video_id SERIAL PRIMARY KEY,
-            instructor_id INTEGER REFERENCES instructors(instructor_id),
+            instructor_id INTEGER REFERENCES instructors(instructor_id) NOT NULL,
             style varchar(255) NOT NULL,
             level varchar(255) NOT NULL,
             "videoURL" varchar(255) NOT NULL
         );
 
         CREATE TABLE subscriptions (
-            user_id INTEGER REFERENCES users(user_id),
+            user_id INTEGER REFERENCES users(user_id) NOT NULL,
             annual BOOLEAN NOT NULL,
             monthly BOOLEAN NOT NULL,
             "studentDiscount" BOOLEAN NOT NULL
@@ -105,19 +105,19 @@ const createInitialInstructors = async () => {
 };
 
 // Create videoLibraries
-const createVideoLibraries = async () => {
+const createInitialVideoClasses = async () => {
   try {
-    for (const videoLibrary of videoLibraries) {
-      await createVideoLibrary(videoLibrary);
+    for (const videoClass of videoClasses) {
+      await createVideoClass(videoClass);
     }
-    console.log("created videoLibraries");
+    console.log("created classes");
   } catch (error) {
     throw error;
   }
 };
 
 // Create subscriptions
-const createSubscriptions = async () => {
+const createInitialSubscriptions = async () => {
   try {
     for (const subscription of subscriptions) {
       await createSubscription(subscription);
@@ -142,8 +142,8 @@ const rebuildDb = async () => {
     console.log("starting to seed...");
     await createInitialUsers();
     await createInitialInstructors();
-    await createVideoLibraries();
-    await createSubscriptions();
+    await createInitialVideoClasses();
+    await createInitialSubscriptions();
     await getInstructorsById(1);
   } catch (error) {
     console.error(error);

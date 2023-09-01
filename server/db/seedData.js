@@ -29,19 +29,6 @@ const users = [
 // Instructors
 const instructors = [
   {
-    name: "Harper Watters",
-    bio: "Harper Watters is a Ballet dancer from Houston, Texas. He’s well-known for not only his soloist performances in the Houston Ballet.",
-    style: "ballet",
-    imageURL:
-      "https://steezy.imgix.net/instructors/harper-watters-col.jpg?w=300",
-  },
-  {
-    name: "Bailey Sok",
-    bio: "Bailey has trained in Industrial Dancing, Hip Hop, Ballet, Contemporary, and Jazz. She has choreographed for various Kpop groups.",
-    style: "hip hop",
-    imageURL: "https://steezy.imgix.net/instructors/bailey-sok-col.jpg?w=300",
-  },
-  {
     name: "Aliya Janell",
     bio: "Aliya Janell is an L.A. based professional dancer, choreographer, and content creator. Aliya launched her own dance experience Queens N’ Lettos to create a space for women to feel empowered, confident, and most of all sexy in their own skin.",
     style: "heels",
@@ -62,44 +49,35 @@ const instructors = [
   },
 ];
 
-// VideoLibrary
+// Classes
 
-const videoLibraries = [
+const videoClasses = [
   {
-    style: "hip hop",
-    level: "beginner",
-    videoURL: "https://dance.steezy.co/class/preview/2340",
-  },
-  {
-    instructor_id: 5,
-    style: "popping",
-    level: "intermediate",
-    videoURL: "https://dance.steezy.co/class/preview/513",
-  },
-  {
-    instructor_id: 3,
+    instructor_id: 1,
     style: "heels",
     level: "advanced",
     videoURL: "https://dance.steezy.co/class/preview/2259",
   },
   {
-    style: "hip hop",
-    level: "advanced",
-    videoURL: "https://dance.steezy.co/class/preview/60",
+    instructor_id: 2,
+    style: "contemporary",
+    level: "beginner",
+    videoURL: "https://dance.steezy.co/class/preview/1526",
   },
   {
-    style: "jazz funk",
-    level: "advanced",
-    videoURL: "https://dance.steezy.co/class/preview/562",
+    instructor_id: 3,
+    style: "popping",
+    level: "intermediate",
+    videoURL: "https://dance.steezy.co/class/preview/513",
   },
 ];
 
 // Subscription
 
 const subscriptions = [
-  { annual: true, monthly: false, studentDiscount: false },
-  { annual: false, monthly: true, studentDiscount: true },
-  { annual: true, monthly: false, studentDiscount: true },
+  { user_id: 1, annual: true, monthly: false, studentDiscount: false },
+  { user_id: 2, annual: false, monthly: true, studentDiscount: true },
+  { user_id: 3, annual: false, monthly: false, studentDiscount: false },
 ];
 
-module.exports = { users, instructors, videoLibraries, subscriptions };
+module.exports = { users, instructors, videoClasses, subscriptions };
