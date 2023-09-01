@@ -4,7 +4,10 @@
 const client = require("./client");
 
 const { createUser, getAllUsers } = require("./helpers/users");
-const { createInstructor } = require("./helpers/instructors");
+const {
+  createInstructor,
+  getInstructorsById,
+} = require("./helpers/instructors");
 const { createVideoLibrary } = require("./helpers/videoLibraries");
 const { createSubscription } = require("./helpers/subscriptions");
 
@@ -141,6 +144,7 @@ const rebuildDb = async () => {
     await createInitialInstructors();
     await createVideoLibraries();
     await createSubscriptions();
+    await getInstructorsById(1);
   } catch (error) {
     console.error(error);
   } finally {

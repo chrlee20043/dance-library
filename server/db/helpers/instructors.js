@@ -18,4 +18,19 @@ const createInstructor = async ({ name, bio, style, imageURL }) => {
   }
 };
 
-module.exports = { createInstructor };
+const getInstructorsById = async (instructorId) => {
+  try {
+    const {
+      rows: [instructors],
+    } = await client.query(`
+      SELECT *
+      FROM instructors
+      WHERE instructor_id = ${instructorId};
+    `);
+    return instructors;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { createInstructor, getInstructorsById };
