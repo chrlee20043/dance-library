@@ -18,6 +18,22 @@ const createInstructor = async ({ name, bio, style, imageURL }) => {
   }
 };
 
+// GET - /api/instructors - get all instructors
+
+const getAllInstructors = async () => {
+  try {
+    const { rows } = await client.query(`
+        SELECT *
+        from instructors;
+      `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// GET - /api/instructors/:instructorId - get instructor by id
+
 const getInstructorsById = async (instructorId) => {
   try {
     const {
@@ -33,4 +49,4 @@ const getInstructorsById = async (instructorId) => {
   }
 };
 
-module.exports = { createInstructor, getInstructorsById };
+module.exports = { createInstructor, getAllInstructors, getInstructorsById };

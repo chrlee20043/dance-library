@@ -3,9 +3,10 @@
 
 const client = require("./client");
 
-const { createUser, getAllUsers } = require("./helpers/users");
+const { createUser, getAllUsers, getUserById } = require("./helpers/users");
 const {
   createInstructor,
+  getAllInstructors,
   getInstructorsById,
 } = require("./helpers/instructors");
 const { createVideoClass } = require("./helpers/videoClasses");
@@ -97,6 +98,7 @@ const createInitialInstructors = async () => {
   try {
     for (const instructor of instructors) {
       await createInstructor(instructor);
+      await getAllInstructors();
     }
     console.log("created instructors");
   } catch (error) {
@@ -144,7 +146,8 @@ const rebuildDb = async () => {
     await createInitialInstructors();
     await createInitialVideoClasses();
     await createInitialSubscriptions();
-    await getInstructorsById(1);
+    // await getInstructorsById(1);
+    // await getUserById(1);
   } catch (error) {
     console.error(error);
   } finally {

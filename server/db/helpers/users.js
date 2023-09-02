@@ -31,6 +31,8 @@ const createUser = async ({
   }
 };
 
+// GET - /api/users - get all users
+
 const getAllUsers = async () => {
   try {
     const { rows } = await client.query(`
@@ -44,6 +46,8 @@ const getAllUsers = async () => {
   }
 };
 
+// GET - /api/users/:userId - get user by id
+
 const getUserById = async (userId) => {
   try {
     const {
@@ -54,7 +58,9 @@ const getUserById = async (userId) => {
       WHERE user_id = ${userId};
     `);
     return users;
-  } catch {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = { createUser, getAllUsers, getUserById };

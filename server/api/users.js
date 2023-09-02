@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
     res.send(users);
   } catch (error) {
     console.log("error", error);
-    res.send([]);
+    // res.send([]);
     next(error);
   }
 });
