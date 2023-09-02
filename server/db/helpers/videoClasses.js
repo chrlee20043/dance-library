@@ -25,4 +25,31 @@ const createVideoClass = async ({ instructor_id, style, level, videoURL }) => {
   }
 };
 
-module.exports = { createVideoClass };
+const getVideoClasses = async () => {
+  try {
+    const { rows } = await client.query(`
+      SELECT *
+      FROM videoclasses;
+    `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getVideoClassById = async (videoId) => {
+  try {
+    const {
+      rows: [videoClasses],
+    } = await client.query(`
+      SELECT *
+      FROM videoclasses
+      WHERE video_id = ${videoId};
+    `);
+    return videoClasses;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { createVideoClass, getVideoClasses, getVideoClassById };

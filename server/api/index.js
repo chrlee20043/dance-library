@@ -13,6 +13,6 @@ router.use("/users", require("./users"));
 router.use("/instructors", require("./instructors"));
 
 // ROUTER: /api/videoClasses
-// router.use("/videoClasses", require("./videoClasses"));
+router.use("/videoClasses", require("./videoClasses"));
 
 module.exports = router;
