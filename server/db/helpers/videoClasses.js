@@ -52,4 +52,16 @@ const getVideoClassById = async (videoId) => {
   }
 };
 
-module.exports = { createVideoClass, getVideoClasses, getVideoClassById };
+const addVideoClass = async () => {
+  try {
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  createVideoClass,
+  getVideoClasses,
+  getVideoClassById,
+  addVideoClass,
+};
