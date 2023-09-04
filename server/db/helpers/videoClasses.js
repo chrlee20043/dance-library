@@ -1,6 +1,6 @@
 const client = require("../client");
 
-// Query to create a class
+// POST to create/add a class
 
 const createVideoClass = async ({ instructor_id, style, level, videoURL }) => {
   try {
@@ -25,6 +25,8 @@ const createVideoClass = async ({ instructor_id, style, level, videoURL }) => {
   }
 };
 
+// GET all videos
+
 const getVideoClasses = async () => {
   try {
     const { rows } = await client.query(`
@@ -37,23 +39,20 @@ const getVideoClasses = async () => {
   }
 };
 
+// GET video by video id
+
 const getVideoClassById = async (videoId) => {
   try {
     const {
       rows: [videoClasses],
-    } = await client.query(`
+    } = await client.query(
+      `
       SELECT *
       FROM videoclasses
-      WHERE video_id = ${videoId};
-    `);
+      WHERE video_id = $1;
+    `[videoId]
+    );
     return videoClasses;
-  } catch (error) {
-    throw error;
-  }
-};
-
-const addVideoClass = async () => {
-  try {
   } catch (error) {
     throw error;
   }
@@ -63,5 +62,4 @@ module.exports = {
   createVideoClass,
   getVideoClasses,
   getVideoClassById,
-  addVideoClass,
 };

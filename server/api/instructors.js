@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) => {
 
 // GET - /api/users/:instructorId - get instructor by id
 
-router.get("/:instructorId", async (req, res, next) => {
+router.get("/instructors:instructorId", async (req, res, next) => {
   try {
     const instructor = await getInstructorsById(req.params.instructorId);
     res.send(instructor);

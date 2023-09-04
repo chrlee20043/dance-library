@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   getVideoClasses,
   getVideoClassById,
-  addVideoClass,
+  createVideoClass,
 } = require("../db/helpers/videoClasses");
 
 const videoClasses = require("../db/seedData");
@@ -31,23 +31,23 @@ router.get("/:videoId", async (req, res, next) => {
   }
 });
 
-// POST - /api/videoClasses - add a new video
-
-router.get("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const videoClass = await addVideoClass(req.body);
-    const existingVideo = await getVideoClassById(video.id);
+    const videoClass = await createVideoClass(req.body);
+    const existingVideo = await getVideoClassById(videoClass.videoId);
     if (existingVideo) {
       res.send(existingVideo);
     } else {
-      const newVideo = await addVideoClass(videoClass);
+      const newVideo = await createVideoClass(videoClass);
       if (newVideo) {
-        res.send(newVideo);
+        res.status(201).json(newVideo);
+        // res.send(newVideo);
       } else {
-        next({
-          name: "createVideoError",
-          message: "There was an error adding a video",
-        });
+        console.log("error adding video");
+        // next({
+        //   name: "createVideoError",
+        //   message: "There was an error adding a video",
+        // });
       }
     }
   } catch (error) {
@@ -55,7 +55,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// DELETE - /api/videoClasses/:videoId - delete a video (only if saved)
+// DELETE - /api/videoClasses/:videoId - delete a video (only if saved to my list)
 
 // PATCH - /api/videoClasses/:videoId - edit video form (only if you added it)
 
