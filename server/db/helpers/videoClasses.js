@@ -49,10 +49,65 @@ const getVideoClassById = async (videoId) => {
       `
       SELECT *
       FROM videoclasses
-      WHERE video_id = $1;
-    `[videoId]
+      WHERE video_id = ${videoId}
+    `
     );
     return videoClasses;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// PATCH - update video (if you added it)
+
+const updateVideo = async (videoId, updatedFields) => {
+  try {
+    const { instructor_id, style, level, videoURL } = updatedFields;
+    const query = `
+      UPDATE videoclasses
+      SET instructor_id = $2, style = $3, level = $4, "videoURL" = $5
+      WHERE video_id = $1
+      RETURNING *;
+    `;
+
+    const { rows } = await client.query(query, [
+      videoId,
+      instructor_id,
+      style,
+      level,
+      videoURL,
+    ]);
+
+    if (rows && rows.length > 0) {
+      return rows[0];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteVideo = async (videoId) => {
+  try {
+    await client.query(
+      `
+    DELETE FROM videoclasses
+    WHERE video_id = $1;
+    `,
+      [videoId]
+    );
+    const {
+      rows: [videoClass],
+    } = await client.query(
+      `
+    DELETE FROM videoclasses
+    WHERE video_id = $1
+    RETURNING *
+    `,
+      [videoId]
+    );
+    return videoClass;
   } catch (error) {
     throw error;
   }
@@ -62,4 +117,6 @@ module.exports = {
   createVideoClass,
   getVideoClasses,
   getVideoClassById,
+  updateVideo,
+  deleteVideo,
 };

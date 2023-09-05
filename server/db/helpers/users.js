@@ -63,4 +63,26 @@ const getUserById = async (userId) => {
   }
 };
 
-module.exports = { createUser, getAllUsers, getUserById };
+// GET - get user by username
+
+async function getUserByUsername(username) {
+  // first get the user
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT *
+      FROM users
+      WHERE username = $1;
+    `,
+      [username]
+    );
+    if (!rows || !rows.length) return null;
+    const [user] = rows;
+    delete user.password;
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+module.exports = { createUser, getAllUsers, getUserById, getUserByUsername };
