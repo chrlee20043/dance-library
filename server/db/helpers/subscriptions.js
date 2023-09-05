@@ -30,7 +30,7 @@ const createSubscription = async ({
   }
 };
 
-// GET - /api/subscriptions - get all subscriptions
+// GET - get all subscriptions
 
 const getAllSubscriptions = async () => {
   try {
@@ -45,48 +45,88 @@ const getAllSubscriptions = async () => {
   }
 };
 
-// GET - /api/subscriptions/:userId - get user by id
+// GET - get subscription by user id
+
+// SELECT subscriptions.*, users.user_id, users."subscriptionStatus" FROM subscriptions JOIN users ON users.user_id = subscriptions.user_id WHERE users.user_id = 1
 
 const getSubByUserId = async (userId) => {
   try {
-    const { rows: subscriptions } = await client.query(
+    const {
+      rows: [subscriptions],
+    } = await client.query(
       `
-      SELECT subscriptions.*, users.user_id, users.subscriptionStatus
+      SELECT subscriptions.*, users.user_id, users."subscriptionStatus"
       FROM subscriptions
       JOIN users ON users.user_id = subscriptions.user_id
-      WHERE user_id = ${userId};
-    `[userId]
+      WHERE users.user_id = ${userId};
+      `
     );
-    return users;
+    return subscriptions;
   } catch (error) {
     throw error;
   }
 };
 
-// GET - get user by username
+// PUT - update instructor (if you added it)
 
-// async function getUserByUsername(username) {
-//   // first get the user
-//   try {
-//     const { rows } = await client.query(
-//       `
-//       SELECT *
-//       FROM users
-//       WHERE username = $1;
-//     `,
-//       [username]
-//     );
-//     if (!rows || !rows.length) return null;
-//     const [user] = rows;
-//     delete user.password;
-//     return user;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+const updateSubscription = async (updatedFields) => {
+  try {
+    const { userId, annual, monthly, studentDiscount } = updatedFields;
+    const query = `
+      UPDATE subscriptions
+      SET annual = $2, monthly = $3, "studentDiscount" = $4
+      WHERE user_id = $1
+      RETURNING *;
+    `;
+
+    const { rows } = await client.query(query, [
+      userId,
+      annual,
+      monthly,
+      studentDiscount,
+    ]);
+
+    if (rows && rows.length > 0) {
+      return rows[0];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+// DELETE subscription (if you added them)
+
+const deleteSubscription = async (instructorId) => {
+  try {
+    await client.query(
+      `
+    DELETE FROM instructors
+    WHERE instructor_id = $1;
+    `,
+      [instructorId]
+    );
+    const {
+      rows: [instructor],
+    } = await client.query(
+      `
+      DELETE FROM instructors
+      WHERE instructor_id = $1
+    RETURNING *
+    `,
+      [instructorId]
+    );
+    return instructor;
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   createSubscription,
   getAllSubscriptions,
   getSubByUserId,
+  deleteSubscription,
+  updateSubscription,
 };
