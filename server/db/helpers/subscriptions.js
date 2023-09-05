@@ -65,24 +65,28 @@ const getSubByUserId = async (userId) => {
 
 // GET - get user by username
 
-async function getUserByUsername(username) {
-  // first get the user
-  try {
-    const { rows } = await client.query(
-      `
-      SELECT *
-      FROM users
-      WHERE username = $1;
-    `,
-      [username]
-    );
-    if (!rows || !rows.length) return null;
-    const [user] = rows;
-    delete user.password;
-    return user;
-  } catch (error) {
-    console.error(error);
-  }
-}
+// async function getUserByUsername(username) {
+//   // first get the user
+//   try {
+//     const { rows } = await client.query(
+//       `
+//       SELECT *
+//       FROM users
+//       WHERE username = $1;
+//     `,
+//       [username]
+//     );
+//     if (!rows || !rows.length) return null;
+//     const [user] = rows;
+//     delete user.password;
+//     return user;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-module.exports = { createSubscription, getAllSubscriptions, getSubByUserId };
+module.exports = {
+  createSubscription,
+  getAllSubscriptions,
+  getSubByUserId,
+};

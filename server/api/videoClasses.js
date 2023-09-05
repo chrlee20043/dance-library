@@ -32,32 +32,12 @@ router.get("/:videoId", async (req, res, next) => {
   }
 });
 
+// POST - /api/videoClasses - add new video
+
 router.post("/", async (req, res, next) => {
   try {
-    const { instructor_id, style, level, videoURL } = req.body;
-    const existingVideo = await getVideoClassById(instructor_id);
-    if (existingVideo) {
-      res.send(existingVideo);
-      console.log(existingVideo);
-    } else {
-      const newVideo = await createVideoClass({
-        instructor_id,
-        style,
-        level,
-        videoURL,
-      });
-      if (newVideo) {
-        res.send(newVideo);
-        console.log(newVideo);
-        å;
-      } else {
-        console.log("error adding video");
-        next({
-          name: "createVideoError",
-          message: "There was an error adding a video",
-        });
-      }
-    }
+    const videoClass = await createVideoClass(req.body);
+    res.send(videoClass);
   } catch (error) {
     next(error);
   }
@@ -65,29 +45,38 @@ router.post("/", async (req, res, next) => {
 
 // DELETE - /api/videoClasses/:videoId - delete a video (only if saved to my list)
 
-router.delete("/:videoId", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
-    const { videoId } = req.params;
-    const videoToUpdate = await getVideoClassById(videoId);
-    if (!videoToUpdate) {
-      next({
-        name: "NotFound",
-        message: `No video by ID ${videoId}`,
-      });
-    } else if (req.user.id !== videoToUpdate.creatorId) {
-      res.status(403);
-      next({
-        name: "WrongUserError",
-        message: "You must be the same user who added this video",
-      });
-    } else {
-      const deletedVideo = await deleteVideo(videoId);
-      res.send({ success: true, ...deletedVideo });
-    }
+    const videoClass = await deleteVideo(req.params.id);
+    res.send(videoClass);
   } catch (error) {
-    throw error;
+    next(error);
   }
 });
+
+// router.delete("/:videoId", async (req, res, next) => {
+//   try {
+//     const { videoId } = req.params;
+//     const videoToUpdate = await getVideoClassById(videoId);
+//     if (!videoToUpdate) {
+//       next({
+//         name: "NotFound",
+//         message: `No video by ID ${videoId}`,
+//       });
+//     } else if (req.user.id !== videoToUpdate.creatorId) {
+//       res.status(403);
+//       next({
+//         name: "WrongUserError",
+//         message: "You must be the same user who added this video",
+//       });
+//     } else {
+//       const deletedVideo = await deleteVideo(videoId);
+//       res.send({ success: true, ...deletedVideo });
+//     }
+//   } catch (error) {
+//     throw error;
+//   }
+// });
 
 // PATCH - /api/videoClasses/:videoId - edit video form (only if you added it)
 
