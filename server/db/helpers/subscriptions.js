@@ -21,7 +21,7 @@ const createSubscription = async ({
         INSERT INTO subscriptions(user_id, annual, monthly, "studentDiscount")
         VALUES($1, $2, $3, $4)
         RETURNING *;
-    `,
+      `,
       [user_id, annual, monthly, studentDiscount]
     );
     return subscription;
@@ -35,8 +35,8 @@ const createSubscription = async ({
 const getAllSubscriptions = async () => {
   try {
     const { rows } = await client.query(`
-            SELECT *
-            FROM subscriptions;
+          SELECT *
+          FROM subscriptions;
         `);
     // console.log(rows);
     return rows;
@@ -55,10 +55,10 @@ const getSubByUserId = async (userId) => {
       rows: [subscriptions],
     } = await client.query(
       `
-      SELECT subscriptions.*, users.user_id, users."subscriptionStatus"
-      FROM subscriptions
-      JOIN users ON users.user_id = subscriptions.user_id
-      WHERE users.user_id = ${userId};
+        SELECT subscriptions.*, users.user_id, users."subscriptionStatus"
+        FROM subscriptions
+        JOIN users ON users.user_id = subscriptions.user_id
+        WHERE users.user_id = ${userId};
       `
     );
     return subscriptions;
@@ -102,19 +102,19 @@ const deleteSubscription = async (instructorId) => {
   try {
     await client.query(
       `
-    DELETE FROM instructors
-    WHERE instructor_id = $1;
-    `,
+        DELETE FROM instructors
+        WHERE instructor_id = $1;
+      `,
       [instructorId]
     );
     const {
       rows: [instructor],
     } = await client.query(
       `
-      DELETE FROM instructors
-      WHERE instructor_id = $1
-    RETURNING *
-    `,
+        DELETE FROM instructors
+        WHERE instructor_id = $1
+        RETURNING *
+      `,
       [instructorId]
     );
     return instructor;

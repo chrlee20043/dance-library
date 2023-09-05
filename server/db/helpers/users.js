@@ -31,14 +31,14 @@ const createUser = async ({
   }
 };
 
-// GET - /api/users - get all users
+// GET - get all users
 
 const getAllUsers = async () => {
   try {
     const { rows } = await client.query(`
-            SELECT *
-            FROM users;
-        `);
+      SELECT *
+      FROM users;
+    `);
     // console.log(rows);
     return rows;
   } catch (error) {
@@ -46,7 +46,7 @@ const getAllUsers = async () => {
   }
 };
 
-// GET - /api/users/:userId - get user by id
+// GET  - get user by id
 
 const getUserById = async (userId) => {
   try {
@@ -106,19 +106,19 @@ const deleteUser = async (userId) => {
   try {
     await client.query(
       `
-    DELETE FROM users
-    WHERE user_id = $1;
-    `,
+        DELETE FROM users
+        WHERE user_id = $1;
+      `,
       [userId]
     );
     const {
       rows: [user],
     } = await client.query(
       `
-      DELETE FROM users
-      WHERE user_id = $1
-    RETURNING *
-    `,
+        DELETE FROM users
+        WHERE user_id = $1
+        RETURNING *
+      `,
       [userId]
     );
     return user;

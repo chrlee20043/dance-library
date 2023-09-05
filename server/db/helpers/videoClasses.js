@@ -16,7 +16,7 @@ const createVideoClass = async ({ instructor_id, style, level, videoURL }) => {
         INSERT INTO videoclasses(instructor_id, style, level, "videoURL")
         VALUES($1, $2, $3, $4)
         RETURNING *;
-    `,
+      `,
       [instructor_id, style, level, videoURL]
     );
     return videoClass;
@@ -47,10 +47,10 @@ const getVideoClassById = async (videoId) => {
       rows: [videoClasses],
     } = await client.query(
       `
-      SELECT *
-      FROM videoclasses
-      WHERE video_id = ${videoId}
-    `
+        SELECT *
+        FROM videoclasses
+        WHERE video_id = ${videoId}
+      `
     );
     return videoClasses;
   } catch (error) {
@@ -92,19 +92,19 @@ const deleteVideoClass = async (videoId) => {
   try {
     await client.query(
       `
-    DELETE FROM videoclasses
-    WHERE video_id = $1;
-    `,
+        DELETE FROM videoclasses
+        WHERE video_id = $1;
+      `,
       [videoId]
     );
     const {
       rows: [videoClass],
     } = await client.query(
       `
-    DELETE FROM videoclasses
-    WHERE video_id = $1
-    RETURNING *
-    `,
+        DELETE FROM videoclasses
+        WHERE video_id = $1
+        RETURNING *
+      `,
       [videoId]
     );
     return videoClass;

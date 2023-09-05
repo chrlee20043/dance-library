@@ -6,10 +6,10 @@ const createInstructor = async ({ name, bio, style, imageURL }) => {
       rows: [instructor],
     } = await client.query(
       `
-            INSERT INTO instructors(name, bio, style, "imageURL")
-            VALUES($1, $2, $3, $4)
-            RETURNING *;
-        `,
+        INSERT INTO instructors(name, bio, style, "imageURL")
+        VALUES($1, $2, $3, $4)
+        RETURNING *;
+      `,
       [name, bio, style, imageURL]
     );
     return instructor;
@@ -85,8 +85,8 @@ const deleteInstructor = async (instructorId) => {
   try {
     await client.query(
       `
-    DELETE FROM instructors
-    WHERE instructor_id = $1;
+      DELETE FROM instructors
+      WHERE instructor_id = $1;
     `,
       [instructorId]
     );
@@ -96,7 +96,7 @@ const deleteInstructor = async (instructorId) => {
       `
       DELETE FROM instructors
       WHERE instructor_id = $1
-    RETURNING *
+      RETURNING *
     `,
       [instructorId]
     );
