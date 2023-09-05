@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const {
+  createUser,
   getAllUsers,
   getUserById,
   getUserByUsername,
+  updateUser,
+  deleteUser,
 } = require("../db/helpers/users");
 
 const users = require("../db/seedData");
@@ -33,38 +36,44 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-// POST - /api/users/register
+// GET - api/users/:username - get user by username
 
-router.post("/register", async (req, res, next) => {
+router.get("/:username", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const queriedUser = await getUserByUsername(username);
-    if (queriedUser) {
-      res.status(401);
-      next({
-        name: "UserExistsError",
-        message: "User already exists",
-      });
-    } else if (password.length < 8) {
-      res.status(401);
-      next({
-        name: "PasswordLengthError",
-        message: "Password Too Short!",
-      });
-    } else {
-      const user = await createUser({
-        username,
-        password,
-      });
-      if (!user) {
-        next({
-          name: "UserCreationError",
-          message: "There was a problem registering you. Please try again.",
-        });
-      } else {
-        res.send({ message: "you're signed up!" });
-      }
-    }
+    const user = await getUserByUsername(req.params.username);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+// POST - /api/users - add new user
+
+router.post("/", async (req, res, next) => {
+  try {
+    const newUser = await createUser(req.body);
+    res.send(newUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE - /api/users/:userId - delete a user (only if it is me)
+
+router.delete("/:userId", async (req, res, next) => {
+  try {
+    const deletedUser = await deleteUser(req.params.userId);
+    res.send(deletedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// PUT - /api/userse/:userId - edit user (only if it is me)
+
+router.put("/:userId", async (req, res, next) => {
+  try {
+    const user = await updateUser(req.params.userId, req.body);
+    res.send(user);
   } catch (error) {
     next(error);
   }

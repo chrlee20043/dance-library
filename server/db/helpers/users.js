@@ -85,4 +85,74 @@ async function getUserByUsername(username) {
   }
 }
 
-module.exports = { createUser, getAllUsers, getUserById, getUserByUsername };
+// PUT - update user (if you it is me)
+
+const updateUser = async (userId, updatedFields) => {
+  try {
+    const {
+      username,
+      password,
+      name,
+      accountCreationDate,
+      subscriptionStatus,
+    } = updatedFields;
+    const query = `
+      UPDATE users
+      SET username = $2, password = $3, name = $4, "accountCreationDate" = $5, "subscriptionStatus" = $6
+      WHERE user_id = $1
+      RETURNING *;
+    `;
+
+    const { rows } = await client.query(query, [
+      username,
+      password,
+      name,
+      accountCreationDate,
+      subscriptionStatus,
+    ]);
+
+    if (rows && rows.length > 0) {
+      return rows[0];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+// DELETE user (only if it is you)
+
+const deleteUser = async (userId) => {
+  try {
+    await client.query(
+      `
+    DELETE FROM users
+    WHERE user_id = $1;
+    `,
+      [userId]
+    );
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      DELETE FROM users
+      WHERE user_id = $1
+    RETURNING *
+    `,
+      [userId]
+    );
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  createUser,
+  getAllUsers,
+  getUserById,
+  getUserByUsername,
+  updateUser,
+  deleteUser,
+};
