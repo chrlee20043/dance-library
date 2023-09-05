@@ -58,9 +58,9 @@ const getVideoClassById = async (videoId) => {
   }
 };
 
-// PATCH - update video (if you added it)
+// PUT - update video (if you added it)
 
-const updateVideo = async (videoId, updatedFields) => {
+const updateVideoClass = async (videoId, updatedFields) => {
   try {
     const { instructor_id, style, level, videoURL } = updatedFields;
     const query = `
@@ -88,7 +88,7 @@ const updateVideo = async (videoId, updatedFields) => {
   }
 };
 
-const deleteVideo = async (videoId) => {
+const deleteVideoClass = async (videoId) => {
   try {
     await client.query(
       `
@@ -117,6 +117,6 @@ module.exports = {
   createVideoClass,
   getVideoClasses,
   getVideoClassById,
-  updateVideo,
-  deleteVideo,
+  updateVideoClass,
+  deleteVideoClass,
 };
