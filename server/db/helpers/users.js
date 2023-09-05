@@ -63,28 +63,6 @@ const getUserById = async (userId) => {
   }
 };
 
-// GET - get user by username
-
-async function getUserByUsername(username) {
-  // first get the user
-  try {
-    const { rows } = await client.query(
-      `
-      SELECT *
-      FROM users
-      WHERE username = $1;
-    `,
-      [username]
-    );
-    if (!rows || !rows.length) return null;
-    const [user] = rows;
-    delete user.password;
-    return user;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 // PUT - update user (if you it is me)
 
 const updateUser = async (userId, updatedFields) => {
@@ -104,6 +82,7 @@ const updateUser = async (userId, updatedFields) => {
     `;
 
     const { rows } = await client.query(query, [
+      userId,
       username,
       password,
       name,
@@ -152,7 +131,6 @@ module.exports = {
   createUser,
   getAllUsers,
   getUserById,
-  getUserByUsername,
   updateUser,
   deleteUser,
 };

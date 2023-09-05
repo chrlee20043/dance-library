@@ -5,7 +5,6 @@ const {
   createUser,
   getAllUsers,
   getUserById,
-  getUserByUsername,
   updateUser,
   deleteUser,
 } = require("../db/helpers/users");
@@ -36,16 +35,6 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-// GET - api/users/:username - get user by username
-
-router.get("/:username", async (req, res, next) => {
-  try {
-    const user = await getUserByUsername(req.params.username);
-    res.send(user);
-  } catch (error) {
-    next(error);
-  }
-});
 // POST - /api/users - add new user
 
 router.post("/", async (req, res, next) => {
