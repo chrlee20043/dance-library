@@ -66,30 +66,4 @@ router.put("/:videoId", async (req, res, next) => {
   }
 });
 
-// router.patch("/:videoId", async (req, res, next) => {
-//   try {
-//     const { videoId } = req.params;
-//     const existingVideo = await getVideoClassById(videoId);
-//     if (!existingVideo) {
-//       next({
-//         name: "NotFound",
-//         message: `No video by ID ${videoId}`,
-//       });
-//     } else {
-//       const { instructor_id, style, level, videoURL } = req.body;
-//       const updatedVideo = await updateVideo({ id: req.body });
-//       if (updatedVideo) {
-//         res.send(updatedVideo);
-//       } else {
-//         next({
-//           name: "FailedToUpdate",
-//           message: "There was an error updating your activity",
-//         });
-//       }
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 module.exports = router;

@@ -15,4 +15,8 @@ router.use("/instructors", require("./instructors"));
 // ROUTER: /api/videoClasses
 router.use("/videoClasses", require("./videoClasses"));
 
+// ROUTER: /api/subscriptions
+
+router.use("/subscriptions", require("./subscriptions"));
+
 module.exports = router;
