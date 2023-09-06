@@ -54,24 +54,21 @@ const instructors = [
 const videoClasses = [
   {
     instructor_id: 2,
-    creator_id: 3,
     style: "contemporary",
     level: "beginner",
-    videoURL: "https://dance.steezy.co/class/preview/1526",
+    videoURL: "https://www.youtube.com/watch?v=J_wT_eRYksY",
   },
   {
     instructor_id: 1,
-    creator_id: 1,
     style: "heels",
     level: "advanced",
-    videoURL: "https://dance.steezy.co/class/preview/2259",
+    videoURL: "https://www.youtube.com/watch?v=UfP9ifDmZIM",
   },
   {
     instructor_id: 3,
-    creator_id: 2,
     style: "popping",
     level: "intermediate",
-    videoURL: "https://dance.steezy.co/class/preview/513",
+    videoURL: "https://www.youtube.com/watch?v=QInF2xm3qz4",
   },
 ];
 

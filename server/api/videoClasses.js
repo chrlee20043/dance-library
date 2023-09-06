@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getVideoClasses,
+  getAllVideos,
+  getVideoClassesWithInstructorName,
   getVideoClassById,
   createVideoClass,
   updateVideoClass,
@@ -13,20 +14,31 @@ const videoClasses = require("../db/seedData");
 
 // GET - api/videoClasses - get all videos
 
+// router.get("/", async (req, res, next) => {
+//   try {
+//     const videoClasses = await getAllVideos();
+//     res.send(videoClasses);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// GET - api/videoClasses - get videos with instructor name
+
 router.get("/", async (req, res, next) => {
   try {
-    const videoClasses = await getVideoClasses();
+    const videoClasses = await getVideoClassesWithInstructorName();
     res.send(videoClasses);
   } catch (error) {
     next(error);
   }
 });
 
-// GET - /api/videoClasses/:videoId - get video by id
+// GET - /api/videoClasses/:instructorId - get video by instructor id
 
-router.get("/:videoId", async (req, res, next) => {
+router.get("/:instructorId", async (req, res, next) => {
   try {
-    const videoClass = await getVideoClassById(req.params.videoId);
+    const videoClass = await getVideoClassById(req.params.instructorId);
     res.send(videoClass);
   } catch (error) {
     next(error);

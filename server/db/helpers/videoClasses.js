@@ -25,15 +25,31 @@ const createVideoClass = async ({ instructor_id, style, level, videoURL }) => {
   }
 };
 
-// GET all videos
+// const getAllVideos = async () => {
+//   try {
+//     const { rows } = await client.query(`
+//       SELECT *
+//       FROM videoclasses;
+//     `);
+//     return rows;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
-const getVideoClasses = async () => {
+// GET videos with instructor name
+
+const getVideoClassesWithInstructorName = async () => {
   try {
-    const { rows } = await client.query(`
-      SELECT *
-      FROM videoclasses;
+    // console.log("get class with instructor name");
+    const {
+      rows: [videoClass],
+    } = await client.query(`
+      SELECT instructors.name AS instructor_name, videoclasses.*
+      FROM instructors
+      JOIN videoclasses ON instructors.instructor_id = videoclasses.instructor_id;
     `);
-    return rows;
+    return videoClass;
   } catch (error) {
     throw error;
   }
@@ -41,15 +57,15 @@ const getVideoClasses = async () => {
 
 // GET video by video id
 
-const getVideoClassById = async (videoId) => {
+const getVideoClassById = async (instructorId) => {
   try {
     const {
       rows: [videoClasses],
     } = await client.query(
       `
-        SELECT *
-        FROM videoclasses
-        WHERE video_id = ${videoId}
+        SELECT instructors.name AS instructor_name, videoclasses.*
+        FROM instructors
+        JOIN videoclasses ON instructors.instructor_id = videoclasses.instructor_id WHERE videoclasses.instructor_id = ${instructorId};
       `
     );
     return videoClasses;
@@ -65,7 +81,7 @@ const updateVideoClass = async (videoId, updatedFields) => {
     const { instructor_id, style, level, videoURL } = updatedFields;
     const query = `
       UPDATE videoclasses
-      SET instructor_id = $2, style = $3, level = $4, "videoURL" = $5
+      SET instructor_id = $2,  style = $3, level = $4, "videoURL" = $5
       WHERE video_id = $1
       RETURNING *;
     `;
@@ -115,7 +131,7 @@ const deleteVideoClass = async (videoId) => {
 
 module.exports = {
   createVideoClass,
-  getVideoClasses,
+  getVideoClassesWithInstructorName,
   getVideoClassById,
   updateVideoClass,
   deleteVideoClass,
