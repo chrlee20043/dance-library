@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchAllVideos } from "../api/fetching";
-// import { useNavigate } from "react-router-dom";
+import { fetchAllVideos } from "../helpers/fetching";
 import SingleVideo from "./SingleVideo";
 
 export default function AllVideos() {
@@ -9,19 +8,18 @@ export default function AllVideos() {
   const [searchParam, setSearchParam] = useState("");
 
   const [error, setError] = useState("");
-  // const navigate = useNavigate();
-
-  async function renderVideos() {
-    try {
-      const videoArray = await fetchAllVideos();
-      console.log("Videos: ", videoArray);
-      setVideos(videoArray);
-    } catch (error) {
-      setError("No videos to see here");
-    }
-  }
 
   useEffect(() => {
+    const renderVideos = async () => {
+      try {
+        const videoArray = await fetchAllVideos();
+        console.log("Videos: ", videoArray);
+        setVideos(videoArray);
+      } catch (error) {
+        setError("No videos to see here");
+      }
+    };
+
     renderVideos();
   }, []);
 
@@ -43,9 +41,10 @@ export default function AllVideos() {
           />
         </label>
       </div>
-      {videosToDisplay.map((video) => (
-        <SingleVideo key={video.video_id} video={video} />
-      ))}
+      {videosToDisplay &&
+        videosToDisplay.map((video) => (
+          <SingleVideo key={video.video_id} video={video} />
+        ))}
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default async function fetchAllVideos() {
   try {
     const response = await fetch(`${baseURL}/videoclasses`);
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (error) {
     console.error("Cannot get classes", error);
@@ -19,9 +19,9 @@ export default async function fetchAllVideos() {
 
 // fetch video by id
 
-async function fetchSingleVideo(id) {
+async function fetchSingleVideo(videoId) {
   try {
-    const response = await fetch(`${baseURL}/videoclasses/${id}`);
+    const response = await fetch(`${baseURL}/videoclasses/${videoId}`);
     const result = await response.json();
     console.log(result);
     return result;
@@ -32,9 +32,9 @@ async function fetchSingleVideo(id) {
 
 //   // Retrieve my videos
 
-//   async function myData(token) {
+//   async function myProfile() {
 //     try {
-//       const response = await fetch(`${API_URL}/users/me`, {
+//       const response = await fetch(`${baseURL}/users/myprofile`, {
 //         headers: {
 //           "Content-Type": "application/json",
 //           Authorization: `Bearer ${token}`,
@@ -50,20 +50,17 @@ async function fetchSingleVideo(id) {
 
 //   // Submit a new video
 
-//   async function createPost(title, description, price, willDeliver, token) {
+//   async function createPost() {
 //     try {
-//       const response = await fetch(`${API_URL}/posts`, {
+//       const response = await fetch(`${baseURL}/videoclasses`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
 //           Authorization: `Bearer ${token}`,
 //         },
 //         body: JSON.stringify({
-//           post: {
-//             title,
-//             description,
-//             price,
-//             willDeliver,
+//           video: {
+//
 //           },
 //         }),
 //       });
@@ -78,9 +75,9 @@ async function fetchSingleVideo(id) {
 
 //   // DELETE a video from my list
 
-//   async function deletePost(id, token) {
+//   async function deleteVideo(id) {
 //     try {
-//       const response = await fetch(`${API_URL}/posts/${id}`, {
+//       const response = await fetch(`${baseURL}/videoclasses/${id}`, {
 //         method: "DELETE",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -99,16 +96,10 @@ async function fetchSingleVideo(id) {
 //   // Edit video from my list
 
 //   async function editPost(
-//     id,
-//     title,
-//     description,
-//     price,
-//     location,
-//     willDeliver,
-//     token
+//
 //   ) {
 //     try {
-//       const response = await fetch(`${API_URL}//posts/${id}`, {
+//       const response = await fetch(`${baseURL}//videoclasses/${id}`, {
 //         method: "PATCH",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -116,11 +107,7 @@ async function fetchSingleVideo(id) {
 //         },
 //         body: JSON.stringify({
 //           post: {
-//             title,
-//             description,
-//             price,
-//             location,
-//             willDeliver,
+//
 //           },
 //         }),
 //       });

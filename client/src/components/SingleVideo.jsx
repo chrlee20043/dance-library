@@ -1,30 +1,31 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useContext } from "react";
-import { fetchSingleVideo } from "../api/fetching";
+import { fetchSingleVideo } from "../helpers/fetching";
 import { VideosContext } from "../context/VideosContext";
 
-export default function RenderSingleVideo() {
-  const { id } = useParams();
+export default function RenderSingleVideo({ video }) {
+  const { videoId } = useParams();
   const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
   const navigate = useNavigate();
 
-  async function setSingleVideo() {
-    try {
-      const videoData = await fetchSingleVideo(id);
-      console.log("Single Video: ", videoData);
-      setSelectedVideo(videoData);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
-    setSingleVideo();
-  }, [id]);
+    const setSingleVideo = async () => {
+      try {
+        const response = await fetchSingleVideo(videoId);
+        const result = await response.json();
+        console.log("Single Video: ", result);
+        setSelectedVideo(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  const handleDetails = (video_id) => {
-    navigate(`/AllVideos/${video_id}`);
+    setSingleVideo();
+  }, [videoId, setSelectedVideo]);
+
+  const handleSeeDetails = (videoId) => {
+    navigate(`/allvideos/${videoId}`);
   };
 
   // if (!singleVideo) {
@@ -34,11 +35,11 @@ export default function RenderSingleVideo() {
   return (
     <div>
       <div>
-        <p>Style: {selectedVideo.style}</p>
-        <p>Level: {selectedVideo.level}</p>
-        <p>Video: {selectedVideo.videoURL}</p>
-        <button onClick={() => handleDetails(selectedVideo.video_id)}>
-          See Details
+        <p>Style: {video.style}</p>
+        <p>Level: {video.level}</p>
+        <p>Video: {video.videoURL}</p>
+        <button onClick={() => handleSeeDetails(video.video_id)}>
+          See details
         </button>
       </div>
     </div>
