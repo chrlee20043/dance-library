@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { fetchAllVideos } from "../helpers/fetching";
 import SingleVideo from "./SingleVideo";
+import VideoListName from "./VideoListName";
 
 export default function AllVideos() {
   const [videos, setVideos] = useState([]);
@@ -43,7 +44,7 @@ export default function AllVideos() {
       </div>
       {videosToDisplay &&
         videosToDisplay.map((video) => (
-          <SingleVideo key={video.video_id} video={video} />
+          <VideoListName key={video.video_id} video={video} />
         ))}
     </div>
   );

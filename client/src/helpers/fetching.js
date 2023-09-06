@@ -8,7 +8,7 @@ const baseURL = "http://localhost:8080/api";
 
 export default async function fetchAllVideos() {
   try {
-    const response = await fetch(`${baseURL}/videoclasses`);
+    const response = await fetch(`${baseURL}/videoClasses`);
     const result = await response.json();
     // console.log(result);
     return result;
@@ -21,7 +21,7 @@ export default async function fetchAllVideos() {
 
 async function fetchSingleVideo(videoId) {
   try {
-    const response = await fetch(`${baseURL}/videoclasses/${videoId}`);
+    const response = await fetch(`${baseURL}/videoClasses/${videoId}`);
     const result = await response.json();
     console.log(result);
     return result;
