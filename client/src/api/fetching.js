@@ -4,7 +4,7 @@
 
 const baseURL = "http://localhost:8080/api";
 
-// GET
+// fetch all videos
 
 export default async function fetchAllVideos() {
   try {
@@ -14,6 +14,19 @@ export default async function fetchAllVideos() {
     return result;
   } catch (error) {
     console.error("Cannot get classes", error);
+  }
+}
+
+// fetch video by id
+
+async function fetchSingleVideo(id) {
+  try {
+    const response = await fetch(`${baseURL}/videoclasses/${id}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get single video", error);
   }
 }
 
@@ -63,7 +76,7 @@ export default async function fetchAllVideos() {
 //     }
 //   }
 
-//   // DELETE
+//   // DELETE a video from my list
 
 //   async function deletePost(id, token) {
 //     try {
@@ -83,7 +96,7 @@ export default async function fetchAllVideos() {
 //     }
 //   }
 
-//   // Edit posts
+//   // Edit video from my list
 
 //   async function editPost(
 //     id,
@@ -119,27 +132,5 @@ export default async function fetchAllVideos() {
 //     }
 //   }
 
-//   const postMessage = async (token, id) => {
-//     try {
-//       const response = await fetch(`${API_URL}/posts/${id}/messages`, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${token}`,
-//         },
-//         body: JSON.stringify({
-//           message: {
-//             content: "Do you still have this?  Would you take $10 less?",
-//           },
-//         }),
-//       });
-//       const result = await response.json();
-//       console.log(result);
-//       return result;
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   //export functions
-export { fetchAllVideos };
+//export functions
+export { fetchAllVideos, fetchSingleVideo };

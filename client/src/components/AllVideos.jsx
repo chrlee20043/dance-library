@@ -1,13 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { fetchAllVideos } from "../api/fetching";
+// import { useNavigate } from "react-router-dom";
 import SingleVideo from "./SingleVideo";
 
 export default function AllVideos() {
   const [videos, setVideos] = useState([]);
-  // const [searchParam, setSearchParam] = useState("");
+  const [searchParam, setSearchParam] = useState("");
 
   const [error, setError] = useState("");
+  // const navigate = useNavigate();
 
   async function renderVideos() {
     try {
@@ -15,7 +17,7 @@ export default function AllVideos() {
       console.log("Videos: ", videoArray);
       setVideos(videoArray);
     } catch (error) {
-      setError("No posts to see here");
+      setError("No videos to see here");
     }
   }
 
@@ -23,21 +25,26 @@ export default function AllVideos() {
     renderVideos();
   }, []);
 
-  // const videosToDisplay = searchParam
-  //   ? videos.filter((videos) =>
-  //       videos.style.toLowerCase().includes(searchParam)
-  //     )
-  //   : videos;
+  const videosToDisplay = searchParam
+    ? videos.filter((videos) =>
+        videos.style.toLowerCase().includes(searchParam)
+      )
+    : videos;
 
   return (
     <div>
-      {videos.map((video) => (
-        <div>
-          <p>{video.instructor_id}</p>
-          <p>{video.style}</p>
-          <p>{video.level}</p>
-          <p>{video.videoURL}</p>
-        </div>
+      <div id="search-bar">
+        <label>
+          Search:{" "}
+          <input
+            type="text"
+            placeholder="search by style"
+            onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
+          />
+        </label>
+      </div>
+      {videosToDisplay.map((video) => (
+        <SingleVideo key={video.video_id} video={video} />
       ))}
     </div>
   );
