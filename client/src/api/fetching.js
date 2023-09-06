@@ -1,10 +1,14 @@
 // /fetch requests
 
+// base URL for API
+
+const baseURL = "http://localhost:8080/api";
+
 // GET
 
 export default async function fetchAllVideos() {
   try {
-    const response = await fetch(`http://localhost:8080/api/videoclasses`);
+    const response = await fetch(`${baseURL}/videoclasses`);
     const result = await response.json();
     console.log(result);
     return result;
