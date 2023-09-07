@@ -23,11 +23,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/myprofile/:id" element={<Profile />} />
+            <Route path="/myprofile/:userId" element={<Profile />} />
             <Route path="/allvideos" element={<AllVideos />} />
-            <Route path="/allvideos/:id" element={<SingleVideo />} />
+            <Route path="/allvideos/:videoId" element={<SingleVideo />} />
             <Route
-              path="/allvideos/:id/updatevideo"
+              path="/allvideos/:videoId/updatevideo"
               element={<UpdateVideo />}
             />
             <Route path="/addnewvideo" element={<AddNewVideo />} />

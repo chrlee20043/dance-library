@@ -28,11 +28,11 @@ export default async function fetchVideosWithInstructorName() {
   }
 }
 
-// fetch video by id
+// fetch single video by id
 
-async function fetchSingleVideo(videoId) {
+async function fetchSingleVideo(video_id) {
   try {
-    const response = await fetch(`${baseURL}/videoclasses/${videoId}`);
+    const response = await fetch(`${baseURL}/videoclasses/${video_id}`);
     const result = await response.json();
     console.log(result);
     return result;

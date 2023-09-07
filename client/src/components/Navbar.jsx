@@ -7,9 +7,15 @@ export default function Navbar() {
       <h1 id="navbar-title">My Dance Studio</h1>
       <div id="navbar-links">
         <ul>
-          <Link to="/">Home</Link>
-          <Link to="/myprofile/:id">Profile</Link>
-          <Link to="/allvideos">Browse Classes</Link>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/myprofile/:id">Profile</Link>
+          </li>
+          <li>
+            <Link to="/allvideos">Browse Classes</Link>
+          </li>
         </ul>
       </div>
     </div>

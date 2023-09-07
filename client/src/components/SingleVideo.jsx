@@ -14,6 +14,7 @@ export default function RenderSingleVideo({ video }) {
   useEffect(() => {
     const getSingleVideo = async () => {
       try {
+        // console.log(videoId);
         const response = await fetchSingleVideo(videoId);
         console.log("Single Video: ", response);
         if (response) {
@@ -27,12 +28,12 @@ export default function RenderSingleVideo({ video }) {
     };
 
     getSingleVideo();
-  }, [videoId, setSelectedVideo]);
+  }, []);
 
   return (
     <div>
       {error && <p>{error}</p>}
-      {selectedVideo && <VideoCard video={selectedVideo} />}
+      {selectedVideo && <VideoCard selectedVideo={selectedVideo} />}
     </div>
   );
 }

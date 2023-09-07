@@ -26,7 +26,8 @@ export default function AllVideos() {
     ? videos.filter(
         (video) =>
           video.instructor_name.toLowerCase().includes(searchParam) ||
-          video.style.toLowerCase().includes(searchParam)
+          video.style.toLowerCase().includes(searchParam) ||
+          video.level.toLowerCase().includes(searchParam)
       )
     : videos;
 
@@ -37,7 +38,7 @@ export default function AllVideos() {
           Search:{" "}
           <input
             type="text"
-            placeholder="search by instructor or style"
+            placeholder="search by instructor, style or level"
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
