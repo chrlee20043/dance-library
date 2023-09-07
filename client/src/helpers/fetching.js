@@ -41,6 +41,52 @@ async function fetchSingleVideo(videoId) {
   }
 }
 
+// Register user
+
+async function registerNewUser(username, password, name) {
+  try {
+    const response = await fetch(`${baseURL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          username: `${username}`,
+          password: `${password}`,
+          name: `${name}`,
+        },
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Login user
+async function loginToAccount(username, password) {
+  try {
+    const response = await fetch(`${baseURL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          username: `${username}`,
+          password: `${password}`,
+        },
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 //   // Retrieve my videos
 
 //   async function myProfile() {
@@ -131,4 +177,9 @@ async function fetchSingleVideo(videoId) {
 //   }
 
 //export functions
-export { fetchVideosWithInstructorName, fetchSingleVideo };
+export {
+  fetchVideosWithInstructorName,
+  fetchSingleVideo,
+  registerNewUser,
+  loginToAccount,
+};

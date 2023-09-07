@@ -48,3 +48,17 @@ body {
   border-radius: 5px;
   border: 2px solid black;
 }
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+
+}
+
+.link-btn {
+  margin-top: 10px;
+
+}

@@ -1,73 +1,58 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 // import { useDispatch } from "react-redux";
+import { registerNewUser } from "../helpers/fetching";
 
 export default function Register() {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [registered, setRegistered] = useState(true);
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
-  async function handleSubmit() {
-    console.log("register");
-    // event.preventDefault();
-    // try {
-    //   if (username !== "") {
-    //     const response = await fetch(`${API_URL}/users/register`, {
-    //       method: "POST",
-    //       body: JSON.stringify({
-    //         user: {
-    //           username: `${username}`,
-    //           password: `${password}`,
-    //         },
-    //       }),
-    //       headers: { "content-type": "application/json" },
-    //     });
-    //     const result = await response.json();
-    //     console.log(result);
-
-    //     if (result.success) {
-    //       // Dispatch the setCredentials action with user and token
-    //       dispatch(
-    //         setCredentials({ user: username, token: result.data.token })
-    //       );
-    //       setError(null);
-    //       setSuccessMessage(
-    //         "You have signed up! Please log into your account!"
-    //       );
-
-    //       navigate("/login");
-    //     } else {
-    //       setError("Please provide a username.");
-    //     }
-    //   }
-    // } catch (error) {
-    //   setError(error.message);
-    // }
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+      const result = await registerNewUser({ username, name, password });
+      console.log("user: ", result);
+      setName("");
+      setUsername("");
+      setPassword("");
+      if (result !== undefined) {
+        setSuccessMessage("You have registered!");
+      } else {
+        setError("Please provide valid credentials");
+      }
+      // navigate("/login");
+    } catch (error) {
+      setError(error.message);
+    }
   }
 
   return (
     <div className="register-form-container">
-      {successMessage || error ? (
-        <p className={successMessage ? "success" : "error"}>
-          {successMessage || error}
-        </p>
-      ) : null}
       <form className="register-form" onSubmit={handleSubmit}>
         {/* Labels and inputs for form data */}
-        <h1>Register</h1>
-
-        <label className="label">Email</label>
+        <h1>Create an Account</h1>
+        {successMessage && (
+          <div>
+            <p>{successMessage}</p>
+            <p>
+              You have registered! <Link to="/login">Log in</Link>
+            </p>
+          </div>
+        )}
+        <label className="label">Name</label>
         <input
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          onChange={(e) => setName(e.target.value)}
           className="input"
-          value={email}
-          placeholder="youremail@gmail.com"
+          value={name}
+          placeholder="Your Name"
           required
         />
 
@@ -90,7 +75,9 @@ export default function Register() {
           placeholder="********"
           required
         />
-        <button type="submit">Register</button>
+        <button className="link-btn" type="submit">
+          Register
+        </button>
       </form>
 
       <button className="link-btn" onClick={() => navigate("/login")}>
