@@ -8,15 +8,25 @@ export default function VideoCard({ video }) {
     alert("Video saved!");
   };
 
+  const handleSeeVideo = () => {
+    console.log("here is the video");
+    alert("watch video!");
+    // window.open(
+    //     {video.videoURL}, "_blank"
+  };
+
+  const handleReturnToVideos = () => {
+    navigate("/allvideos");
+  };
+
   return (
-    <div>
+    <div id="single-video-container">
+      <p>Instructor: {video.instructor_name}</p>
       <p>Style: {video.style}</p>
       <p>Level: {video.level}</p>
-      <video controls width="250">
-        <source src={video.videoURL} type="video/webm" />
-        Oops, video not available
-      </video>
-      <button onClick={handleSaveVideo}>Save Video</button>
+      <p>Video: {video.videoURL}</p>
+      <button onClick={handleSaveVideo}>Save Class</button>
+      <button onClick={handleReturnToVideos}>Return to All Classes</button>
     </div>
   );
 }

@@ -1,23 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchAllVideos } from "../helpers/fetching";
-import SingleVideo from "./SingleVideo";
+import { fetchVideosWithInstructorName } from "../helpers/fetching";
 import VideoListName from "./VideoListName";
 
 export default function AllVideos() {
   const [videos, setVideos] = useState([]);
   const [searchParam, setSearchParam] = useState("");
-
   const [error, setError] = useState("");
 
   useEffect(() => {
     const renderVideos = async () => {
       try {
-        const videoArray = await fetchAllVideos();
+        const videoArray = await fetchVideosWithInstructorName();
         console.log("Videos: ", videoArray);
         setVideos(videoArray);
       } catch (error) {
-        setError("No videos to see here");
+        setError("Failed to fetch videos. Please try again later.");
       }
     };
 
@@ -25,9 +23,7 @@ export default function AllVideos() {
   }, []);
 
   const videosToDisplay = searchParam
-    ? videos.filter((videos) =>
-        videos.style.toLowerCase().includes(searchParam)
-      )
+    ? videos.filter((video) => video.style.toLowerCase().includes(searchParam))
     : videos;
 
   return (
@@ -42,10 +38,10 @@ export default function AllVideos() {
           />
         </label>
       </div>
-      {videosToDisplay &&
-        videosToDisplay.map((video) => (
-          <VideoListName key={video.video_id} video={video} />
-        ))}
+      {error && <p>{error}</p>}
+      {videosToDisplay.map((video) => (
+        <VideoListName key={video.video_id} video={video} />
+      ))}
     </div>
   );
 }

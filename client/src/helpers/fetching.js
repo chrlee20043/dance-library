@@ -6,14 +6,25 @@ const baseURL = "http://localhost:8080/api";
 
 // fetch all videos
 
-export default async function fetchAllVideos() {
+// export default async function fetchAllVideos() {
+//   try {
+//     const response = await fetch(`${baseURL}/videoClasses`);
+//     const result = await response.json();
+//     // console.log(result);
+//     return result;
+//   } catch (error) {
+//     console.error("Cannot get classes", error);
+//   }
+// }
+
+export default async function fetchVideosWithInstructorName() {
   try {
-    const response = await fetch(`${baseURL}/videoClasses`);
+    const response = await fetch(`${baseURL}/videoclasses`);
     const result = await response.json();
     // console.log(result);
     return result;
   } catch (error) {
-    console.error("Cannot get classes", error);
+    console.error("You can't watch this, sorry");
   }
 }
 
@@ -21,7 +32,7 @@ export default async function fetchAllVideos() {
 
 async function fetchSingleVideo(videoId) {
   try {
-    const response = await fetch(`${baseURL}/videoClasses/${videoId}`);
+    const response = await fetch(`${baseURL}/videoclasses/${videoId}`);
     const result = await response.json();
     console.log(result);
     return result;
@@ -120,4 +131,4 @@ async function fetchSingleVideo(videoId) {
 //   }
 
 //export functions
-export { fetchAllVideos, fetchSingleVideo };
+export { fetchVideosWithInstructorName, fetchSingleVideo };
