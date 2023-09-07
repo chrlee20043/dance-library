@@ -46,8 +46,8 @@ const createTables = async () => {
             username varchar(255) UNIQUE NOT NULL,
             password varchar(255) NOT NULL,
             name varchar(255) NOT NULL,
-            "accountCreationDate" DATE NOT NULL,
-            "subscriptionStatus" BOOLEAN NOT NULL
+            "accountCreationDate" DATE,
+            "subscriptionStatus" BOOLEAN
         );
 
         CREATE TABLE instructors (
@@ -63,7 +63,8 @@ const createTables = async () => {
             instructor_id INTEGER REFERENCES instructors(instructor_id) NOT NULL,
             style varchar(255) NOT NULL,
             level varchar(255) NOT NULL,
-            "videoURL" varchar(255) NOT NULL
+            "videoURL" varchar(255) NOT NULL,
+            saved BOOLEAN NOT NULL
         );
 
         CREATE TABLE subscriptions (

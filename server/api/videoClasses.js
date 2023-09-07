@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getAllVideos,
-  getVideoClassesWithInstructorName,
-  getVideoClassById,
+  // getAllVideos,
   createVideoClass,
+  getVideoClassesWithInstructorName,
+  getVideoClassByInstructorId,
+  getVideoClassById,
   updateVideoClass,
   deleteVideoClass,
 } = require("../db/helpers/videoClasses");
@@ -28,7 +29,19 @@ const videoClasses = require("../db/seedData");
 router.get("/", async (req, res, next) => {
   try {
     const videoClasses = await getVideoClassesWithInstructorName();
+    console.log(videoClasses);
     res.send(videoClasses);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// GET - /api/videoClasses/:videoId - get video by video id
+
+router.get("/:videoId", async (req, res, next) => {
+  try {
+    const videoClass = await getVideoClassById(req.params.videoId);
+    res.send(videoClass);
   } catch (error) {
     next(error);
   }
@@ -36,9 +49,11 @@ router.get("/", async (req, res, next) => {
 
 // GET - /api/videoClasses/:instructorId - get video by instructor id
 
-router.get("/:instructorId", async (req, res, next) => {
+router.get("/video/:instructorId", async (req, res, next) => {
   try {
-    const videoClass = await getVideoClassById(req.params.instructorId);
+    const videoClass = await getVideoClassByInstructorId(
+      req.params.instructorId
+    );
     res.send(videoClass);
   } catch (error) {
     next(error);
@@ -56,9 +71,9 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// DELETE - /api/videoClasses/:videoId - delete a video (only if saved to my list)
+// DELETE - /api/videoClasses/video:videoId - delete a video (only if saved to my list)
 
-router.delete("/:videoId", async (req, res, next) => {
+router.delete("/video/:videoId", async (req, res, next) => {
   try {
     const videoClass = await deleteVideoClass(req.params.videoId);
     res.send(videoClass);
@@ -69,7 +84,7 @@ router.delete("/:videoId", async (req, res, next) => {
 
 // PUT - /api/videoClasses/:videoId - edit video form (only if you added it)
 
-router.put("/:videoId", async (req, res, next) => {
+router.put("/video/:videoId", async (req, res, next) => {
   try {
     const videoClass = await updateVideoClass(req.params.videoId, req.body);
     res.send(videoClass);

@@ -57,18 +57,21 @@ const videoClasses = [
     style: "contemporary",
     level: "beginner",
     videoURL: "https://www.youtube.com/watch?v=J_wT_eRYksY",
+    saved: false,
   },
   {
     instructor_id: 1,
     style: "heels",
     level: "advanced",
     videoURL: "https://www.youtube.com/watch?v=UfP9ifDmZIM",
+    saved: false,
   },
   {
     instructor_id: 3,
     style: "popping",
     level: "intermediate",
     videoURL: "https://www.youtube.com/watch?v=QInF2xm3qz4",
+    saved: false,
   },
 ];
 

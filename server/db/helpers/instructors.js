@@ -32,7 +32,7 @@ const getAllInstructors = async () => {
   }
 };
 
-// GET - /api/instructors/:instructorId - get instructor by id
+// GET - /api/instructors/:instructorId - get instructor by instructor id
 
 const getInstructorsById = async (instructorId) => {
   try {

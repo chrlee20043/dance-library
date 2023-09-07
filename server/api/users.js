@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const {
+  registerUser,
+  loginUser,
   createUser,
   getAllUsers,
   getUserById,
@@ -30,6 +32,29 @@ router.get("/:userId", async (req, res, next) => {
   try {
     const user = await getUserById(req.params.userId);
     res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST - api/register - register new user
+
+router.post("/register", async (req, res, next) => {
+  try {
+    const newUser = await registerUser(req.body);
+    res.send(newUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST - api/login - log in to your account
+
+router.post("/login", async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const loggedInUser = await loginUser(username, password);
+    res.send({ loggedInUser });
   } catch (error) {
     next(error);
   }
