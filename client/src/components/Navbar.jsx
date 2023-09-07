@@ -8,7 +8,7 @@ export default function Navbar() {
       <div id="navbar-links">
         <ul>
           <Link to="/">Home</Link>
-          <Link to="/myprofile">Profile</Link>
+          <Link to="/myprofile/:id">Profile</Link>
           <Link to="/allvideos">Browse Classes</Link>
         </ul>
       </div>

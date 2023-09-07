@@ -15,13 +15,14 @@ export default function Login() {
     console.log("log in");
     event.preventDefault();
     try {
-      const result = await loginToAccount({ username, password });
+      const response = await loginToAccount({ username, password });
       console.log("logged in user:", result);
 
-      if (result) {
-        setSuccessMessage("You have logged in!");
-        setError("");
-        navigate("/profile");
+      if (response) {
+        setSuccessMessage(true);
+        setUsername("");
+        setPassword("");
+        navigate(`/myprofile/${id}`);
       } else {
         setSuccessMessage("");
         setError("Please try again or register for an account");

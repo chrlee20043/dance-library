@@ -7,8 +7,7 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [registered, setRegistered] = useState(true);
-  const [successMessage, setSuccessMessage] = useState(null);
+  const [registered, setRegistered] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -17,19 +16,16 @@ export default function Register() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const result = await registerNewUser({ username, name, password });
+      const result = await registerNewUser({ username, password, name });
       console.log("user: ", result);
       setName("");
       setUsername("");
       setPassword("");
-      if (result !== undefined) {
-        setSuccessMessage("You have registered!");
-      } else {
-        setError("Please provide valid credentials");
-      }
-      // navigate("/login");
+      setRegistered(true);
+      // alert("You have registered!");
     } catch (error) {
-      setError(error.message);
+      setError("Please provide valid credentials");
+      console.error(error);
     }
   }
 
@@ -38,9 +34,9 @@ export default function Register() {
       <form className="register-form" onSubmit={handleSubmit}>
         {/* Labels and inputs for form data */}
         <h1>Create an Account</h1>
-        {successMessage && (
+        {registered && (
           <div>
-            <p>{successMessage}</p>
+            <p>{registered}</p>
             <p>
               You have registered! <Link to="/login">Log in</Link>
             </p>
