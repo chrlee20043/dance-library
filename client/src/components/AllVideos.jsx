@@ -23,7 +23,11 @@ export default function AllVideos() {
   }, []);
 
   const videosToDisplay = searchParam
-    ? videos.filter((video) => video.style.toLowerCase().includes(searchParam))
+    ? videos.filter(
+        (video) =>
+          video.instructor_name.toLowerCase().includes(searchParam) ||
+          video.style.toLowerCase().includes(searchParam)
+      )
     : videos;
 
   return (
@@ -33,7 +37,7 @@ export default function AllVideos() {
           Search:{" "}
           <input
             type="text"
-            placeholder="search by style"
+            placeholder="search by instructor or style"
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>

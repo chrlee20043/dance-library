@@ -24,7 +24,10 @@ body {
 #navbar {
   display: flex;
   justify-content: space-evenly;
-
+  background-color: rgb(215, 183, 156);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  opacity: 0.5;
+  width: 100%;
 }
 
 #navbar ul {
@@ -37,22 +40,43 @@ body {
   float: left;
   margin-right: 2em;
   line-height: 60px;
+  padding: 10px;
+}
+
+#navbar a:hover {
+  background-color: rgb(211, 144, 88);
+
+}
+
+#search-bar {
+  margin-top: 10px;
+
+}
+
+#search-bar input[type=text] {
+  width: 300px;
 }
 
 #video-card-container {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
   border-radius: 5px;
   border: 2px solid black;
+  width: 20em;
 }
 
 #single-video-container {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
   border-radius: 5px;
   border: 2px solid black;
+  width: 20em;
 }
 
 .register-form {
