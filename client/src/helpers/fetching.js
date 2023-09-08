@@ -107,7 +107,13 @@ async function loginToAccount(username, password) {
 
 //   // Submit a new video
 
-async function addVideoClass({ instructorName, style, level, videoURL }) {
+async function addVideoClass({
+  instructor_id,
+  instructor_name,
+  style,
+  level,
+  videoURL,
+}) {
   try {
     const response = await fetch(`${baseURL}/videoclasses`, {
       method: "POST",
@@ -115,7 +121,8 @@ async function addVideoClass({ instructorName, style, level, videoURL }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        instructorName,
+        instructor_id,
+        instructor_name,
         style,
         level,
         videoURL,
@@ -124,6 +131,7 @@ async function addVideoClass({ instructorName, style, level, videoURL }) {
     // console.log(response)
     const result = await response.json();
     // console.log(result);
+    // fetchVideosWithInstructorName();
     return result;
   } catch (error) {
     console.error(`You cannot create me`, error);
@@ -132,49 +140,43 @@ async function addVideoClass({ instructorName, style, level, videoURL }) {
 
 //   // DELETE a video from my list
 
-//   async function deleteVideo(id) {
-//     try {
-//       const response = await fetch(`${baseURL}/videoclasses/${id}`, {
-//         method: "DELETE",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-//       console.log(response);
-//       const result = await response.json();
-//       console.log(result);
-//       return result;
-//     } catch (error) {
-//       console.error(`You cannot delete me`, error);
-//     }
-//   }
+async function deleteVideo(video_id) {
+  try {
+    const response = await fetch(`${baseURL}/videoclasses/${video_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(`You cannot delete me`, error);
+  }
+}
 
 //   // Edit video from my list
 
-//   async function editPost(
-//
-//   ) {
-//     try {
-//       const response = await fetch(`${baseURL}//videoclasses/${id}`, {
-//         method: "PATCH",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${token}`,
-//         },
-//         body: JSON.stringify({
-//           post: {
-//
-//           },
-//         }),
-//       });
-//       const result = await response.json();
-//       console.log(result);
-//       return result;
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
+async function editVideo(video_id, instructor_name, style, level, videoURL) {
+  try {
+    const response = await fetch(`${baseURL}//videoclasses/${video_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        video: { instructor_name, style, level, videoURL },
+      }),
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 //export functions
 export {
@@ -183,4 +185,6 @@ export {
   registerNewUser,
   loginToAccount,
   addVideoClass,
+  deleteVideo,
+  editVideo,
 };

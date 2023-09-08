@@ -1,23 +1,38 @@
 import React from "react";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { VideosContext } from "../context/VideosContext";
+import { fetchSingleVideo, deleteVideo, editVideo } from "../helpers/fetching";
 
-export default function VideoCard({ video, onSavedVideo, videos }) {
+export default function VideoCard({ video, videos }) {
   const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
-  const [isSaved, setIsSaved] = useState(false);
+  const { videoId } = useParams;
   const navigate = useNavigate();
 
-  //callback function to render single video on and off Profile page
-  function handleSavedVideo(updatedVideo) {
-    const updatedVideoArray = videos.map((video) => {
-      if (video.video_id === updatedVideo.video_id) {
-        return updatedVideo;
-      } else {
-        return video;
-      }
-    });
-    setSelectedVideo(updatedVideoArray);
+  async function handleSave(videoId) {
+    try {
+      const result = await fetchSingleVideo(videoId);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleDelete(videoId) {
+    try {
+      const result = await deleteVideo(videoId);
+      console.log("Deleted video", result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleEdit(videoId) {
+    try {
+      const result = await editVideo(videoId);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const handleReturnToVideos = () => {
@@ -26,26 +41,6 @@ export default function VideoCard({ video, onSavedVideo, videos }) {
 
   return (
     <div id="single-video-container">
-      <div id="video-card-buttons">
-        {isSaved ? (
-          <div>
-            <input
-              className="star-button"
-              type="checkbox"
-              checked={isSaved}
-              onChange={handleSavedVideo}
-            />
-          </div>
-        ) : (
-          <div>
-            <input
-              className="star-button"
-              type="checkbox"
-              onChange={handleSavedVideo}
-            />
-          </div>
-        )}
-      </div>
       <h3>{selectedVideo.instructor_name}</h3>
       <img src={selectedVideo.imageURL}></img>
       <h4>{selectedVideo.instructorBio}</h4>
@@ -59,10 +54,13 @@ export default function VideoCard({ video, onSavedVideo, videos }) {
       >
         Watch Video
       </a>
-      {/* <p>{selectedVideo.videoURL}</p> */}
+      <div>
+        <button onClick={handleSave}>Save me</button>
+        <button onClick={handleDelete}>Delete me</button>
+        <button onClick={handleEdit}>Edit me</button>
 
-      {/* <button onClick={handleSavedVideo}>Save Class</button> */}
-      <button onClick={handleReturnToVideos}>Return to All Classes</button>
+        <button onClick={handleReturnToVideos}>Return to All Classes</button>
+      </div>
     </div>
   );
 }

@@ -59,7 +59,7 @@ const createTables = async () => {
 
         CREATE TABLE videoclasses (
             video_id SERIAL PRIMARY KEY,
-            instructor_id INTEGER REFERENCES instructors(instructor_id),
+            instructor_id INTEGER REFERENCES instructors(instructor_id) NOT NULL,
             instructor_name varchar(255) NOT NULL,
             style varchar(255) NOT NULL,
             level varchar(255) NOT NULL,

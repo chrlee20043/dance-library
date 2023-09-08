@@ -5,8 +5,8 @@ import addVideoClass, {
   fetchVideosWithInstructorName,
 } from "../helpers/fetching";
 
-export default function AddNewVideo() {
-  const [videos, setVideos] = useState([]);
+export default function AddNewVideo({ setVideos }) {
+  const [instructorId, setInstructorId] = useState("");
   const [instructorName, setInstructorName] = useState("");
   const [style, setStyle] = useState("");
   const [level, setLevel] = useState("");
@@ -17,22 +17,28 @@ export default function AddNewVideo() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    async function newVideo() {
+    async function createAVideo() {
       const videoData = {
+        instructorId,
         instructorName,
         style,
         level,
         videoURL,
       };
-
-      const result = await addVideoClass(videoData);
-      console.log(videoData);
-      const updatedVideos = await fetchVideosWithInstructorName();
-      setVideos(updatedVideos);
-      return result;
+      try {
+        const result = await addVideoClass(videoData);
+        console.log("Video Data: ", videoData);
+        const updateVideos = await fetchVideosWithInstructorName();
+        setVideos(updateVideos);
+        // navigate(0);
+        return result;
+      } catch {
+        setError("Can't add this video", error);
+      }
     }
-    newVideo();
+    createAVideo();
 
+    setInstructorId("");
     setInstructorName("");
     setStyle("");
     setLevel("");
@@ -44,6 +50,15 @@ export default function AddNewVideo() {
       <form onSubmit={handleSubmit}>
         <h4>Add New Video Class</h4>
         <div className="form-row">
+          <div className="col">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Instructor Id"
+              value={instructorId}
+              onChange={(event) => setInstructorId(event.target.value)}
+            />
+          </div>
           <div className="col">
             <input
               type="text"

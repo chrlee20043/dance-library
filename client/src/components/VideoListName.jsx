@@ -24,26 +24,6 @@ export default function VideoListName({ video }) {
       <img src={video.imageURL} />
       <p>Style: {video.style}</p>
       <p>Level: {video.level}</p>
-      {/* <div id="video-card-buttons">
-        {isSaved ? (
-          <div>
-            <input
-              className="card-button"
-              type="checkbox"
-              checked={isSaved}
-              onChange={handleSavedVideo}
-            />
-          </div>
-        ) : (
-          <div>
-            <input
-              className="card-button"
-              type="checkbox"
-              onChange={handleSavedVideo}
-            />
-          </div>
-        )}
-      </div> */}
       <button
         onClick={() => {
           navigate(`/allvideos/${video.video_id}`);

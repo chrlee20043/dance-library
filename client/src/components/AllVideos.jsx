@@ -46,14 +46,18 @@ export default function AllVideos() {
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
+        <div className="new-video-container">
+          <AddNewVideo setVideos={setVideos} />
+        </div>
       </div>
-      <p className="new-video-container">
-        <AddNewVideo />
-      </p>
+
       {error && <p>{error}</p>}
+      <h1>Classes</h1>
+
       {videosToDisplay.map((video) => (
         <VideoListName key={video.video_id} video={video} />
       ))}
+      <div></div>
     </div>
   );
 }

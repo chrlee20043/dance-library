@@ -49,7 +49,7 @@ router.get("/:videoId", async (req, res, next) => {
 
 // GET - /api/videoClasses/:instructorId - get video by instructor id
 
-router.get("/video/:instructorId", async (req, res, next) => {
+router.get("/video:instructorId", async (req, res, next) => {
   try {
     const videoClass = await getVideoClassByInstructorId(
       req.params.instructorId
@@ -73,7 +73,7 @@ router.post("/", async (req, res, next) => {
 
 // DELETE - /api/videoClasses/video:videoId - delete a video (only if saved to my list)
 
-router.delete("/video/:videoId", async (req, res, next) => {
+router.delete("/:videoId", async (req, res, next) => {
   try {
     const videoClass = await deleteVideoClass(req.params.videoId);
     res.send(videoClass);
@@ -84,7 +84,7 @@ router.delete("/video/:videoId", async (req, res, next) => {
 
 // PUT - /api/videoClasses/:videoId - edit video form (only if you added it)
 
-router.put("/video/:videoId", async (req, res, next) => {
+router.put("/:videoId", async (req, res, next) => {
   try {
     const videoClass = await updateVideoClass(req.params.videoId, req.body);
     res.send(videoClass);

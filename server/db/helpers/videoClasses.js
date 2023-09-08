@@ -133,19 +133,17 @@ const deleteVideoClass = async (videoId) => {
     await client.query(
       `
         DELETE FROM videoclasses
-        WHERE video_id = $1;
-      `,
-      [videoId]
+        WHERE video_id = ${videoId};
+      `
     );
     const {
       rows: [videoClass],
     } = await client.query(
       `
         DELETE FROM videoclasses
-        WHERE video_id = $1
+        WHERE video_id = ${videoId}
         RETURNING *
-      `,
-      [videoId]
+      `
     );
     return videoClass;
   } catch (error) {
