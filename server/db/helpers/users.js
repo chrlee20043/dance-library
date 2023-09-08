@@ -2,23 +2,24 @@ const client = require("../client");
 
 // POST - register user
 
-const registerUser = async ({ username, password, name }) => {
-  try {
-    const {
-      rows: [user],
-    } = await client.query(
-      `
-      INSERT INTO users(username, password, name)
-      VALUES($1, $2, $3)
-      RETURNING *;
-    `,
-      [username, password, name]
-    );
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
+// const registerUser = async ({ username, password, name }) => {
+//   try {
+//     const {
+//       rows: [user],
+//     } = await client.query(
+//       `
+//       INSERT INTO users(username, password, name)
+//       VALUES($1, $2, $3)
+//       RETURNING *;
+//     `,
+//       [username, password, name]
+//     );
+//     console.log(user);
+//     return user;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 // POST - login user
 
@@ -27,7 +28,10 @@ const loginUser = async ({ username, password }) => {
     const {
       rows: [user],
     } = await client.query(`
-
+      SELECT *
+      FROM users
+      WHERE username=${username}
+      AND password=${password}
     `);
     return user;
   } catch (error) {
@@ -37,14 +41,9 @@ const loginUser = async ({ username, password }) => {
 
 // Query to create a user
 
-const createUser = async ({
-  username,
-  password,
-  name,
-  accountCreationDate,
-  subscriptionStatus,
-}) => {
+const createUser = async ({ username, password, name }) => {
   try {
+    console.log({ username, password, name });
     // individual rows
     const {
       rows: [user],
@@ -54,11 +53,11 @@ const createUser = async ({
       // VALUES(var1, var2, var3, var4, var5)
       // RETURNING everything
       `
-        INSERT INTO users(username, password, name, "accountCreationDate", "subscriptionStatus")
-        VALUES($1, $2, $3, $4, $5)
+        INSERT INTO users(username, password, name)
+        VALUES($1, $2, $3)
         RETURNING *;
     `,
-      [username, password, name, accountCreationDate, subscriptionStatus]
+      [username, password, name]
     );
     return user;
   } catch (error) {
@@ -163,7 +162,6 @@ const deleteUser = async (userId) => {
 };
 
 module.exports = {
-  registerUser,
   loginUser,
   createUser,
   getAllUsers,

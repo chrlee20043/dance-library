@@ -1,12 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchVideosWithInstructorName } from "../helpers/fetching";
 import VideoListName from "./VideoListName";
+import AddNewVideo from "./AddNewVideo";
 
 export default function AllVideos() {
   const [videos, setVideos] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const renderVideos = async () => {
@@ -34,7 +38,7 @@ export default function AllVideos() {
   return (
     <div>
       <div id="search-bar">
-        <label>
+        <label className="search-name">
           Search:{" "}
           <input
             type="text"
@@ -43,6 +47,9 @@ export default function AllVideos() {
           />
         </label>
       </div>
+      <p className="new-video-container">
+        <AddNewVideo />
+      </p>
       {error && <p>{error}</p>}
       {videosToDisplay.map((video) => (
         <VideoListName key={video.video_id} video={video} />

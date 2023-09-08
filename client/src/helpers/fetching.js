@@ -45,7 +45,7 @@ async function fetchSingleVideo(video_id) {
 
 async function registerNewUser(username, password, name) {
   try {
-    const response = await fetch(`${baseURL}/users/register`, {
+    const response = await fetch(`${baseURL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ async function registerNewUser(username, password, name) {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error(error);
+    console.error("Please enter valid credentials", error);
   }
 }
 
@@ -107,28 +107,28 @@ async function loginToAccount(username, password) {
 
 //   // Submit a new video
 
-//   async function createPost() {
-//     try {
-//       const response = await fetch(`${baseURL}/videoclasses`, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${token}`,
-//         },
-//         body: JSON.stringify({
-//           video: {
-//
-//           },
-//         }),
-//       });
-//       // console.log(response)
-//       const result = await response.json();
-//       // console.log(result);
-//       return result;
-//     } catch (error) {
-//       console.error(`You cannot create me`, error);
-//     }
-//   }
+async function addVideoClass({ instructorName, style, level, videoURL }) {
+  try {
+    const response = await fetch(`${baseURL}/videoclasses`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        instructorName,
+        style,
+        level,
+        videoURL,
+      }),
+    });
+    // console.log(response)
+    const result = await response.json();
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error(`You cannot create me`, error);
+  }
+}
 
 //   // DELETE a video from my list
 
@@ -182,4 +182,5 @@ export {
   fetchSingleVideo,
   registerNewUser,
   loginToAccount,
+  addVideoClass,
 };

@@ -11,7 +11,7 @@ export default function Navbar() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/myprofile/:id">Profile</Link>
+            <Link to="/myprofile">Profile</Link>
           </li>
           <li>
             <Link to="/allvideos">Browse Classes</Link>

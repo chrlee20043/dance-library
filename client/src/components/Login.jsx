@@ -16,7 +16,7 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await loginToAccount({ username, password });
-      console.log("logged in user:", result);
+      console.log("logged in user:", response);
 
       if (response) {
         setSuccessMessage(true);

@@ -11,7 +11,6 @@ export default function Register() {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -22,7 +21,6 @@ export default function Register() {
       setUsername("");
       setPassword("");
       setRegistered(true);
-      // alert("You have registered!");
     } catch (error) {
       setError("Please provide valid credentials");
       console.error(error);

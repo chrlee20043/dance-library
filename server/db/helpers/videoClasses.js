@@ -4,10 +4,10 @@ const client = require("../client");
 
 const createVideoClass = async ({
   instructor_id,
+  instructor_name,
   style,
   level,
   videoURL,
-  saved,
 }) => {
   try {
     // individual rows
@@ -19,11 +19,11 @@ const createVideoClass = async ({
       // VALUES(var1, var2, var3, var4, var5)
       // RETURNING everything
       `
-        INSERT INTO videoclasses(instructor_id, style, level, "videoURL", saved)
+        INSERT INTO videoclasses(instructor_id, instructor_name, style ,level, "videoURL")
         VALUES($1, $2, $3, $4, $5)
         RETURNING *;
       `,
-      [instructor_id, style, level, videoURL, saved]
+      [instructor_id, instructor_name, style, level, videoURL]
     );
     return videoClass;
   } catch (error) {
@@ -102,21 +102,20 @@ const getVideoClassByInstructorId = async (instructorId) => {
 
 const updateVideoClass = async (videoId, updatedFields) => {
   try {
-    const { instructor_id, style, level, videoURL, favorite } = updatedFields;
+    const { instructorId, style, level, videoURL } = updatedFields;
     const query = `
       UPDATE videoclasses
-      SET instructor_id = $2,  style = $3, level = $4, "videoURL" = $5, saved = $6
+      SET instructor_id = $2, style = $3, level = $4, "videoURL" = $5
       WHERE video_id = $1
       RETURNING *;
     `;
 
     const { rows } = await client.query(query, [
       videoId,
-      instructor_id,
+      instructorId,
       style,
       level,
       videoURL,
-      favorite,
     ]);
 
     if (rows && rows.length > 0) {

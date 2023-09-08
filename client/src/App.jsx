@@ -1,17 +1,19 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import "./App.css";
 import Home from "./components/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Profile from "./components/Profile";
 import AllVideos from "./components/AllVideos";
 import SingleVideo from "./components/SingleVideo";
-import AddNewVideo from "./components/AddNewVideo";
 import UpdateVideo from "./components/UpdateVideo";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import { VideosContextProvider } from "./context/VideosContext";
 
 function App() {
+  const [videos, setVideos] = useState([]);
+
   return (
     <>
       <VideosContextProvider>
@@ -23,14 +25,16 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/myprofile/:userId" element={<Profile />} />
-            <Route path="/allvideos" element={<AllVideos />} />
-            <Route path="/allvideos/:videoId" element={<SingleVideo />} />
+            <Route path="/myprofile" element={<Profile videos={videos} />} />
+            <Route path="/allvideos" element={<AllVideos videos={videos} />} />
+            <Route
+              path="/allvideos/:videoId"
+              element={<SingleVideo videos={videos} />}
+            />
             <Route
               path="/allvideos/:videoId/updatevideo"
-              element={<UpdateVideo />}
+              element={<UpdateVideo videos={videos} />}
             />
-            <Route path="/addnewvideo" element={<AddNewVideo />} />
           </Routes>
         </div>
       </VideosContextProvider>

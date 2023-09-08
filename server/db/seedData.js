@@ -54,13 +54,15 @@ const instructors = [
 const videoClasses = [
   {
     instructor_id: 2,
+    instructor_name: "Karen Chuang",
     style: "contemporary",
     level: "beginner",
     videoURL: "https://www.youtube.com/watch?v=J_wT_eRYksY",
-    saved: false,
+    saved: true,
   },
   {
     instructor_id: 1,
+    instructor_name: "Aliya Janell",
     style: "heels",
     level: "advanced",
     videoURL: "https://www.youtube.com/watch?v=UfP9ifDmZIM",
@@ -68,6 +70,7 @@ const videoClasses = [
   },
   {
     instructor_id: 3,
+    instructor_name: "Marie Poppins",
     style: "popping",
     level: "intermediate",
     videoURL: "https://www.youtube.com/watch?v=QInF2xm3qz4",

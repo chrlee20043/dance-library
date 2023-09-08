@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  registerUser,
   loginUser,
   createUser,
   getAllUsers,
@@ -37,18 +36,7 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-// POST - api/register - register new user
-
-router.post("/register", async (req, res, next) => {
-  try {
-    const newUser = await registerUser(req.body);
-    res.send(newUser);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// POST - api/login - log in to your account
+// POST - api/users/login - log in to your account
 
 router.post("/login", async (req, res, next) => {
   try {
@@ -60,7 +48,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-// POST - /api/users - add new user
+// POST - /api/users - add new user (including registration)
 
 router.post("/", async (req, res, next) => {
   try {

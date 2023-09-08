@@ -3,11 +3,10 @@
 
 const client = require("./client");
 
-const { createUser, getAllUsers, getUserById } = require("./helpers/users");
+const { createUser, getAllUsers } = require("./helpers/users");
 const {
   createInstructor,
   getAllInstructors,
-  getInstructorsById,
 } = require("./helpers/instructors");
 const { createVideoClass } = require("./helpers/videoClasses");
 const { createSubscription } = require("./helpers/subscriptions");
@@ -60,11 +59,12 @@ const createTables = async () => {
 
         CREATE TABLE videoclasses (
             video_id SERIAL PRIMARY KEY,
-            instructor_id INTEGER REFERENCES instructors(instructor_id) NOT NULL,
+            instructor_id INTEGER REFERENCES instructors(instructor_id),
+            instructor_name varchar(255) NOT NULL,
             style varchar(255) NOT NULL,
             level varchar(255) NOT NULL,
             "videoURL" varchar(255) NOT NULL,
-            saved BOOLEAN NOT NULL
+            saved BOOLEAN
         );
 
         CREATE TABLE subscriptions (
@@ -112,6 +112,7 @@ const createInitialVideoClasses = async () => {
   try {
     for (const videoClass of videoClasses) {
       await createVideoClass(videoClass);
+      console.log(videoClass);
     }
     console.log("created classes");
   } catch (error) {
