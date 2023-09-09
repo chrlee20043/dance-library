@@ -31,10 +31,6 @@ function App() {
               path="/allvideos/:videoId"
               element={<SingleVideo videos={videos} />}
             />
-            <Route
-              path="/allvideos/:videoId/updatevideo"
-              element={<UpdateVideo videos={videos} />}
-            />
           </Routes>
         </div>
       </VideosContextProvider>

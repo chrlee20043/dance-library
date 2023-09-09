@@ -8,8 +8,8 @@ export default function Home() {
     <div>
       <h1>Welcome to your personal dance studio!</h1>
       <p>
-        Take classes from your favorite instructors, learn a new style, and
-        learn new skills!
+        Train with your favorite instructors, learn a new style, and gain new
+        skills!
       </p>
       <p>
         <Link to="/login">Login</Link> or <Link to="register">Register</Link>

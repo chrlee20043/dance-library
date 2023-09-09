@@ -5,7 +5,43 @@ import addVideoClass, {
   fetchVideosWithInstructorName,
 } from "../helpers/fetching";
 
+// export default function AddNewVideo({ fetchAllVideos }) {
+//   const [instructorId, setInstructorId] = useState("");
+//   const [instructorName, setInstructorName] = useState("");
+//   const [style, setStyle] = useState("");
+//   const [level, setLevel] = useState("");
+//   const [videoURL, setVideoURL] = useState("");
+//   const [error, setError] = useState("");
+
+//   const navigate = useNavigate();
+
+//   async function handleSubmit(e) {
+//     e.preventDefault();
+//     const response = await addVideoClass({
+//       instructorId,
+//       instructorName,
+//       style,
+//       level,
+//       videoURL,
+//     });
+//     console.log("response: ", response);
+//     if (typeof response === "object" && response.videoId !== undefined) {
+//       // navigate(0);
+//       fetchAllVideos();
+//       setInstructorId("");
+//       setInstructorName("");
+//       setStyle("");
+//       setLevel("");
+//       setVideoURL("");
+//     } else {
+//       setError("Can't add this video", error);
+//     }
+//   }
+
+// createAVideo();
+
 export default function AddNewVideo({ setVideos }) {
+  // const [videos, setVideos] = useState([]);
   const [instructorId, setInstructorId] = useState("");
   const [instructorName, setInstructorName] = useState("");
   const [style, setStyle] = useState("");
@@ -13,31 +49,28 @@ export default function AddNewVideo({ setVideos }) {
   const [videoURL, setVideoURL] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    async function createAVideo() {
-      const videoData = {
+
+    async function createVideo() {
+      const newVideo = {
         instructorId,
         instructorName,
         style,
         level,
         videoURL,
       };
-      try {
-        const result = await addVideoClass(videoData);
-        console.log("Video Data: ", videoData);
-        const updateVideos = await fetchVideosWithInstructorName();
-        setVideos(updateVideos);
-        // navigate(0);
-        return result;
-      } catch {
-        setError("Can't add this video", error);
-      }
-    }
-    createAVideo();
 
+      const result = await addVideoClass(newVideo);
+      const updateVideos = await fetchVideosWithInstructorName();
+      setVideos(updateVideos);
+
+      console.log(result);
+      return result;
+    }
+    createVideo();
+
+    addVideoClass();
     setInstructorId("");
     setInstructorName("");
     setStyle("");

@@ -12,18 +12,18 @@ export default function AllVideos() {
 
   const navigate = useNavigate();
 
+  const fetchAllVideos = async () => {
+    try {
+      const videoArray = await fetchVideosWithInstructorName();
+      console.log("Videos: ", videoArray);
+      setVideos(videoArray);
+      return videoArray;
+    } catch (error) {
+      setError("Failed to fetch videos. Please try again later.");
+    }
+  };
   useEffect(() => {
-    const renderVideos = async () => {
-      try {
-        const videoArray = await fetchVideosWithInstructorName();
-        console.log("Videos: ", videoArray);
-        setVideos(videoArray);
-      } catch (error) {
-        setError("Failed to fetch videos. Please try again later.");
-      }
-    };
-
-    renderVideos();
+    fetchAllVideos();
   }, []);
 
   const videosToDisplay = searchParam
@@ -47,7 +47,7 @@ export default function AllVideos() {
           />
         </label>
         <div className="new-video-container">
-          <AddNewVideo setVideos={setVideos} />
+          <AddNewVideo fetchAllVideos={fetchAllVideos} setVideos={setVideos} />
         </div>
       </div>
 

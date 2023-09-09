@@ -21,7 +21,7 @@ export default async function fetchVideosWithInstructorName() {
   try {
     const response = await fetch(`${baseURL}/videoclasses`);
     const result = await response.json();
-    // console.log(result);
+    console.log("Fetched videos", result);
     return result;
   } catch (error) {
     console.error("You can't watch this, sorry");
@@ -30,9 +30,9 @@ export default async function fetchVideosWithInstructorName() {
 
 // fetch single video by id
 
-async function fetchSingleVideo(video_id) {
+async function fetchSingleVideo(videoId) {
   try {
-    const response = await fetch(`${baseURL}/videoclasses/${video_id}`);
+    const response = await fetch(`${baseURL}/videoclasses/${videoId}`);
     const result = await response.json();
     console.log(result);
     return result;
@@ -130,8 +130,7 @@ async function addVideoClass({
     });
     // console.log(response)
     const result = await response.json();
-    // console.log(result);
-    // fetchVideosWithInstructorName();
+    console.log(result);
     return result;
   } catch (error) {
     console.error(`You cannot create me`, error);
@@ -140,9 +139,9 @@ async function addVideoClass({
 
 //   // DELETE a video from my list
 
-async function deleteVideo(video_id) {
+async function deleteVideo(videoId) {
   try {
-    const response = await fetch(`${baseURL}/videoclasses/${video_id}`, {
+    const response = await fetch(`${baseURL}/videoclasses/${videoId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

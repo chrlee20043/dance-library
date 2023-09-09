@@ -57,7 +57,7 @@ const videoClasses = [
     instructor_name: "Karen Chuang",
     style: "contemporary",
     level: "beginner",
-    videoURL: "https://www.youtube.com/watch?v=J_wT_eRYksY",
+    videoURL: "https://www.youtube.com/embed/J_wT_eRYksY?si=hSlAdEM1iUKS_ECb",
     saved: true,
   },
   {
@@ -65,7 +65,7 @@ const videoClasses = [
     instructor_name: "Aliya Janell",
     style: "heels",
     level: "advanced",
-    videoURL: "https://www.youtube.com/watch?v=UfP9ifDmZIM",
+    videoURL: "https://www.youtube.com/embed/UfP9ifDmZIM?si=nXzJUMV4ciHx0lVo",
     saved: false,
   },
   {
@@ -73,7 +73,7 @@ const videoClasses = [
     instructor_name: "Marie Poppins",
     style: "popping",
     level: "intermediate",
-    videoURL: "https://www.youtube.com/watch?v=QInF2xm3qz4",
+    videoURL: "https://www.youtube.com/embed/QInF2xm3qz4?si=kGie_5nbRvU6amsY",
     saved: false,
   },
 ];

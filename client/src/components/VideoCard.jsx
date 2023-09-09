@@ -6,25 +6,32 @@ import { fetchSingleVideo, deleteVideo, editVideo } from "../helpers/fetching";
 
 export default function VideoCard({ video, videos }) {
   const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
-  const { videoId } = useParams;
+  const { videoId } = useParams();
   const navigate = useNavigate();
 
   async function handleSave(videoId) {
     try {
-      const result = await fetchSingleVideo(videoId);
+      const response = await fetchSingleVideo(videoId);
+      if (response) {
+        setSelectedVideo(response);
+      } else {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function handleDelete(videoId) {
-    try {
-      const result = await deleteVideo(videoId);
-      console.log("Deleted video", result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function handleDelete(videoId) {
+  //   try {
+  //     const response = await deleteVideo(videoId);
+  //     if (response) {
+  //       setSelectedVideo(response);
+  //     console.log("Deleted video", result);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   async function handleEdit(videoId) {
     try {
@@ -46,17 +53,27 @@ export default function VideoCard({ video, videos }) {
       <h4>{selectedVideo.instructorBio}</h4>
       <p>Style: {selectedVideo.style}</p>
       <p>Level: {selectedVideo.level}</p>
-      <a
+      <iframe
+        // width="560"
+        // height="315"
+        src={selectedVideo.videoURL}
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      ></iframe>
+
+      {/* <a
         id="watch-video-btn"
         href={selectedVideo.videoURL}
         target="_blank"
         rel="noopener noreferrer"
       >
         Watch Video
-      </a>
+      </a> */}
       <div>
         <button onClick={handleSave}>Save me</button>
-        <button onClick={handleDelete}>Delete me</button>
+        <button onClick={() => deleteVideo(videoId)}>Delete me</button>
         <button onClick={handleEdit}>Edit me</button>
 
         <button onClick={handleReturnToVideos}>Return to All Classes</button>
