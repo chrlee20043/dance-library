@@ -107,13 +107,7 @@ async function loginToAccount(username, password) {
 
 //   // Submit a new video
 
-async function addVideoClass({
-  instructor_id,
-  instructor_name,
-  style,
-  level,
-  videoURL,
-}) {
+async function addVideoClass(video) {
   try {
     const response = await fetch(`${baseURL}/videoclasses`, {
       method: "POST",
@@ -121,11 +115,13 @@ async function addVideoClass({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        instructor_id,
-        instructor_name,
-        style,
-        level,
-        videoURL,
+        Video: {
+          instructor_id: video.instructor_id,
+          instructor_name: video.instructor_name,
+          style: video.style,
+          level: video.level,
+          videoURL: video.videoURL,
+        },
       }),
     });
     // console.log(response)
@@ -161,7 +157,7 @@ async function deleteVideo(videoId) {
 async function editVideo(video_id, instructor_name, style, level, videoURL) {
   try {
     const response = await fetch(`${baseURL}//videoclasses/${video_id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -170,7 +166,7 @@ async function editVideo(video_id, instructor_name, style, level, videoURL) {
       }),
     });
     const result = await response.json();
-    console.log(result);
+    console.log("Updated item", result);
     return result;
   } catch (err) {
     console.error(err);

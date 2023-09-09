@@ -5,6 +5,8 @@ import addVideoClass, {
   fetchVideosWithInstructorName,
 } from "../helpers/fetching";
 
+const baseURL = "http://localhost:8080/api";
+
 // export default function AddNewVideo({ fetchAllVideos }) {
 //   const [instructorId, setInstructorId] = useState("");
 //   const [instructorName, setInstructorName] = useState("");
@@ -61,6 +63,17 @@ export default function AddNewVideo({ setVideos }) {
         videoURL,
       };
 
+      // const response = await fetch(`${baseURL}/videoclasses`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     newVideo,
+      //   }),
+      // });
+      // const result = await response.json();
+      // return result;
       const result = await addVideoClass(newVideo);
       const updateVideos = await fetchVideosWithInstructorName();
       setVideos(updateVideos);
@@ -70,7 +83,6 @@ export default function AddNewVideo({ setVideos }) {
     }
     createVideo();
 
-    addVideoClass();
     setInstructorId("");
     setInstructorName("");
     setStyle("");
@@ -131,6 +143,7 @@ export default function AddNewVideo({ setVideos }) {
         </div>
         <button type="submit">Submit</button>
       </form>
+      {/* <p>{instructorName}</p> */}
     </div>
   );
 }

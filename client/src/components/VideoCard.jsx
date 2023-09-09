@@ -2,12 +2,19 @@ import React from "react";
 import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { VideosContext } from "../context/VideosContext";
-import { fetchSingleVideo, deleteVideo, editVideo } from "../helpers/fetching";
+import fetchVideosWithInstructorName, {
+  fetchSingleVideo,
+  deleteVideo,
+  editVideo,
+} from "../helpers/fetching";
+import EditVideo from "./EditVideo";
 
-export default function VideoCard({ video, videos }) {
+export default function VideoCard({ video, setVideos }) {
   const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
   const { videoId } = useParams();
   const navigate = useNavigate();
+
+  // FIX THIS LOGIC
 
   async function handleSave(videoId) {
     try {
@@ -22,31 +29,30 @@ export default function VideoCard({ video, videos }) {
     }
   }
 
-  // async function handleDelete(videoId) {
+  // EDIT Video - PUT request
+  const handleEdit = async () => {
+    console.log("edit me");
+  };
+
+  // const handleUpdateVideo = async (updatedVideo) => {
   //   try {
-  //     const response = await deleteVideo(videoId);
-  //     if (response) {
-  //       setSelectedVideo(response);
-  //     console.log("Deleted video", result);
+  //     const result = await editVideo(updatedVideo);
+  //     console.log(result);
+  //     const updatedVideos = await fetchVideosWithInstructorName();
+  //     setVideos(updatedVideos || []);
   //   } catch (error) {
   //     console.error(error);
   //   }
-  // }
+  // };
 
-  async function handleEdit(videoId) {
-    try {
-      const result = await editVideo(videoId);
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
+  // Return to all videos
   const handleReturnToVideos = () => {
     navigate("/allvideos");
   };
 
   return (
+    // View single video class
+
     <div id="single-video-container">
       <h3>{selectedVideo.instructor_name}</h3>
       <img src={selectedVideo.imageURL}></img>
@@ -63,19 +69,14 @@ export default function VideoCard({ video, videos }) {
         allowFullScreen
       ></iframe>
 
-      {/* <a
-        id="watch-video-btn"
-        href={selectedVideo.videoURL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Watch Video
-      </a> */}
+      {/* Buttons to save, delete, edit/update, return to all videos */}
+      <div className="edit-video-form">
+        <EditVideo />
+      </div>
+
       <div>
         <button onClick={handleSave}>Save me</button>
         <button onClick={() => deleteVideo(videoId)}>Delete me</button>
-        <button onClick={handleEdit}>Edit me</button>
-
         <button onClick={handleReturnToVideos}>Return to All Classes</button>
       </div>
     </div>
