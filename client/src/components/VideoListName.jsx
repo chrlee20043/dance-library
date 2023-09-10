@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function VideoListName({ video }) {
-  const [videos, setVideos] = useState([]);
-  const [isSaved, setIsSaved] = useState(false);
+  // const [isSaved, setIsSaved] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,6 +21,7 @@ export default function VideoListName({ video }) {
     <div id="video-card-container">
       <h3>{video.instructor_name}</h3>
       <img src={video.imageURL} />
+      <p>{video.video_id}</p>
       <p>Style: {video.style}</p>
       <p>Level: {video.level}</p>
       <button

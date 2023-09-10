@@ -10,10 +10,10 @@ import UpdateVideo from "./components/UpdateVideo";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import { VideosContextProvider } from "./context/VideosContext";
+import AddNewVideo from "./components/AddNewVideo";
+import EditVideo from "./components/EditVideo";
 
 function App() {
-  const [videos, setVideos] = useState([]);
-
   return (
     <>
       <VideosContextProvider>
@@ -25,12 +25,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/myprofile" element={<Profile videos={videos} />} />
-            <Route path="/allvideos" element={<AllVideos videos={videos} />} />
-            <Route
-              path="/allvideos/:videoId"
-              element={<SingleVideo videos={videos} />}
-            />
+            <Route path="/myprofile" element={<Profile />} />
+            <Route path="/allvideos" element={<AllVideos />} />
+            <Route path="/allvideos/:videoId" element={<SingleVideo />} />
+            {/* <Route path="/allvideos/addnewvideo" element={<AddNewVideo />} /> */}
+            <Route path="/allvideos/:videoId/update" element={<EditVideo />} />
           </Routes>
         </div>
       </VideosContextProvider>

@@ -1,21 +1,23 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchVideosWithInstructorName } from "../helpers/fetching";
+import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// import { fetchVideosWithInstructorName } from "../helpers/fetching";
+import { fetchAllVideos } from "../helpers/fetching";
 import VideoListName from "./VideoListName";
 import AddNewVideo from "./AddNewVideo";
+import { VideosContext } from "../context/VideosContext";
 
 export default function AllVideos() {
-  const [videos, setVideos] = useState([]);
+  const { videos, setVideos } = useContext(VideosContext);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const fetchAllVideos = async () => {
+  const renderVideos = async () => {
     try {
-      const videoArray = await fetchVideosWithInstructorName();
-      console.log("Videos: ", videoArray);
+      const videoArray = await fetchAllVideos();
+      console.log("Video Array: ", videoArray);
       setVideos(videoArray);
       return videoArray;
     } catch (error) {
@@ -23,7 +25,7 @@ export default function AllVideos() {
     }
   };
   useEffect(() => {
-    fetchAllVideos();
+    renderVideos();
   }, []);
 
   const videosToDisplay = searchParam
@@ -46,18 +48,18 @@ export default function AllVideos() {
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
-        <div className="new-video-container">
-          <AddNewVideo fetchAllVideos={fetchAllVideos} setVideos={setVideos} />
-        </div>
       </div>
 
       {error && <p>{error}</p>}
       <h1>Classes</h1>
-
-      {videosToDisplay.map((video) => (
-        <VideoListName key={video.video_id} video={video} />
-      ))}
-      <div></div>
+      <div className="new-video-container">
+        <AddNewVideo />
+      </div>
+      <div className="all-videos-container">
+        {videosToDisplay.map((video) => (
+          <VideoListName key={video.video_id} video={video} />
+        ))}
+      </div>
     </div>
   );
 }

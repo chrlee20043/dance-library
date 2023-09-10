@@ -1,49 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import addVideoClass, {
-  fetchVideosWithInstructorName,
-} from "../helpers/fetching";
+import { useState, useContext } from "react";
+import { addVideoClass, fetchAllVideos } from "../helpers/fetching";
+import { VideosContext } from "../context/VideosContext";
 
-const baseURL = "http://localhost:8080/api";
+export default function AddNewVideo() {
+  const { setVideos, addVideos } = useContext(VideosContext);
 
-// export default function AddNewVideo({ fetchAllVideos }) {
-//   const [instructorId, setInstructorId] = useState("");
-//   const [instructorName, setInstructorName] = useState("");
-//   const [style, setStyle] = useState("");
-//   const [level, setLevel] = useState("");
-//   const [videoURL, setVideoURL] = useState("");
-//   const [error, setError] = useState("");
-
-//   const navigate = useNavigate();
-
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-//     const response = await addVideoClass({
-//       instructorId,
-//       instructorName,
-//       style,
-//       level,
-//       videoURL,
-//     });
-//     console.log("response: ", response);
-//     if (typeof response === "object" && response.videoId !== undefined) {
-//       // navigate(0);
-//       fetchAllVideos();
-//       setInstructorId("");
-//       setInstructorName("");
-//       setStyle("");
-//       setLevel("");
-//       setVideoURL("");
-//     } else {
-//       setError("Can't add this video", error);
-//     }
-//   }
-
-// createAVideo();
-
-export default function AddNewVideo({ setVideos }) {
-  // const [videos, setVideos] = useState([]);
   const [instructorId, setInstructorId] = useState("");
   const [instructorName, setInstructorName] = useState("");
   const [style, setStyle] = useState("");
@@ -51,43 +14,30 @@ export default function AddNewVideo({ setVideos }) {
   const [videoURL, setVideoURL] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    async function createVideo() {
-      const newVideo = {
+    async function makeAVideo() {
+      const result = await addVideoClass(
         instructorId,
         instructorName,
         style,
         level,
-        videoURL,
-      };
+        videoURL
+      );
 
-      // const response = await fetch(`${baseURL}/videoclasses`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     newVideo,
-      //   }),
-      // });
-      // const result = await response.json();
-      // return result;
-      const result = await addVideoClass(newVideo);
-      const updateVideos = await fetchVideosWithInstructorName();
-      setVideos(updateVideos);
-
-      console.log(result);
+      console.log("Me trying to add a new video: ", result);
       return result;
     }
-    createVideo();
+    makeAVideo();
 
     setInstructorId("");
     setInstructorName("");
     setStyle("");
     setLevel("");
     setVideoURL("");
+    navigate(0);
   };
 
   return (
@@ -143,7 +93,6 @@ export default function AddNewVideo({ setVideos }) {
         </div>
         <button type="submit">Submit</button>
       </form>
-      {/* <p>{instructorName}</p> */}
     </div>
   );
 }

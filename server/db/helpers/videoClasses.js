@@ -31,17 +31,19 @@ const createVideoClass = async ({
   }
 };
 
-// const getAllVideos = async () => {
-//   try {
-//     const { rows } = await client.query(`
-//       SELECT *
-//       FROM videoclasses;
-//     `);
-//     return rows;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+// GET all videos
+
+const getAllVideos = async () => {
+  try {
+    const { rows } = await client.query(`
+      SELECT *
+      FROM videoclasses;
+    `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // GET videos with instructor name
 
@@ -152,6 +154,7 @@ const deleteVideoClass = async (videoId) => {
 };
 
 module.exports = {
+  getAllVideos,
   createVideoClass,
   getVideoClassesWithInstructorName,
   getVideoClassById,

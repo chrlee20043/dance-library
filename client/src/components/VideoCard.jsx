@@ -9,7 +9,7 @@ import fetchVideosWithInstructorName, {
 } from "../helpers/fetching";
 import EditVideo from "./EditVideo";
 
-export default function VideoCard({ video, setVideos }) {
+export default function VideoCard() {
   const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
   const { videoId } = useParams();
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function VideoCard({ video, setVideos }) {
       if (response) {
         setSelectedVideo(response);
       } else {
-        console.error(error);
+        console.error("cannot save");
       }
     } catch (error) {
       console.error(error);
