@@ -104,7 +104,8 @@ const getVideoClassByInstructorId = async (instructorId) => {
 
 const updateVideoClass = async (videoId, updatedFields) => {
   try {
-    const { instructorId, style, level, videoURL } = updatedFields;
+    const { instructor_id, instructor_name, style, level, videoURL } =
+      updatedFields;
     const query = `
       UPDATE videoclasses
       SET instructor_id = $2, style = $3, level = $4, "videoURL" = $5
@@ -114,7 +115,8 @@ const updateVideoClass = async (videoId, updatedFields) => {
 
     const { rows } = await client.query(query, [
       videoId,
-      instructorId,
+      instructor_id,
+      instructor_name,
       style,
       level,
       videoURL,

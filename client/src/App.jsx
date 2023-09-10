@@ -28,7 +28,7 @@ function App() {
             <Route path="/myprofile" element={<Profile />} />
             <Route path="/allvideos" element={<AllVideos />} />
             <Route path="/allvideos/:videoId" element={<SingleVideo />} />
-            {/* <Route path="/allvideos/addnewvideo" element={<AddNewVideo />} /> */}
+
             <Route path="/allvideos/:videoId/update" element={<EditVideo />} />
           </Routes>
         </div>

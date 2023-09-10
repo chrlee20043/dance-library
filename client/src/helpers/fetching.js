@@ -194,14 +194,18 @@ async function deleteVideo(videoId) {
 
 //   // Edit video from my list
 
-async function editVideo(videoId, video) {
+async function editVideo(videoId, instructor_name, style, level) {
   try {
     const response = await fetch(`${baseURL}//videoclasses/${videoId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(video),
+      body: JSON.stringify({
+        instructor_name,
+        style,
+        level,
+      }),
     });
     const result = await response.json();
     console.log("Updated item", result);

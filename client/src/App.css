@@ -139,19 +139,22 @@ img {
     position: absolute;
   } */
 
-
-#watch-video-btn {
-  text-decoration: none;
-  color: white;
-  background-color:#080808;
-  /* border: solid 2px salmon; */
-  margin: 10px;
-  padding: 10px;
+.edit-video-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  width: 20em;
+  padding: 1em;
 }
 
-#watch-video-btn:visited {
-  text-decoration: none;
-}
+
+
 
 .register-form {
   display: flex;

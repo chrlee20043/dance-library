@@ -1,21 +1,34 @@
 import { useContext, useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { VideosContext } from "../context/VideosContext";
-import { editVideo } from "../helpers/fetching";
+import { editVideo, fetchSingleVideo } from "../helpers/fetching";
 
-export default function EditVideo({ video }) {
-  //   const { videos } = useContext(VideosContext);
-  //   const navigate = useNavigate();
+export default function EditVideo() {
+  const { videos } = useContext(VideosContext);
+  const navigate = useNavigate();
+  const { videoId } = useParams();
 
   // FIX THE STATE
   const [isOpen, setIsOpen] = useState(false);
-  const [instructorId, setInstructorId] = useState("");
+  // const [instructorId, setInstructorId] = useState("");
   const [instructorName, setInstructorName] = useState("");
   const [style, setStyle] = useState("");
   const [level, setLevel] = useState("");
-  const [videoURL, setVideoURL] = useState("");
+  // const [videoURL, setVideoURL] = useState("");
 
-  console.log("hello world");
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetchSingleVideo(videoId);
+      console.log(response);
+
+      // setInstructorId(response.instructor_id);
+      setInstructorName(response.instructor_name);
+      setStyle(response.style);
+      setLevel(response.level);
+      // videoURL(response.videoURL);
+    };
+    fetchData();
+  }, []);
 
   function handleClick() {
     setIsOpen(!isOpen);
@@ -24,15 +37,12 @@ export default function EditVideo({ video }) {
   async function handleEdit(e) {
     e.preventDefault();
 
-    let newVideo = {
-      instructor_name,
-      style,
-      level,
-      videoURL,
-    };
+    const result = await editVideo(instructorName, style, level);
     try {
-      await editVideo(newVideo, video.video_id);
-      setIsOpen(!isOpen);
+      console.log("editing video result: ", result);
+      // setIsOpen(!isOpen);
+      navigate(`/allvideos/${videoId}`);
+      return result;
     } catch (error) {
       console.error("can't edit this video, error");
     }
@@ -48,15 +58,15 @@ export default function EditVideo({ video }) {
           <form onSubmit={handleEdit}>
             <h4>Edit Your Class</h4>
             <div className="form-row">
-              <div className="col">
+              {/* <div className="col">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Instructor Id"
                   value={instructorId}
                   onChange={(event) => setInstructorId(event.target.value)}
-                />
-              </div>
+                /> */}
+              {/* </div> */}
               <div className="col">
                 <input
                   type="text"
@@ -84,7 +94,7 @@ export default function EditVideo({ video }) {
                   onChange={(event) => setLevel(event.target.value)}
                 />
               </div>
-              <div className="col">
+              {/* <div className="col">
                 <input
                   type="text"
                   className="form-control"
@@ -92,14 +102,11 @@ export default function EditVideo({ video }) {
                   value={videoURL}
                   onChange={(event) => setVideoURL(event.target.value)}
                 />
-              </div>
+              </div> */}
             </div>
             <button type="submit">
               {isOpen ? "Save Changes" : "Edit Details"}
             </button>
-            {/* <button type="button" onClick={onCancel}>
-              Cancel
-            </button> */}
           </form>
         )}
       </div>

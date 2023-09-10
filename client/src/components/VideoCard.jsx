@@ -1,20 +1,37 @@
 import React from "react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { VideosContext } from "../context/VideosContext";
-import fetchVideosWithInstructorName, {
-  fetchSingleVideo,
-  deleteVideo,
-  editVideo,
-} from "../helpers/fetching";
-import EditVideo from "./EditVideo";
+import { fetchSingleVideo, deleteVideo } from "../helpers/fetching";
+// import EditVideo from "./EditVideo";
 
 export default function VideoCard() {
-  const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
+  const { video, setVideo, selectedVideo, setSelectedVideo } =
+    useContext(VideosContext);
   const { videoId } = useParams();
   const navigate = useNavigate();
 
+  const [isOpen, setIsOpen] = useState(false);
+  // const [instructorId, setInstructorId] = useState("");
+  // const [instructorName, setInstructorName] = useState("");
+  // const [style, setStyle] = useState("");
+  // const [level, setLevel] = useState("");
+  // const [videoURL, setVideoURL] = useState("");
+
   // FIX THIS LOGIC
+
+  // EDIT Video - PUT request
+  // useEffect(() => {
+  //   setInstructorId(video.instructor_id);
+  //   setInstructorName(video.instructor_name);
+  //   setStyle(video.style);
+  //   setLevel(video.level);
+  //   setVideoURL(video.videoURL);
+  // }, []);
+
+  // function handleClick() {
+  //   setIsOpen(!isOpen);
+  // }
 
   async function handleSave(videoId) {
     try {
@@ -29,20 +46,31 @@ export default function VideoCard() {
     }
   }
 
-  // EDIT Video - PUT request
-  const handleEdit = async () => {
-    console.log("edit me");
+  const handleDelete = async (videoId) => {
+    try {
+      const result = await deleteVideo(videoId);
+      console.log("deleted video: ", result);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  // const handleUpdateVideo = async (updatedVideo) => {
-  //   try {
-  //     const result = await editVideo(updatedVideo);
-  //     console.log(result);
-  //     const updatedVideos = await fetchVideosWithInstructorName();
-  //     setVideos(updatedVideos || []);
-  //   } catch (error) {
-  //     console.error(error);
+  // const handleEdit = (e) => {
+  //   e.preventDefault();
+  //   console.log("edit me");
+
+  //   async function editVideo() {
+  //     const updatedVideo = {
+  //       instructorId,
+  //       instructorName,
+  //       style,
+  //       level,
+  //       videoURL,
+  //     };
+  //     const newVideo = await editVideo(videoId, updatedVideo);
+  //     return newVideo;
   //   }
+  //   editVideo();
   // };
 
   // Return to all videos
@@ -70,15 +98,78 @@ export default function VideoCard() {
       ></iframe>
 
       {/* Buttons to save, delete, edit/update, return to all videos */}
-      <div className="edit-video-form">
-        <EditVideo />
-      </div>
 
       <div>
         <button onClick={handleSave}>Save me</button>
-        <button onClick={() => deleteVideo(videoId)}>Delete me</button>
+        <button onClick={() => navigate(`/allvideos/${videoId}/update`)}>
+          Edit me
+        </button>
+        <button onClick={() => handleDelete(videoId)}>Delete me</button>
         <button onClick={handleReturnToVideos}>Return to All Classes</button>
       </div>
+
+      {/* EDIT VIDEO FORM*/}
+
+      {/* <div className="edit-video-form">
+        <button onClick={handleClick} className="edit-button">
+          Edit Class
+        </button>
+        {isOpen && (
+          <form onSubmit={handleEdit}>
+            <h4>Edit Your Class</h4>
+            <div className="form-row">
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Instructor Id"
+                  value={instructorId}
+                  onChange={(event) => setInstructorId(event.target.value)}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Instructor Name"
+                  value={instructorName}
+                  onChange={(event) => setInstructorName(event.target.value)}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Style"
+                  value={style}
+                  onChange={(event) => setStyle(event.target.value)}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Level"
+                  value={level}
+                  onChange={(event) => setLevel(event.target.value)}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Video URL"
+                  value={videoURL}
+                  onChange={(event) => setVideoURL(event.target.value)}
+                />
+              </div>
+            </div>
+            <button type="submit">
+              {isOpen ? "Save Changes" : "Edit Details"}
+            </button>
+          </form>
+        )}
+        </div>*/}
     </div>
   );
 }
