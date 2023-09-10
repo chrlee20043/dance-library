@@ -108,7 +108,7 @@ const updateVideoClass = async (videoId, updatedFields) => {
       updatedFields;
     const query = `
       UPDATE videoclasses
-      SET instructor_id = $2, style = $3, level = $4, "videoURL" = $5
+      SET instructor_id = $2, instructor_name = $3, style = $4, level = $5, "videoURL" = $6
       WHERE video_id = $1
       RETURNING *;
     `;
@@ -122,11 +122,12 @@ const updateVideoClass = async (videoId, updatedFields) => {
       videoURL,
     ]);
 
-    if (rows && rows.length > 0) {
-      return rows[0];
-    } else {
-      return null;
-    }
+    // if (rows && rows.length > 0) {
+    //   return rows[0];
+    // } else {
+    //   return null;
+    // }
+    return rows;
   } catch (error) {
     throw error;
   }
