@@ -4,6 +4,74 @@
 
 const baseURL = "http://localhost:8080/api";
 
+// USERS QUERIES
+
+// Register user
+
+async function registerNewUser(username, password, name) {
+  try {
+    console.log("are we hitting fetching.js");
+    const response = await fetch(`${baseURL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+        name,
+      }),
+    });
+    console.log("this is my response:", response);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Please enter valid credentials", error);
+  }
+}
+
+// Login user
+async function loginToAccount(username, password) {
+  try {
+    const response = await fetch(`${baseURL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password,
+        },
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Retrieve my videos
+
+async function myUserData() {
+  try {
+    const response = await fetch(`${baseURL}/users/myprofile`, {
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// VIDEOCLASSES QUERIES
+
 // fetch all videos
 
 async function fetchAllVideos() {
@@ -45,70 +113,6 @@ async function fetchSingleVideo(videoId) {
     console.error("cannot get single video", error);
   }
 }
-
-// Register user
-
-async function registerNewUser(username, password, name) {
-  try {
-    const response = await fetch(`${baseURL}/users/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          username,
-          password,
-          name,
-        },
-      }),
-    });
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error("Please enter valid credentials", error);
-  }
-}
-
-// Login user
-async function loginToAccount(username, password) {
-  try {
-    const response = await fetch(`${baseURL}/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          username,
-          password,
-        },
-      }),
-    });
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-//   // Retrieve my videos
-
-//   async function myProfile() {
-//     try {
-//       const response = await fetch(`${baseURL}/users/myprofile`, {
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-//       const result = await response.json();
-//       console.log(result);
-//       return result;
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
 
 //   // Submit a new video
 
@@ -201,6 +205,7 @@ export {
   fetchSingleVideo,
   registerNewUser,
   loginToAccount,
+  myUserData,
   addVideoClass,
   deleteVideo,
   editVideo,

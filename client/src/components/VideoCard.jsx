@@ -77,6 +77,7 @@ export default function VideoCard() {
           </button>
         </div>
       </div>
+
       {/* EditVideo form */}
 
       <div id="editing-card">

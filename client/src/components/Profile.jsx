@@ -1,17 +1,43 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { myUserData } from "../helpers/fetching";
 import VideoCard from "./VideoCard";
 import { VideosContext } from "../context/VideosContext";
 
 export default function Profile({ video }) {
   const { videos } = useContext(VideosContext);
+  const [user, setUser] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchUserData() {
+      // if (!authToken) {
+      //   setError("No authentication token available");
+      //   return;
+
+      try {
+        const myAPIData = await myUserData();
+        console.log("Response from myData API:", myAPIData);
+
+        // setUserPosts(myAPIData.data.posts || []);
+        // setUserMessages(myAPIData.data.messages || []);
+      } catch (error) {
+        setError("An error occurred while fetching user data");
+        console.error(error);
+      }
+    }
+
+    fetchUserData();
+  }, []);
 
   return (
     <div>
       <ul>See your saved classes here</ul>
       <p>Account info(subscription & user info)</p>
+      <p>{user.name}</p>
+      <p>{user.username}</p>
     </div>
   );
 }

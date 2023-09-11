@@ -14,19 +14,17 @@ function App() {
   return (
     <>
       <VideosContextProvider>
-        <div>
-          <Navbar />
-        </div>
-        <div className="main-container">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/myprofile" element={<Profile />} />
-            <Route path="/allvideos" element={<AllVideos />} />
-            <Route path="/allvideos/:videoId" element={<SingleVideo />} />
-          </Routes>
-        </div>
+        <Navbar />
+        <Routes>
+          {/* <div className="main-container"> */}
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/myprofile" element={<Profile />} />
+          <Route path="/allvideos" element={<AllVideos />} />
+          <Route path="/allvideos/:videoId" element={<SingleVideo />} />
+          {/* </div> */}
+        </Routes>
       </VideosContextProvider>
     </>
   );

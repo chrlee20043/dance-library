@@ -1,8 +1,16 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
+
+  const handleRegister = () => {
+    navigate("/register");
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <div>
@@ -14,13 +22,13 @@ export default function Home() {
       <p>
         {/* <Register />
         <Login /> */}
-        <Link to="register">
-          <button className="home-page-button">Register</button>
-        </Link>{" "}
+        <button onClick={handleRegister} className="home-page-button">
+          Register
+        </button>{" "}
         or{" "}
-        <Link to="/login">
-          <button className="home-page-button">Login</button>
-        </Link>
+        <button onClick={handleLogin} className="home-page-button">
+          Login
+        </button>
       </p>
     </div>
   );

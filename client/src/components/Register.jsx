@@ -15,12 +15,13 @@ export default function Register() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const result = await registerNewUser({ username, password, name });
+      const result = await registerNewUser(username, password, name);
       console.log("user: ", result);
-      setName("");
-      setUsername("");
-      setPassword("");
-      setRegistered(true);
+      // setName("");
+      // setUsername("");
+      // setPassword("");
+      // setRegistered(true);
+      return result;
     } catch (error) {
       setError("Please provide valid credentials");
       console.error(error);

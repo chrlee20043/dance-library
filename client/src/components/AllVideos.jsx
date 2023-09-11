@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import { fetchVideosWithInstructorName } from "../helpers/fetching";
+// import {  useNavigate } from "react-router-dom";
 import { fetchAllVideos } from "../helpers/fetching";
 import VideoListName from "./VideoListName";
 import AddNewVideo from "./AddNewVideo";
@@ -12,7 +11,7 @@ export default function AllVideos() {
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const renderVideos = async () => {
     try {
