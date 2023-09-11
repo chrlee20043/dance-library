@@ -10,6 +10,8 @@ export default function VideoCard() {
   const { videoId } = useParams();
   const navigate = useNavigate();
 
+  // const [isEditing, setIsEditing] = useState(false);
+
   // const [isOpen, setIsOpen] = useState(false);
 
   async function handleSave(videoId) {
@@ -42,37 +44,44 @@ export default function VideoCard() {
 
   return (
     // View single video class
+    <div>
+      <div id="single-video-container">
+        <h3>{selectedVideo.instructor_name}</h3>
+        <img src={selectedVideo.imageURL}></img>
+        <h4>{selectedVideo.instructorBio}</h4>
+        <p>Style: {selectedVideo.style}</p>
+        <p>Level: {selectedVideo.level}</p>
+        <iframe
+          width="560"
+          height="315"
+          src={selectedVideo.videoURL}
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+        {/* <div className="editing-video-form">
+        <EditVideo />
+      </div> */}
+        {/* Buttons to save, delete, edit/update, return to all videos */}
 
-    <div id="single-video-container">
-      <h3>{selectedVideo.instructor_name}</h3>
-      <img src={selectedVideo.imageURL}></img>
-      <h4>{selectedVideo.instructorBio}</h4>
-      <p>Style: {selectedVideo.style}</p>
-      <p>Level: {selectedVideo.level}</p>
-      <iframe
-        // width="560"
-        // height="315"
-        src={selectedVideo.videoURL}
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      ></iframe>
-      <div className="editing-video-form">
+        <button className="card-button" onClick={handleSave}>
+          Save me
+        </button>
+
+        <button className="card-button" onClick={() => handleDelete(videoId)}>
+          Delete me
+        </button>
+        <button className="card-button" onClick={handleReturnToVideos}>
+          Return to All Classes
+        </button>
+      </div>
+
+      {/* EditVideo form */}
+
+      <div>
         <EditVideo />
       </div>
-      {/* Buttons to save, delete, edit/update, return to all videos */}
-
-      <button className="card-button" onClick={handleSave}>
-        Save me
-      </button>
-
-      <button className="card-button" onClick={() => handleDelete(videoId)}>
-        Delete me
-      </button>
-      <button className="card-button" onClick={handleReturnToVideos}>
-        Return to All Classes
-      </button>
     </div>
   );
 }

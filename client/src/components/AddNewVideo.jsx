@@ -91,7 +91,9 @@ export default function AddNewVideo() {
             />
           </div>
         </div>
-        <button type="submit">Submit</button>
+        <button className="card-button" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

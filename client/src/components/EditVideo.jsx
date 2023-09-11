@@ -50,7 +50,7 @@ export default function EditVideo() {
         videoURL,
       };
       try {
-        console.log("editing video result: ", updatedVideo);
+        // console.log("editing video result: ", updatedVideo);
         const editedVideo = await editVideo(
           videoId,
           updatedVideo.instructorId,
@@ -73,7 +73,7 @@ export default function EditVideo() {
       {/* EDIT FORM! */}
       <div className="edit-video-form">
         <button className="card-button" onClick={handleClick}>
-          Edit Class
+          {isOpen ? "Cancel" : "Edit Details"}
         </button>
         {isOpen && (
           <form onSubmit={handleEdit}>
@@ -116,8 +116,8 @@ export default function EditVideo() {
                 />
               </div> */}
             </div>
-            <button type="submit">
-              {isOpen ? "Save Changes" : "Edit Details"}
+            <button className="card-button" type="submit">
+              Save Changes
             </button>
           </form>
         )}
