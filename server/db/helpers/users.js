@@ -2,24 +2,24 @@ const client = require("../client");
 
 // POST - register user
 
-// const registerUser = async ({ username, password, name }) => {
-//   try {
-//     const {
-//       rows: [user],
-//     } = await client.query(
-//       `
-//       INSERT INTO users(username, password, name)
-//       VALUES($1, $2, $3)
-//       RETURNING *;
-//     `,
-//       [username, password, name]
-//     );
-//     console.log(user);
-//     return user;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+const registerNewUser = async ({ username, password, name }) => {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      INSERT INTO users(username, password, name)
+      VALUES($1, $2, $3)
+      RETURNING *;
+    `,
+      [username, password, name]
+    );
+    console.log(user);
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // POST - login user
 
@@ -38,6 +38,8 @@ const loginUser = async ({ username, password }) => {
     throw error;
   }
 };
+
+//  - logout user
 
 // Query to create a user
 
@@ -162,6 +164,7 @@ const deleteUser = async (userId) => {
 };
 
 module.exports = {
+  registerNewUser,
   loginUser,
   createUser,
   getAllUsers,

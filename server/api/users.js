@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
+  registerNewUser,
   loginUser,
   createUser,
   getAllUsers,
@@ -36,6 +37,17 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+// POST - api/users/register - register an account
+
+router.post("/register", async (req, res, next) => {
+  try {
+    const newUser = await registerNewUser(req.body);
+    res.send(newUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // POST - api/users/login - log in to your account
 
 router.post("/login", async (req, res, next) => {
@@ -48,7 +60,9 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-// POST - /api/users - add new user (including registration)
+//  - api/users/logout - logout of account
+
+// POST - /api/users - add new user
 
 router.post("/", async (req, res, next) => {
   try {

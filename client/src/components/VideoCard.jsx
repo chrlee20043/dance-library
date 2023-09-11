@@ -44,8 +44,8 @@ export default function VideoCard() {
 
   return (
     // View single video class
-    <div>
-      <div id="single-video-container">
+    <div id="single-video-container">
+      <div id="single-video-card">
         <h3>{selectedVideo.instructor_name}</h3>
         <img src={selectedVideo.imageURL}></img>
         <h4>{selectedVideo.instructorBio}</h4>
@@ -64,22 +64,22 @@ export default function VideoCard() {
         <EditVideo />
       </div> */}
         {/* Buttons to save, delete, edit/update, return to all videos */}
+        <div className="edit-button-container">
+          <button className="card-button" onClick={handleSave}>
+            Save me
+          </button>
 
-        <button className="card-button" onClick={handleSave}>
-          Save me
-        </button>
-
-        <button className="card-button" onClick={() => handleDelete(videoId)}>
-          Delete me
-        </button>
-        <button className="card-button" onClick={handleReturnToVideos}>
-          Return to All Classes
-        </button>
+          <button className="card-button" onClick={() => handleDelete(videoId)}>
+            Delete me
+          </button>
+          <button className="card-button" onClick={handleReturnToVideos}>
+            Return to All Classes
+          </button>
+        </div>
       </div>
-
       {/* EditVideo form */}
 
-      <div>
+      <div id="editing-card">
         <EditVideo />
       </div>
     </div>

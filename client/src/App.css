@@ -169,15 +169,12 @@ body {
 
 #video-card-container {
   display: inline-block;
-  /* flex-direction: row;
-  justify-content: center;
-  align-items: center; */
+
   margin-left: auto;
   margin-right: 10px;
   margin-top: 10px;
   border-radius: 5px;
   background-color: rgb(219, 206, 219);
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, .5); */
   padding: 1em;
 }
 
@@ -193,7 +190,7 @@ img {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   color: rgb(69, 2, 69);
   background-color: rgb(219, 206, 219);
   /* box-shadow: 0 5px 15px rgba(157, 93, 172, 0.5); */

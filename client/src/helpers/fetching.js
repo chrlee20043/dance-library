@@ -50,16 +50,16 @@ async function fetchSingleVideo(videoId) {
 
 async function registerNewUser(username, password, name) {
   try {
-    const response = await fetch(`${baseURL}/users`, {
+    const response = await fetch(`${baseURL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user: {
-          username: `${username}`,
-          password: `${password}`,
-          name: `${name}`,
+          username,
+          password,
+          name,
         },
       }),
     });
@@ -80,8 +80,8 @@ async function loginToAccount(username, password) {
       },
       body: JSON.stringify({
         user: {
-          username: `${username}`,
-          password: `${password}`,
+          username,
+          password,
         },
       }),
     });

@@ -11,6 +11,7 @@ export default function Profile({ video }) {
   return (
     <div>
       <ul>See your saved classes here</ul>
+      <p>Account info(subscription & user info)</p>
     </div>
   );
 }
