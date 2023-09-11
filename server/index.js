@@ -2,6 +2,10 @@ const express = require("express");
 const app = express();
 const PORT = 8080;
 
+// init cookie parser
+const cookieParser = require("cookie-parser");
+app.use(cookieParser("secret"));
+
 const client = require("./db/client");
 // Connect to client
 client.connect();

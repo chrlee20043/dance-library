@@ -1,3 +1,7 @@
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET, COOKIE_SECRET } = require("../secrets");
+const SALT_ROUNDS = 10;
 const express = require("express");
 const router = express.Router();
 
@@ -39,10 +43,41 @@ router.get("/:userId", async (req, res, next) => {
 
 // POST - api/users/register - register an account
 
+// router.post("/register", async (req, res, next) => {
+//   try {
+//     const newUser = await registerNewUser(req.body);
+//     res.send(newUser);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 router.post("/register", async (req, res, next) => {
   try {
-    const newUser = await registerNewUser(req.body);
-    res.send(newUser);
+    console.log(req.body);
+    const { username, password, name } = req.body;
+    console.log(typeof password);
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    console.log(hashedPassword);
+    const user = await registerNewUser({
+      username,
+      password: hashedPassword,
+      name,
+    });
+    console.log(user);
+    delete user.password;
+
+    const token = jwt.sign(user, JWT_SECRET);
+
+    res.cookie("token", token, {
+      sameSite: "strict",
+      httpOnly: true,
+      signed: true,
+    });
+
+    delete user.password;
+
+    res.send({ user });
   } catch (error) {
     next(error);
   }
