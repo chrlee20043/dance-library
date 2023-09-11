@@ -12,7 +12,15 @@ export default function Home() {
         skills!
       </p>
       <p>
-        <Link to="/login">Login</Link> or <Link to="register">Register</Link>
+        {/* <Register />
+        <Login /> */}
+        <Link to="register">
+          <button className="home-page-button">Register</button>
+        </Link>{" "}
+        or{" "}
+        <Link to="/login">
+          <button className="home-page-button">Login</button>
+        </Link>
       </p>
     </div>
   );

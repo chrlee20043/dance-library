@@ -57,11 +57,13 @@ export default function Login() {
           name="password"
           required
         />
-        <button type="submit">Log in</button>
+        <button className="form-button" type="submit">
+          Log in
+        </button>
       </form>
       <button
         type="button"
-        className="link-btn"
+        className="link-button"
         onClick={() => navigate("/register")}
       >
         Don't have an account? Register here.

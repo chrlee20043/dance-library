@@ -69,12 +69,12 @@ export default function Register() {
           placeholder="********"
           required
         />
-        <button className="link-btn" type="submit">
+        <button className="form-button" type="submit">
           Register
         </button>
       </form>
 
-      <button className="link-btn" onClick={() => navigate("/login")}>
+      <button className="link-button" onClick={() => navigate("/login")}>
         Already have an account? Login here.
       </button>
     </div>

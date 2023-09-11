@@ -34,6 +34,7 @@ export default function VideoListName({ video }) {
         allowFullScreen
       ></iframe>
       <button
+        className="card-button"
         onClick={() => {
           navigate(`/allvideos/${video.video_id}`);
         }}

@@ -143,36 +143,6 @@ async function addVideoClass(
   }
 }
 
-// async function addVideoClass(
-//   instructor_id,
-//   instructor_name,
-//   style,
-//   level,
-//   videoURL
-// ) {
-//   try {
-//     const response = await fetch(`${baseURL}/videoclasses`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         instructor_id,
-//         instructor_name,
-//         style,
-//         level,
-//         videoURL,
-//       }),
-//     });
-//     // console.log(response)
-//     const result = await response.json();
-//     console.log("fetching added videos", result);
-//     return result;
-//   } catch (error) {
-//     console.error(`You cannot create me`, error);
-//   }
-// }
-
 //   // DELETE a video from my list
 
 async function deleteVideo(videoId) {
@@ -194,17 +164,26 @@ async function deleteVideo(videoId) {
 
 //   // Edit video from my list
 
-async function editVideo(videoId, instructor_name, style, level) {
+async function editVideo(
+  videoId,
+  instructor_id,
+  instructor_name,
+  style,
+  level,
+  videoURL
+) {
   try {
-    const response = await fetch(`${baseURL}//videoclasses/${videoId}`, {
+    const response = await fetch(`${baseURL}/videoclasses/${videoId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        instructor_id,
         instructor_name,
         style,
         level,
+        videoURL,
       }),
     });
     const result = await response.json();
