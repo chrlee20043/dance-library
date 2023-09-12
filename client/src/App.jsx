@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-// import { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Home from "./components/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
@@ -11,6 +11,8 @@ import Login from "./components/Login";
 import { VideosContextProvider } from "./context/VideosContext";
 
 function App() {
+  const [token, setToken] = useState(null);
+
   return (
     <>
       <VideosContextProvider>
@@ -18,11 +20,14 @@ function App() {
         <Routes>
           {/* <div className="main-container"> */}
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/myprofile" element={<Profile />} />
-          <Route path="/allvideos" element={<AllVideos />} />
-          <Route path="/allvideos/:videoId" element={<SingleVideo />} />
+          <Route path="/register" element={<Register setToken={setToken} />} />
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/myprofile" element={<Profile token={token} />} />
+          <Route path="/allvideos" element={<AllVideos token={token} />} />
+          <Route
+            path="/allvideos/:videoId"
+            element={<SingleVideo token={token} />}
+          />
           {/* </div> */}
         </Routes>
       </VideosContextProvider>

@@ -4,7 +4,7 @@ import { useState, useContext } from "react";
 import { addVideoClass, fetchAllVideos } from "../helpers/fetching";
 import { VideosContext } from "../context/VideosContext";
 
-export default function AddNewVideo() {
+export default function AddNewVideo({ token }) {
   const { setVideos, addVideos } = useContext(VideosContext);
 
   const [instructorId, setInstructorId] = useState("");
@@ -20,6 +20,7 @@ export default function AddNewVideo() {
     e.preventDefault();
     async function makeAVideo() {
       const result = await addVideoClass(
+        token,
         instructorId,
         instructorName,
         style,

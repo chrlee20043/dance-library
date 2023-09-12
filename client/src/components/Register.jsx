@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 import { createUser } from "../helpers/fetching";
 
-export default function Register() {
+export default function Register({ setToken }) {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -15,13 +14,15 @@ export default function Register() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const result = await createUser(username, password, name);
-      console.log("user: ", result);
+      const register = await createUser(username, password, name);
+      console.log("user: ", register);
+      setToken(register);
+      // console.log(register.token);
       setName("");
       setUsername("");
       setPassword("");
       setRegistered(true);
-      return result;
+      return register;
     } catch (error) {
       setError("Please provide valid credentials");
       console.error(error);

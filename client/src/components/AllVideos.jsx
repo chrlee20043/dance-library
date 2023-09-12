@@ -6,7 +6,7 @@ import VideoListName from "./VideoListName";
 import AddNewVideo from "./AddNewVideo";
 import { VideosContext } from "../context/VideosContext";
 
-export default function AllVideos() {
+export default function AllVideos({ token }) {
   const { videos, setVideos } = useContext(VideosContext);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
@@ -52,7 +52,7 @@ export default function AllVideos() {
       {error && <p>{error}</p>}
       <h1>Classes</h1>
       <div className="new-video-container">
-        <AddNewVideo />
+        <AddNewVideo token={token} />
       </div>
       <div className="all-videos-container">
         {videosToDisplay.map((video) => (

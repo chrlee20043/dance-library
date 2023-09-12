@@ -5,6 +5,7 @@ const authRequired = (req, res, next) => {
   const token = req.signedCookies.token;
   console.log("Cookie Token:", token);
   try {
+    // verify token and secret, make sure token is valid
     jwt.verify(token, JWT_SECRET);
   } catch (error) {
     res.status(401).send({
@@ -13,6 +14,7 @@ const authRequired = (req, res, next) => {
     });
     return;
   }
+  // allows server to keep running
   next();
 };
 

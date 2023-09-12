@@ -10,7 +10,7 @@ const baseURL = "http://localhost:8080/api";
 
 async function createUser(username, password, name) {
   try {
-    const response = await fetch(`${baseURL}/users/register`, {
+    const response = await fetch(`${baseURL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,6 +22,7 @@ async function createUser(username, password, name) {
       }),
     });
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.error("Please enter valid credentials", error);
@@ -32,7 +33,7 @@ async function createUser(username, password, name) {
 async function loginToAccount(username, password) {
   try {
     console.log("fetching log in");
-    const response = await fetch(`${baseURL}/users/login`, {
+    const response = await fetch(`${baseURL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,14 +51,14 @@ async function loginToAccount(username, password) {
   }
 }
 
-// Retrieve my videos
+// Retrieve my videos - video objects made by user
 
-async function myUserData() {
+async function myUserData(token) {
   try {
-    const response = await fetch(`${baseURL}/users/myprofile`, {
+    const response = await fetch(`${baseURL}/myprofile`, {
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const result = await response.json();
@@ -115,6 +116,7 @@ async function fetchSingleVideo(videoId) {
 //   // Submit a new video
 
 async function addVideoClass(
+  token,
   instructor_id,
   instructor_name,
   style,
@@ -127,6 +129,7 @@ async function addVideoClass(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         instructor_id,
@@ -147,12 +150,13 @@ async function addVideoClass(
 
 //   // DELETE a video from my list
 
-async function deleteVideo(videoId) {
+async function deleteVideo(videoId, token) {
   try {
     const response = await fetch(`${baseURL}/videoclasses/${videoId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     console.log(response);
@@ -167,6 +171,7 @@ async function deleteVideo(videoId) {
 //   // Edit video from my list
 
 async function editVideo(
+  token,
   videoId,
   instructor_id,
   instructor_name,
@@ -179,6 +184,7 @@ async function editVideo(
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         instructor_id,

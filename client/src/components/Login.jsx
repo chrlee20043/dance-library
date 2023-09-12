@@ -1,14 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { loginToAccount } from "../helpers/fetching";
 
-export default function Login() {
+export default function Login({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
+  // const { userId } = useParams();
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
@@ -26,17 +27,17 @@ export default function Login() {
         );
         console.log("logged in user:", loginData);
 
-        if (loginData && loginData.success) {
-          setSuccessMessage(true);
-          setUsername("");
-          setPassword("");
-          // navigate(`/myprofile/${id}`);
-        } else {
-          setSuccessMessage("");
-          setError("Please try again or register for an account");
-          console.log("need to register");
-        }
-        return loginData;
+        setToken(loginData);
+        setSuccessMessage(true);
+        setUsername("");
+        setPassword("");
+        navigate("/myprofile/");
+
+        // setSuccessMessage("");
+        // setError("Please try again or register for an account");
+        // console.log("need to register");
+
+        // return loginData;
       } catch (error) {
         console.error(error);
       }

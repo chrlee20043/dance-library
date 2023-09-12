@@ -19,6 +19,8 @@ router.use("/videoclasses", require("./videoClasses"));
 
 router.use("/subscriptions", require("./subscriptions"));
 
-// router.use("/auth", require("./auth"));
+// ROUTER: /api/auth
+
+router.use("/auth", require("./auth"));
 
 module.exports = router;
