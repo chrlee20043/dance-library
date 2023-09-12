@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/myprofile" element={<Profile />} />
+          <Route path="/myprofile/:userId" element={<Profile />} />
           <Route path="/allvideos" element={<AllVideos />} />
           <Route path="/allvideos/:videoId" element={<SingleVideo />} />
           {/* </div> */}

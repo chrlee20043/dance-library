@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Navbar() {
+  const { userId } = useParams();
+
   return (
     <div id="navbar">
       {/* <h1 id="navbar-title">My Dance Studio</h1> */}
@@ -44,7 +46,7 @@ export default function Navbar() {
               <Link to="/">HOME</Link>
             </li>
             <li>
-              <Link to="/myprofile">PROFILE</Link>
+              <Link to={`/myprofile/${userId}`}>PROFILE</Link>
             </li>
             <li>
               <Link to="/allvideos">CLASSES</Link>

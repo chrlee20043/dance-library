@@ -31,7 +31,7 @@ async function createUser(username, password, name) {
 // Login user
 async function loginToAccount(username, password) {
   try {
-    console.log("fetching log in");
+    // console.log("fetching log in");
     const response = await fetch(`${baseURL}/users/login`, {
       method: "POST",
       headers: {
@@ -42,7 +42,7 @@ async function loginToAccount(username, password) {
         password: `${password}`,
       }),
     });
-    console.log("this is my fetched response: ", response);
+    // console.log("this is my fetched response: ", response);
     const result = await response.json();
     return result;
   } catch (error) {

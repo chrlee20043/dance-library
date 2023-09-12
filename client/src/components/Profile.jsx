@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { myUserData } from "../helpers/fetching";
-import VideoCard from "./VideoCard";
+// import VideoCard from "./VideoCard";
 import { VideosContext } from "../context/VideosContext";
 
 export default function Profile({ video }) {
