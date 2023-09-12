@@ -25,6 +25,7 @@ const registerNewUser = async ({ username, password, name }) => {
 
 const loginUser = async ({ username, password }) => {
   try {
+    console.log("are we hitting fetching");
     const {
       rows: [user],
     } = await client.query(`
@@ -33,6 +34,7 @@ const loginUser = async ({ username, password }) => {
       WHERE username=${username}
       AND password=${password}
     `);
+    console.log(user);
     return user;
   } catch (error) {
     throw error;
@@ -94,6 +96,24 @@ const getUserById = async (userId) => {
       WHERE user_id = ${userId};
     `);
     return users;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getUserByUsername = async (username) => {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      SELECT *
+      FROM users
+      WHERE username = $1;
+    `,
+      [username]
+    );
+    return user;
   } catch (error) {
     throw error;
   }
@@ -169,6 +189,7 @@ module.exports = {
   createUser,
   getAllUsers,
   getUserById,
+  getUserByUsername,
   updateUser,
   deleteUser,
 };

@@ -8,9 +8,8 @@ const baseURL = "http://localhost:8080/api";
 
 // Register user
 
-async function registerNewUser(username, password, name) {
+async function createUser(username, password, name) {
   try {
-    console.log("are we hitting fetching.js");
     const response = await fetch(`${baseURL}/users/register`, {
       method: "POST",
       headers: {
@@ -22,7 +21,6 @@ async function registerNewUser(username, password, name) {
         name,
       }),
     });
-    console.log("this is my response:", response);
     const result = await response.json();
     return result;
   } catch (error) {
@@ -33,18 +31,18 @@ async function registerNewUser(username, password, name) {
 // Login user
 async function loginToAccount(username, password) {
   try {
+    console.log("fetching log in");
     const response = await fetch(`${baseURL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: {
-          username,
-          password,
-        },
+        username: `${username}`,
+        password: `${password}`,
       }),
     });
+    console.log("this is my fetched response: ", response);
     const result = await response.json();
     return result;
   } catch (error) {
@@ -203,7 +201,7 @@ export {
   fetchAllVideos,
   fetchVideosWithInstructorName,
   fetchSingleVideo,
-  registerNewUser,
+  createUser,
   loginToAccount,
   myUserData,
   addVideoClass,

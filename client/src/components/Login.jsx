@@ -11,27 +11,38 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  async function handleLogin(event) {
+  const handleLogin = (event) => {
     console.log("log in");
     event.preventDefault();
-    try {
-      const response = await loginToAccount({ username, password });
-      console.log("logged in user:", response);
+    async function loggingInUser() {
+      const userInfo = {
+        username,
+        password,
+      };
+      try {
+        const loginData = await loginToAccount(
+          userInfo.username,
+          userInfo.password
+        );
+        console.log("logged in user:", loginData);
 
-      if (response) {
-        setSuccessMessage(true);
-        setUsername("");
-        setPassword("");
-        navigate(`/myprofile/${id}`);
-      } else {
-        setSuccessMessage("");
-        setError("Please try again or register for an account");
-        console.log("need to register");
+        if (loginData && loginData.success) {
+          setSuccessMessage(true);
+          setUsername("");
+          setPassword("");
+          // navigate(`/myprofile/${id}`);
+        } else {
+          setSuccessMessage("");
+          setError("Please try again or register for an account");
+          console.log("need to register");
+        }
+        return loginData;
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
-  }
+    loggingInUser();
+  };
 
   return (
     <div>

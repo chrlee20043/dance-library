@@ -11,6 +11,7 @@ const {
   createUser,
   getAllUsers,
   getUserById,
+  getUserByUsername,
   updateUser,
   deleteUser,
 } = require("../db/helpers/users");
@@ -59,7 +60,7 @@ router.post("/register", async (req, res, next) => {
     console.log(typeof password);
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     console.log(hashedPassword);
-    const user = await registerNewUser({
+    const user = await createUser({
       username,
       password: hashedPassword,
       name,
@@ -88,14 +89,55 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const loggedInUser = await loginUser(username, password);
-    res.send({ loggedInUser });
+    console.log({ username, password });
+    const user = await getUserByUsername(username);
+    console.log(user);
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (validPassword) {
+      const token = jwt.sign(user, JWT_SECRET);
+
+      res.cookie("token", token, {
+        sameSite: "strict",
+        httpOnly: true,
+        signed: true,
+      });
+
+      delete user.password;
+
+      res.send({ user });
+    }
   } catch (error) {
     next(error);
   }
 });
 
+// router.post("/login", async (req, res, next) => {
+//   try {
+//     const { username, password } = req.body;
+//     const loggedInUser = await loginUser(username, password);
+//     res.send({ loggedInUser });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 //  - api/users/logout - logout of account
+router.post("/logout", async (req, res, next) => {
+  try {
+    res.clearCookie("token", {
+      sameSite: "strict",
+      httpOnly: true,
+      signed: true,
+    });
+    res.send({
+      loggedIn: false,
+      message: "Logged Out",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // POST - /api/users - add new user
 
