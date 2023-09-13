@@ -5,7 +5,7 @@ import { myUserData } from "../helpers/fetching";
 import VideoCard from "./VideoCard";
 import { VideosContext } from "../context/VideosContext";
 
-export default function Profile(token) {
+export default function Profile({ token }) {
   const { videos } = useContext(VideosContext);
   const [user, setUser] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +16,8 @@ export default function Profile(token) {
     async function fetchUserData() {
       try {
         const myAPIData = await myUserData(token);
-        console.log("Response from myData API:", myAPIData);
+        console.log("Response from my user data:", myAPIData);
+        setUser(myAPIData);
       } catch (error) {
         setError("An error occurred while fetching user data");
         console.error(error);
@@ -31,6 +32,10 @@ export default function Profile(token) {
 
   return (
     <div>
+      <h1>Account info(subscription & user info)</h1>
+      {/* <h2>Welcome {user.name}</h2>
+      <p>{user.username}</p> */}
+
       <h2>My Saved Classes</h2>
       {videos
         .filter((video) => video.video_id)
@@ -53,10 +58,4 @@ export default function Profile(token) {
         })}
     </div>
   );
-}
-
-{
-  /* <p>Account info(subscription & user info)</p>
-      <p>{user.name}</p>
-      <p>{user.username}</p>*/
 }

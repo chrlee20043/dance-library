@@ -13,7 +13,7 @@ export default function Login({ setToken }) {
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
-    console.log("log in");
+    // console.log("log in");
     event.preventDefault();
     async function loggingInUser() {
       const userInfo = {
@@ -31,7 +31,7 @@ export default function Login({ setToken }) {
         setSuccessMessage(true);
         setUsername("");
         setPassword("");
-        navigate("/myprofile/");
+        navigate("/myprofile");
 
         // setSuccessMessage("");
         // setError("Please try again or register for an account");
@@ -51,6 +51,7 @@ export default function Login({ setToken }) {
         <h2>Login</h2>
         <label className="label">Username</label>
         <input
+          autoFocus
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           type="text"

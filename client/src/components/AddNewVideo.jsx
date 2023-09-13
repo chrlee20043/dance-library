@@ -57,6 +57,7 @@ export default function AddNewVideo({ token }) {
           </div>
           <div className="col">
             <input
+              id="instructor-name"
               type="text"
               className="form-control"
               placeholder="Instructor Name"
@@ -66,6 +67,7 @@ export default function AddNewVideo({ token }) {
           </div>
           <div className="col">
             <input
+              id="style"
               type="text"
               className="form-control"
               placeholder="Style"

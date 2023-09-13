@@ -44,6 +44,7 @@ export default function AllVideos({ token }) {
           <input
             type="text"
             placeholder="search by instructor, style or level"
+            id="search-input"
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
