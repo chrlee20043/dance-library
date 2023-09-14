@@ -15,8 +15,6 @@ const {
   getUserByToken,
 } = require("../db/helpers/users");
 
-const { getVideoClassBySubmitterId } = require("../db/helpers/videoClasses");
-
 router.use(express.json());
 
 const requireToken = async (req, res, next) => {
@@ -31,7 +29,7 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-//
+// base route
 
 router.get("/", async (req, res, next) => {
   try {
@@ -115,10 +113,13 @@ router.post("/login", async (req, res, next) => {
 
 // get my profile information
 
-router.get("/myprofile/:userId", async (req, res, next) => {
+router.get("/myprofile", async (req, res, next) => {
   try {
-    const user = await getUserById(req.params.userId);
+    const { username } = req.body;
+
+    const user = await getUserByUsername(username);
     res.send(user);
+    return user;
   } catch (error) {
     next(error);
   }
@@ -142,16 +143,5 @@ router.post("/logout", async (req, res, next) => {
     next(error);
   }
 });
-
-// POST - /api/users - add new user
-
-// router.post("/", async (req, res, next) => {
-//   try {
-//     const newUser = await createUser(req.body);
-//     res.send(newUser);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 module.exports = router;

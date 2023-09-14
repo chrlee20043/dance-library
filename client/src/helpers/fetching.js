@@ -10,7 +10,7 @@ const baseURL = "http://localhost:8080/api";
 
 async function createUser(username, password, name) {
   try {
-    const response = await fetch(`${baseURL}/auth/register`, {
+    const response = await fetch(`${baseURL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ async function createUser(username, password, name) {
 async function loginToAccount(username, password) {
   try {
     // console.log("fetching log in");
-    const response = await fetch(`${baseURL}/auth/login`, {
+    const response = await fetch(`${baseURL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ async function loginToAccount(username, password) {
 
 async function logoutUser(username, password) {
   try {
-    const response = await fetch(`${baseURL}/auth/logout`, {
+    const response = await fetch(`${baseURL}/users/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,17 +78,15 @@ async function logoutUser(username, password) {
 async function myUserData(token, userId) {
   try {
     console.log("FETCHING TOKEN", token);
-    const response = await fetch(`${baseURL}/auth/myprofile/${userId}`, {
+    const response = await fetch(`${baseURL}/users/myprofile/${userId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    // if (!response.ok) {
-    //   throw new Error(`API request failed with status ${response.status}`);
-
+    console.log("my user data response: ", response);
     const result = await response.json();
-    console.log(result);
+    console.log("result from myUserData: ", result);
     return result;
   } catch (err) {
     console.error(err);

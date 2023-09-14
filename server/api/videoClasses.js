@@ -7,6 +7,7 @@ const {
   getVideoClassesWithInstructorName,
   getVideoClassByInstructorId,
   getVideoClassById,
+  getVideoClassBySubmitterId,
   updateVideoClass,
   deleteVideoClass,
 } = require("../db/helpers/videoClasses");
@@ -52,23 +53,24 @@ router.get("/:videoId", async (req, res, next) => {
 
 // GET - /api/videoClasses/:instructorId - get video by instructor id
 
-router.get("/video:instructorId", async (req, res, next) => {
-  try {
-    const videoClass = await getVideoClassByInstructorId(
-      req.params.instructorId
-    );
-    res.send(videoClass);
-  } catch (error) {
-    next(error);
-  }
-});
+// router.get("/video/:instructorId", async (req, res, next) => {
+//   try {
+//     const videoClass = await getVideoClassByInstructorId(
+//       req.params.instructorId
+//     );
+//     res.send(videoClass);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
-// GET - /api/users/myprofile - get my user data and saved videos
+// GET - /api/videoClasses/myprofile/:userId - get my user data and saved videos
 
 router.get("/myprofile/:userId", async (req, res, next) => {
   try {
-    const user = await getVideoClassBySubmitterId(req.params.userId);
-    res.send(user);
+    const videoClasses = await getVideoClassBySubmitterId(req.params.userId);
+    console.log("my user id: ", userId);
+    res.send(videoClasses);
   } catch (error) {
     next(error);
   }

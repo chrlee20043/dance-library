@@ -111,9 +111,10 @@ const getVideoClassBySubmitterId = async (userId) => {
       `
         SELECT users.user_id AS user_id, users.username AS username, videoclasses.*
         FROM users
-        JOIN videoclasses ON users.user_id = videoclasses.submitted_by WHERE videoclasses.submittedBy = $1;
-      `,
-      [userId]
+        JOIN videoclasses ON users.user_id = videoclasses.submitted_by
+        WHERE videoclasses.submitted_by = ${userId};
+      `
+      // [userId]
     );
     return videoClasses;
   } catch (error) {

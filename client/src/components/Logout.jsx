@@ -10,7 +10,12 @@ export default function Logout({ setToken }) {
   useEffect(() => {
     logoutUser();
     setToken(null);
+    navigate("/login");
   });
 
-  return <Login />;
+  return (
+    <>
+      <p>You are logged out! </p>
+    </>
+  );
 }

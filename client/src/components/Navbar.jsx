@@ -12,7 +12,7 @@ export default function Navbar({ token }) {
               <Link to="/">HOME</Link>
             </li>
             <li>
-              <Link to="/myprofile/:userId">PROFILE</Link>
+              <Link to="/myprofile">PROFILE</Link>
             </li>
             <li>{token && <Link to="/allvideos">CLASSES</Link>}</li>
             <li>

@@ -13,6 +13,8 @@ import { VideosContextProvider } from "./context/VideosContext";
 
 function App() {
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
+  localStorage.setItem("token", token);
 
   return (
     <>
@@ -21,17 +23,43 @@ function App() {
         <Routes>
           {/* <div className="main-container"> */}
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register setToken={setToken} />} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/logout" element={<Logout setToken={setToken} />} />
           <Route
-            path="/myprofile/:userId"
-            element={<Profile token={token} setToken={setToken} />}
+            path="/register"
+            element={
+              <Register
+                setToken={setToken}
+                userId={userId}
+                setUserId={setUserId}
+              />
+            }
           />
-          <Route path="/allvideos" element={<AllVideos token={token} />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                setToken={setToken}
+                userId={userId}
+                setUserId={setUserId}
+              />
+            }
+          />
+          <Route
+            path="/logout"
+            element={<Logout setToken={setToken} userId={userId} />}
+          />
+          <Route
+            path="/myprofile"
+            element={
+              <Profile token={token} setToken={setToken} userId={userId} />
+            }
+          />
+          <Route
+            path="/allvideos"
+            element={<AllVideos token={token} userId={userId} />}
+          />
           <Route
             path="/allvideos/:videoId"
-            element={<SingleVideo token={token} />}
+            element={<SingleVideo token={token} userId={userId} />}
           />
           {/* </div> */}
         </Routes>

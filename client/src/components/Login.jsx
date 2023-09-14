@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { loginToAccount } from "../helpers/fetching";
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setUserId, token }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
@@ -28,10 +28,13 @@ export default function Login({ setToken }) {
         console.log("logged in user:", response);
 
         setToken(response.token);
+        localStorage.setItem("token", token);
+        setUserId(response.user.user_id);
+        localStorage.setItem("userId", response.user.user_id);
         setSuccessMessage("you have logged in");
         setUsername("");
         setPassword("");
-        navigate(`/myprofile/${userId}`);
+        navigate("/myprofile");
       } catch (error) {
         console.error(error);
       }
