@@ -8,6 +8,7 @@ import AllVideos from "./components/AllVideos";
 import SingleVideo from "./components/SingleVideo";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import { VideosContextProvider } from "./context/VideosContext";
 
 function App() {
@@ -16,13 +17,17 @@ function App() {
   return (
     <>
       <VideosContextProvider>
-        <Navbar />
+        <Navbar token={token} />
         <Routes>
           {/* <div className="main-container"> */}
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register setToken={setToken} />} />
           <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/myprofile" element={<Profile token={token} />} />
+          <Route path="/logout" element={<Logout setToken={setToken} />} />
+          <Route
+            path="/myprofile/:userId"
+            element={<Profile token={token} setToken={setToken} />}
+          />
           <Route path="/allvideos" element={<AllVideos token={token} />} />
           <Route
             path="/allvideos/:videoId"

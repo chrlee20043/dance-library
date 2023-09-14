@@ -7,7 +7,7 @@ import { VideosContext } from "../context/VideosContext";
 
 export default function Profile({ token }) {
   const { videos } = useContext(VideosContext);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -15,26 +15,42 @@ export default function Profile({ token }) {
   useEffect(() => {
     async function fetchUserData() {
       try {
-        const myAPIData = await myUserData(token);
-        console.log("Response from my user data:", myAPIData);
-        setUser(myAPIData);
+        if (token) {
+          // const userId = user.userId;
+          const myAPIData = await myUserData(token);
+          console.log("token in profile: ", token);
+          console.log("data from API", myAPIData);
+          setUser(myAPIData);
+        }
       } catch (error) {
         setError("An error occurred while fetching user data");
         console.error(error);
       }
     }
     fetchUserData();
-  }, [token]);
+  }, []);
 
   async function handleDetails() {
     setIsOpen(!isOpen);
   }
 
+  async function handleClick() {
+    navigate("/allvideos");
+  }
+
   return (
     <div>
-      <h1>Account info(subscription & user info)</h1>
-      {/* <h2>Welcome {user.name}</h2>
-      <p>{user.username}</p> */}
+      <h1>Account info (subscription & user info)</h1>
+      {token ? ( // Check if user data is available
+        <div>
+          {/* <h2>Welcome {user.username}</h2> */}
+          <button onClick={handleClick}>Browse classes</button>
+
+          {/* Other user information can be displayed here */}
+        </div>
+      ) : (
+        <></>
+      )}
 
       <h2>My Saved Classes</h2>
       {videos

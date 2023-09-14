@@ -10,8 +10,28 @@ const {
   registerNewUser,
   loginUser,
   createUser,
+  getUserById,
   getUserByUsername,
+  getUserByToken,
 } = require("../db/helpers/users");
+
+const { getVideoClassBySubmitterId } = require("../db/helpers/videoClasses");
+
+router.use(express.json());
+
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await getUserByToken(token);
+    req.user = user;
+    console.log("user info: ", user);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+//
 
 router.get("/", async (req, res, next) => {
   try {
@@ -20,6 +40,8 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
+
+// POST - /api/auth/register - register route
 
 router.post("/register", async (req, res, next) => {
   try {
@@ -56,13 +78,13 @@ router.post("/register", async (req, res, next) => {
 
     delete user.password;
     // console.log(token);
-    res.send({ user });
+    res.send({ token, user });
   } catch (error) {
     next(error);
   }
 });
 
-// POST - api/users/login - log in to your account
+// POST - api/auth/login - log in to your account
 
 router.post("/login", async (req, res, next) => {
   try {
@@ -83,24 +105,26 @@ router.post("/login", async (req, res, next) => {
 
       delete user.password;
 
-      res.send({ user });
+      res.send({ token, user });
+      return token;
     }
   } catch (error) {
     next(error);
   }
 });
 
-// router.post("/login", async (req, res, next) => {
-//   try {
-//     const { username, password } = req.body;
-//     const loggedInUser = await loginUser(username, password);
-//     res.send({ loggedInUser });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+// get my profile information
 
-//  - api/users/logout - logout of account
+router.get("/myprofile/:userId", async (req, res, next) => {
+  try {
+    const user = await getUserById(req.params.userId);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//  - api/auth/logout - logout of account
 router.post("/logout", async (req, res, next) => {
   try {
     // clear token and properties created above
@@ -121,13 +145,13 @@ router.post("/logout", async (req, res, next) => {
 
 // POST - /api/users - add new user
 
-router.post("/", async (req, res, next) => {
-  try {
-    const newUser = await createUser(req.body);
-    res.send(newUser);
-  } catch (error) {
-    next(error);
-  }
-});
+// router.post("/", async (req, res, next) => {
+//   try {
+//     const newUser = await createUser(req.body);
+//     res.send(newUser);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = router;

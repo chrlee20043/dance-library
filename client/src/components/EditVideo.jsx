@@ -17,7 +17,7 @@ export default function EditVideo() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchSingleVideo(videoId);
+      const response = await fetchSingleVideo(1);
       console.log(response);
 
       // SET THE STATE to the current info, this will show up in the form
@@ -72,7 +72,7 @@ export default function EditVideo() {
     <>
       {/* EDIT FORM! */}
       <div className="edit-video-form">
-        <button className="card-button" onClick={handleClick}>
+        <button className="card-toggle-button" onClick={handleClick}>
           {isOpen ? "Cancel" : "Edit Details"}
         </button>
         {isOpen && (
@@ -81,6 +81,7 @@ export default function EditVideo() {
             <div className="form-row">
               <div className="col">
                 <input
+                  // id="edit-instructor-name"
                   type="text"
                   className="form-control"
                   placeholder="Instructor Name"
@@ -99,6 +100,7 @@ export default function EditVideo() {
               </div>
               <div className="col">
                 <input
+                  id="edit-level-input"
                   type="text"
                   className="form-control"
                   placeholder="Level"

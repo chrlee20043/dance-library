@@ -43,7 +43,29 @@ async function loginToAccount(username, password) {
         password: `${password}`,
       }),
     });
-    console.log("this is my fetched response: ", response);
+    // console.log("this is my fetched response: ", response);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Logout user
+
+async function logoutUser(username, password) {
+  try {
+    const response = await fetch(`${baseURL}/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: `${username}`,
+        password: `${password}`,
+      }),
+    });
+    console.log("logging out", response);
     const result = await response.json();
     return result;
   } catch (error) {
@@ -53,15 +75,18 @@ async function loginToAccount(username, password) {
 
 // Retrieve my videos - video objects made by user
 
-async function myUserData(token) {
+async function myUserData(token, userId) {
   try {
-    console.log(token);
-    const response = await fetch(`${baseURL}/users/myprofile`, {
+    console.log("FETCHING TOKEN", token);
+    const response = await fetch(`${baseURL}/auth/myprofile/${userId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
+    // if (!response.ok) {
+    //   throw new Error(`API request failed with status ${response.status}`);
+
     const result = await response.json();
     console.log(result);
     return result;
@@ -122,7 +147,8 @@ async function addVideoClass(
   instructor_name,
   style,
   level,
-  videoURL
+  videoURL,
+  submitted_by
 ) {
   try {
     // console.log("am i getting this: ");
@@ -138,6 +164,7 @@ async function addVideoClass(
         style,
         level,
         videoURL,
+        submitted_by,
       }),
     });
     // console.log(response)
@@ -210,6 +237,7 @@ export {
   fetchSingleVideo,
   createUser,
   loginToAccount,
+  logoutUser,
   myUserData,
   addVideoClass,
   deleteVideo,

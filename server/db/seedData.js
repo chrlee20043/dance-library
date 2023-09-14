@@ -58,7 +58,7 @@ const videoClasses = [
     style: "contemporary",
     level: "beginner",
     videoURL: "https://www.youtube.com/embed/J_wT_eRYksY?si=hSlAdEM1iUKS_ECb",
-    saved: true,
+    submitted_by: 2,
   },
   {
     instructor_id: 1,
@@ -66,7 +66,7 @@ const videoClasses = [
     style: "heels",
     level: "advanced",
     videoURL: "https://www.youtube.com/embed/UfP9ifDmZIM?si=nXzJUMV4ciHx0lVo",
-    saved: false,
+    submitted_by: 2,
   },
   {
     instructor_id: 3,
@@ -74,7 +74,7 @@ const videoClasses = [
     style: "popping",
     level: "intermediate",
     videoURL: "https://www.youtube.com/embed/QInF2xm3qz4?si=kGie_5nbRvU6amsY",
-    saved: false,
+    submitted_by: 2,
   },
 ];
 

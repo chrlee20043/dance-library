@@ -64,7 +64,7 @@ const createTables = async () => {
             style varchar(255) NOT NULL,
             level varchar(255) NOT NULL,
             "videoURL" varchar(255) NOT NULL,
-            saved BOOLEAN
+            submitted_by INTEGER REFERENCES users(user_id) NOT NULL
         );
 
         CREATE TABLE subscriptions (

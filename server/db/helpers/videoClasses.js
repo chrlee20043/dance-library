@@ -8,6 +8,7 @@ const createVideoClass = async ({
   style,
   level,
   videoURL,
+  submitted_by,
 }) => {
   try {
     // individual rows
@@ -19,11 +20,11 @@ const createVideoClass = async ({
       // VALUES(var1, var2, var3, var4, var5)
       // RETURNING everything
       `
-        INSERT INTO videoclasses(instructor_id, instructor_name, style ,level, "videoURL")
-        VALUES($1, $2, $3, $4, $5)
+        INSERT INTO videoclasses(instructor_id, instructor_name, style ,level, "videoURL", submitted_by)
+        VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *;
       `,
-      [instructor_id, instructor_name, style, level, videoURL]
+      [instructor_id, instructor_name, style, level, videoURL, submitted_by]
     );
     return videoClass;
   } catch (error) {
@@ -100,6 +101,26 @@ const getVideoClassByInstructorId = async (instructorId) => {
   }
 };
 
+// GET - get video by user id (if you submitted it)
+
+const getVideoClassBySubmitterId = async (userId) => {
+  try {
+    const {
+      rows: [videoClasses],
+    } = await client.query(
+      `
+        SELECT users.user_id AS user_id, users.username AS username, videoclasses.*
+        FROM users
+        JOIN videoclasses ON users.user_id = videoclasses.submitted_by WHERE videoclasses.submittedBy = $1;
+      `,
+      [userId]
+    );
+    return videoClasses;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // PUT - update video (if you added it)
 
 const updateVideoClass = async (videoId, updatedFields) => {
@@ -162,6 +183,7 @@ module.exports = {
   getVideoClassesWithInstructorName,
   getVideoClassById,
   getVideoClassByInstructorId,
+  getVideoClassBySubmitterId,
   updateVideoClass,
   deleteVideoClass,
 };

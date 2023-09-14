@@ -6,7 +6,7 @@ export default function Register({ setToken }) {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [registered, setRegistered] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -16,12 +16,12 @@ export default function Register({ setToken }) {
     try {
       const register = await createUser(username, password, name);
       console.log("user: ", register);
-      setToken(register);
+      setToken(register.token);
       // console.log(register.token);
       setName("");
       setUsername("");
       setPassword("");
-      setRegistered(true);
+      setSuccessMessage("Yay, you are signed up!");
       return register;
     } catch (error) {
       setError("Please provide valid credentials");
@@ -34,11 +34,11 @@ export default function Register({ setToken }) {
       <form className="register-form" onSubmit={handleSubmit}>
         {/* Labels and inputs for form data */}
         <h1>Create an Account</h1>
-        {registered && (
+        {successMessage && (
           <div>
-            <p>{registered}</p>
+            <p>{successMessage}</p>
             <p>
-              You have registered! <Link to="/login">Log in</Link>
+              <Link to="/login">Log in</Link>
             </p>
           </div>
         )}

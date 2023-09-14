@@ -1,4 +1,5 @@
 const client = require("../client");
+// const jwt = require("jsonwebtoken");
 
 // POST - register user
 
@@ -25,7 +26,7 @@ const registerNewUser = async ({ username, password, name }) => {
 
 const loginUser = async ({ username, password }) => {
   try {
-    console.log("are we hitting fetching");
+    // console.log("are we hitting fetching");
     const {
       rows: [user],
     } = await client.query(`
@@ -119,6 +120,24 @@ const getUserByUsername = async (username) => {
   }
 };
 
+// GET - get user by token
+
+const getUserByToken = async (token) => {
+  // console.log(token);
+
+  try {
+    const { userId } = jwt.verify(token, process.env.JWT);
+    const user = await getUserById(userId);
+    if (user) {
+      return user;
+    } else {
+      throw error;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 // PUT - update user (if you it is me)
 
 const updateUser = async (userId, updatedFields) => {
@@ -190,6 +209,7 @@ module.exports = {
   getAllUsers,
   getUserById,
   getUserByUsername,
+  getUserByToken,
   updateUser,
   deleteUser,
 };

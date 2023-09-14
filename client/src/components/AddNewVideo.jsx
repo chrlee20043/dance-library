@@ -12,12 +12,14 @@ export default function AddNewVideo({ token }) {
   const [style, setStyle] = useState("");
   const [level, setLevel] = useState("");
   const [videoURL, setVideoURL] = useState("");
+  const [submittedBy, setSubmittedBy] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const author = { submittedBy };
     async function makeAVideo() {
       const result = await addVideoClass(
         token,
@@ -25,7 +27,8 @@ export default function AddNewVideo({ token }) {
         instructorName,
         style,
         level,
-        videoURL
+        videoURL,
+        author.submittedBy
       );
 
       console.log("Me trying to add a new video: ", result);
@@ -38,6 +41,7 @@ export default function AddNewVideo({ token }) {
     setStyle("");
     setLevel("");
     setVideoURL("");
+    setSubmittedBy("");
     navigate(0);
   };
 
@@ -46,6 +50,15 @@ export default function AddNewVideo({ token }) {
       <form onSubmit={handleSubmit}>
         <h4>Add New Video Class</h4>
         <div className="form-row">
+          <div className="col">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your User ID"
+              value={submittedBy}
+              onChange={(event) => setSubmittedBy(event.target.value)}
+            />
+          </div>
           <div className="col">
             <input
               type="text"

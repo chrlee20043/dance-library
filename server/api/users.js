@@ -13,6 +13,7 @@ const {
 } = require("../db/helpers/users");
 
 const users = require("../db/seedData");
+const { getVideoClassBySubmitterId } = require("../db/helpers/videoClasses");
 
 // GET - api/users - get all users
 

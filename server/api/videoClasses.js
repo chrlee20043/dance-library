@@ -63,6 +63,17 @@ router.get("/video:instructorId", async (req, res, next) => {
   }
 });
 
+// GET - /api/users/myprofile - get my user data and saved videos
+
+router.get("/myprofile/:userId", async (req, res, next) => {
+  try {
+    const user = await getVideoClassBySubmitterId(req.params.userId);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // POST - /api/videoClasses - add new video
 
 router.post("/", async (req, res, next) => {

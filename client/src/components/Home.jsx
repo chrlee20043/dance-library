@@ -8,9 +8,9 @@ export default function Home() {
     navigate("/register");
   };
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
+  // const handleLogin = () => {
+  //   navigate("/login");
+  // };
 
   return (
     <div>
@@ -24,11 +24,11 @@ export default function Home() {
         <Login /> */}
         <button onClick={handleRegister} className="home-page-button">
           Register
-        </button>{" "}
-        or{" "}
+        </button>
+        {/* or{" "}
         <button onClick={handleLogin} className="home-page-button">
           Login
-        </button>
+        </button> */}
       </p>
     </div>
   );

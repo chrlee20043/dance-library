@@ -9,11 +9,11 @@ export default function Login({ setToken }) {
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
-  // const { userId } = useParams();
+  const { userId } = useParams();
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
-    // console.log("log in");
+    // console.log("are we logged in");
     event.preventDefault();
     async function loggingInUser() {
       const userInfo = {
@@ -21,23 +21,17 @@ export default function Login({ setToken }) {
         password,
       };
       try {
-        const loginData = await loginToAccount(
+        const response = await loginToAccount(
           userInfo.username,
           userInfo.password
         );
-        console.log("logged in user:", loginData);
+        console.log("logged in user:", response);
 
-        setToken(loginData);
-        setSuccessMessage(true);
+        setToken(response.token);
+        setSuccessMessage("you have logged in");
         setUsername("");
         setPassword("");
-        navigate("/myprofile");
-
-        // setSuccessMessage("");
-        // setError("Please try again or register for an account");
-        // console.log("need to register");
-
-        // return loginData;
+        navigate(`/myprofile/${userId}`);
       } catch (error) {
         console.error(error);
       }
