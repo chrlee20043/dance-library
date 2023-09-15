@@ -2,12 +2,28 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createUser } from "../helpers/fetching";
 
+// import Avatar from "@mui/material/Avatar";
+// import Button from "@mui/material/Button";
+// import CssBaseline from "@mui/material/CssBaseline";
+// import TextField from "@mui/material/TextField";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
+// import Link from "@mui/material/Link";
+// import Grid from "@mui/material/Grid";
+// import Box from "@mui/material/Box";
+// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+// import Typography from "@mui/material/Typography";
+// import Container from "@mui/material/Container";
+// import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 export default function Register({ setToken }) {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
+
+  const defaultTheme = createTheme();
 
   const navigate = useNavigate();
 
@@ -22,7 +38,8 @@ export default function Register({ setToken }) {
       setUsername("");
       setPassword("");
       setSuccessMessage("Yay, you are signed up!");
-      return register;
+      navigate("/login");
+      // return register;
     } catch (error) {
       setError("Please provide valid credentials");
       console.error(error);
@@ -31,7 +48,10 @@ export default function Register({ setToken }) {
 
   return (
     <div className="register-form-container">
-      <form className="register-form" onSubmit={handleSubmit}>
+      <form
+        className="register-form"
+        // onSubmit={handleSubmit}
+      >
         {/* Labels and inputs for form data */}
         <h1>Create an Account</h1>
         {successMessage && (
