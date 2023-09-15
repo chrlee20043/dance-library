@@ -3,13 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { loginToAccount } from "../helpers/fetching";
 
-export default function Login({ setToken, setUserId, token }) {
+export default function Login({ setToken, token }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
-  const { userId } = useParams();
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
@@ -26,15 +25,16 @@ export default function Login({ setToken, setUserId, token }) {
           userInfo.password
         );
         console.log("logged in user:", response);
+        const userId = response.user.user_id;
 
         setToken(response.token);
-        localStorage.setItem("token", token);
-        setUserId(response.user.user_id);
-        localStorage.setItem("userId", response.user.user_id);
+        localStorage.setItem("token", response.token);
+        // setUserId(response.user.user_id);
+        // localStorage.setItem("userId", response.user.user_id);
         setSuccessMessage("you have logged in");
         setUsername("");
         setPassword("");
-        navigate("/myprofile");
+        navigate(`/myprofile/${userId}`);
       } catch (error) {
         console.error(error);
       }

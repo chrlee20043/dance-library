@@ -75,18 +75,13 @@ async function logoutUser(username, password) {
 
 // Retrieve my videos - video objects made by user
 
-async function myUserData(token, userId) {
+async function myUserData(userId) {
   try {
-    console.log("FETCHING TOKEN", token);
-    const response = await fetch(`${baseURL}/users/myprofile/${userId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log("my user data response: ", response);
+    const response = await fetch(`${baseURL}/users/${userId}`);
+
+    // console.log("my user data response: ", response);
     const result = await response.json();
-    console.log("result from myUserData: ", result);
+    // console.log("result from myUserData: ", result);
     return result;
   } catch (err) {
     console.error(err);

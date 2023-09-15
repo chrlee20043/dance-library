@@ -1,32 +1,32 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { myUserData } from "../helpers/fetching";
 // import VideoCard from "./VideoCard";
 import { VideosContext } from "../context/VideosContext";
 
-export default function Profile({ token, userId }) {
+export default function Profile({ token }) {
   const { videos } = useContext(VideosContext);
   const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { userId } = useParams();
 
   useEffect(() => {
     async function fetchUserData() {
       try {
-        const myAPIData = await myUserData(token);
+        const userInfo = await myUserData(userId);
         console.log("token in profile: ", token);
-        console.log("data from API", myAPIData);
-
-        setUser(myAPIData);
+        console.log("data from API", userInfo);
+        setUser(userInfo);
       } catch (error) {
         setError("An error occurred while fetching user data");
         console.error(error);
       }
     }
     fetchUserData();
-  }, [token]);
+  }, []);
 
   async function handleDetails() {
     setIsOpen(!isOpen);
@@ -38,32 +38,29 @@ export default function Profile({ token, userId }) {
 
   return (
     <div>
-      <h1>Account info (subscription & user info)</h1>
-      {/* <h2>Welcome {user.username}</h2> */}
+      <h2>Welcome {user.username}!</h2>
       <button onClick={handleClick}>Browse classes</button>
 
-      {localStorage.getItem("token") && (
-        <h2>Classes I added</h2>
-        // {videos
-        // .filter((video) => video.submitted_by === userId)
-        // .map((video) => {
-        // <div key={video.video_id} className="my-saved-video">
-        // {isOpen && (
-        //   <div className="expanded-content">
-        //     <p>{video.instructor_name}</p>
-        //     <p>{video.imageURL}</p>
-        //     <p>{video.instructorBio}</p>
-        //     <p>{video.style}</p>
-        //     <p>{video.level}</p>
-        //   </div>
-        // )}
+      {localStorage.getItem("token") &&
+        videos
+          .filter((video) => video.submitted_by === userId)
+          .map((video) => (
+            <div key={video.video_id} className="my-saved-video">
+              {isOpen && (
+                <div className="expanded-content">
+                  <p>{video.instructor_name}</p>
+                  <p>{video.imageURL}</p>
+                  <p>{video.instructorBio}</p>
+                  <p>{video.style}</p>
+                  <p>{video.level}</p>
+                </div>
+              )}
 
-        //   <button className="details-button" onClick={handleDetails}>
-        //   {isOpen ? "See Less" : "See Details"}
-        //   </button>
-        // </div>;
-        // })}
-      )}
+              <button className="details-button" onClick={handleDetails}>
+                {isOpen ? "See Less" : "See Details"}
+              </button>
+            </div>
+          ))}
     </div>
   );
 }

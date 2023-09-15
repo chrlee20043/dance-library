@@ -106,20 +106,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-// get my profile information
-
-router.get("/myprofile", async (req, res, next) => {
-  try {
-    const { username } = req.body;
-
-    const user = await getUserByUsername(username);
-    res.send(user);
-    return user;
-  } catch (error) {
-    next(error);
-  }
-});
-
 //  - api/users/logout - logout of account
 router.post("/logout", async (req, res, next) => {
   try {

@@ -91,11 +91,14 @@ const getUserById = async (userId) => {
   try {
     const {
       rows: [users],
-    } = await client.query(`
+    } = await client.query(
+      `
       SELECT *
       FROM users
-      WHERE user_id = ${userId};
-    `);
+      WHERE user_id = $1;
+    `,
+      [userId]
+    );
     return users;
   } catch (error) {
     throw error;
