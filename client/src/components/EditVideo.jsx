@@ -17,7 +17,7 @@ export default function EditVideo() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchSingleVideo(1);
+      const response = await fetchSingleVideo(videoId);
       console.log(response);
 
       // SET THE STATE to the current info, this will show up in the form

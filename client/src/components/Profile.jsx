@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { myUserData } from "../helpers/fetching";
 // import VideoCard from "./VideoCard";
 import { VideosContext } from "../context/VideosContext";
+// import { MyAddedVideos } from "/MyAddedVideos";
 
 export default function Profile({ token }) {
   const { videos } = useContext(VideosContext);
@@ -40,12 +41,13 @@ export default function Profile({ token }) {
     <div>
       <h2>Welcome {user.username}!</h2>
       <button onClick={handleClick}>Browse classes</button>
+      {/* <MyAddedVideos token={token} /> */}
 
-      {localStorage.getItem("token") &&
+      {user ? (
         videos
           .filter((video) => video.submitted_by === userId)
           .map((video) => (
-            <div key={video.video_id} className="my-saved-video">
+            <div key={video.video_id} className="my-videos">
               {isOpen && (
                 <div className="expanded-content">
                   <p>{video.instructor_name}</p>
@@ -57,10 +59,13 @@ export default function Profile({ token }) {
               )}
 
               <button className="details-button" onClick={handleDetails}>
-                {isOpen ? "See Less" : "See Details"}
+                {isOpen ? "Close" : "My Added Classes"}
               </button>
             </div>
-          ))}
+          ))
+      ) : (
+        <p>No videos here</p>
+      )}
     </div>
   );
 }

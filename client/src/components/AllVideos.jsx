@@ -6,7 +6,7 @@ import VideoListName from "./VideoListName";
 import AddNewVideo from "./AddNewVideo";
 import { VideosContext } from "../context/VideosContext";
 
-export default function AllVideos({ token }) {
+export default function AllVideos({ token, userId }) {
   const { videos, setVideos } = useContext(VideosContext);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
@@ -52,11 +52,11 @@ export default function AllVideos({ token }) {
         </div>
 
         {error && <p>{error}</p>}
-        {localStorage.getItem("token") && (
+        {token ? (
           <div>
             <h1>Classes</h1>
             <div className="new-video-container">
-              {/* Render your AddNewVideo component here */}
+              <AddNewVideo token={token} userId={userId} />
             </div>
             <div className="all-videos-container">
               {videosToDisplay.map((video) => (
@@ -64,6 +64,8 @@ export default function AllVideos({ token }) {
               ))}
             </div>
           </div>
+        ) : (
+          <p>No classes available</p>
         )}
       </div>
     </>

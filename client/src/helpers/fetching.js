@@ -135,7 +135,7 @@ async function fetchSingleVideo(videoId) {
 //   // Submit a new video
 
 async function addVideoClass(
-  token,
+  // token,
   instructor_id,
   instructor_name,
   style,
@@ -149,7 +149,7 @@ async function addVideoClass(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         instructor_id,
