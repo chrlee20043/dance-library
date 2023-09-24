@@ -81,7 +81,15 @@ export default function EditVideo() {
             <div className="form-row">
               <div className="col">
                 <input
-                  // id="edit-instructor-name"
+                  type="text"
+                  className="form-control"
+                  placeholder="Instructor Id"
+                  value={instructorId}
+                  onChange={(event) => setInstructorId(event.target.value)}
+                />
+              </div>
+              <div className="col">
+                <input
                   type="text"
                   className="form-control"
                   placeholder="Instructor Name"
@@ -108,7 +116,7 @@ export default function EditVideo() {
                   onChange={(event) => setLevel(event.target.value)}
                 />
               </div>
-              {/* <div className="col">
+              <div className="col">
                 <input
                   type="text"
                   className="form-control"
@@ -116,7 +124,7 @@ export default function EditVideo() {
                   value={videoURL}
                   onChange={(event) => setVideoURL(event.target.value)}
                 />
-              </div> */}
+              </div>
             </div>
             <button className="card-button" type="submit">
               Save Changes

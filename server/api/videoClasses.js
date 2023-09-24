@@ -31,7 +31,7 @@ router.get("/:videoId/:instructorName", async (req, res, next) => {
   try {
     const videoClasses = await getVideoClassesWithInstructorName(
       req.params.videoId,
-      req.params.instructorId
+      req.params.instructorName
     );
     console.log(videoClasses);
     res.send(videoClasses);
@@ -66,7 +66,7 @@ router.get("/:videoId", async (req, res, next) => {
 
 // GET - /api/videoClasses/myprofile/:userId - get my user data and saved videos
 
-router.get("/myprofile/:userId", async (req, res, next) => {
+router.get("/myvideos/:userId", async (req, res, next) => {
   try {
     const videoClasses = await getVideoClassBySubmitterId(req.params.userId);
     console.log("my user id: ", userId);

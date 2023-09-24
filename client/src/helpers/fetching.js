@@ -192,13 +192,13 @@ async function deleteVideo(videoId, token) {
 //   // Edit video from my list
 
 async function editVideo(
-  token,
   videoId,
   instructor_id,
   instructor_name,
   style,
   level,
-  videoURL
+  videoURL,
+  token
 ) {
   try {
     const response = await fetch(`${baseURL}/videoclasses/${videoId}`, {

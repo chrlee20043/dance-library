@@ -23,7 +23,7 @@ export default function Register({ setToken }) {
   const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
-  const defaultTheme = createTheme();
+  // const defaultTheme = createTheme();
 
   const navigate = useNavigate();
 

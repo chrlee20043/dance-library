@@ -143,12 +143,6 @@ const updateVideoClass = async (videoId, updatedFields) => {
       level,
       videoURL,
     ]);
-
-    // if (rows && rows.length > 0) {
-    //   return rows[0];
-    // } else {
-    //   return null;
-    // }
     return rows;
   } catch (error) {
     throw error;
