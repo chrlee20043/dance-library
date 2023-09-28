@@ -48,10 +48,7 @@ export default function Register({ setToken }) {
 
   return (
     <div className="register-form-container">
-      <form
-        className="register-form"
-        // onSubmit={handleSubmit}
-      >
+      <form className="register-form" onSubmit={handleSubmit}>
         {/* Labels and inputs for form data */}
         <h1>Create an Account</h1>
         {successMessage && (

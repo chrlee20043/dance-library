@@ -8,6 +8,9 @@ export default function Logout({ setToken }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+
     logoutUser();
     setToken(null);
     navigate("/login");

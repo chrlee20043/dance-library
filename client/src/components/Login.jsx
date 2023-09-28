@@ -30,7 +30,6 @@ export default function Login({ setToken, token }) {
   const defaultTheme = createTheme();
 
   const handleLogin = (event) => {
-    // console.log("are we logged in");
     event.preventDefault();
     async function loggingInUser() {
       const userInfo = {
@@ -38,6 +37,7 @@ export default function Login({ setToken, token }) {
         password,
       };
       try {
+        console.log(username);
         const response = await loginToAccount(
           userInfo.username,
           userInfo.password
@@ -48,7 +48,7 @@ export default function Login({ setToken, token }) {
         setToken(response.token);
         localStorage.setItem("token", response.token);
         // setUserId(response.user.user_id);
-        // localStorage.setItem("userId", response.user.user_id);
+        localStorage.setItem("userId", response.user.user_id);
         setSuccessMessage("you have logged in");
         setUsername("");
         setPassword("");

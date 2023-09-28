@@ -21,6 +21,9 @@ async function createUser(username, password, name) {
         name,
       }),
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
     const result = await response.json();
     console.log(result);
     return result;
@@ -70,6 +73,21 @@ async function logoutUser(username, password) {
     return result;
   } catch (error) {
     console.error(error);
+  }
+}
+
+// INSTRUCTORS QUERIES
+
+// fetch all instructors
+
+async function fetchAllInstructors() {
+  try {
+    const response = await fetch(`${baseURL}/instructors`);
+    const result = await response.json();
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Cannot get instructors", error);
   }
 }
 
@@ -232,6 +250,7 @@ export {
   loginToAccount,
   logoutUser,
   myUserData,
+  fetchAllInstructors,
   addVideoClass,
   deleteVideo,
   editVideo,

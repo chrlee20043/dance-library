@@ -18,6 +18,11 @@ function App() {
   useEffect(() => {
     setToken(window.localStorage.getItem("token"));
     setUserId(window.localStorage.getItem("userId"));
+    const storedToken = window.localStorage.getItem("token");
+    const storedUserId = window.localStorage.getItem("userId");
+    setToken(storedToken);
+    setUserId(storedUserId);
+    console.log("storage id: ", userId);
   }, []);
 
   return (

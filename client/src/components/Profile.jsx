@@ -19,7 +19,8 @@ export default function Profile({ token }) {
       try {
         const userInfo = await myUserData(userId);
         console.log("token in profile: ", token);
-        console.log("data from API", userInfo);
+        console.log("profile user id: ", userId);
+        // console.log("data from API", userInfo);
         setUser(userInfo);
       } catch (error) {
         setError("An error occurred while fetching user data");
