@@ -5,7 +5,7 @@ const { Client } = require("pg");
 
 const dancelibrary = "dancelibrary";
 
-const client = new Client(`postgres://localhost:5431/${dancelibrary}`);
+const client = new Client(`postgres://localhost:5433/${dancelibrary}`);
 
 // Export for use in other files
 

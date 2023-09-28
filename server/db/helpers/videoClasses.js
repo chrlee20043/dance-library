@@ -11,26 +11,62 @@ const createVideoClass = async ({
   submitted_by,
 }) => {
   try {
-    // individual rows
+    // Define the SQL query
+    const query = `
+      INSERT INTO videoclasses(instructor_id, instructor_name, style, level, "videoURL", submitted_by)
+      SELECT i.instructor_id, $2, $3, $4, $5, $6
+      FROM instructors AS i
+      WHERE i.instructor_id = $1
+      RETURNING *;
+    `;
+
+    // Execute the SQL query
     const {
       rows: [videoClass],
-    } = await client.query(
-      // INSERT SQL query
-      // insert into table(col1, col2, col3, col4, col5)
-      // VALUES(var1, var2, var3, var4, var5)
-      // RETURNING everything
-      `
-        INSERT INTO videoclasses(instructor_id, instructor_name, style ,level, "videoURL", submitted_by)
-        VALUES($1, $2, $3, $4, $5, $6)
-        RETURNING *;
-      `,
-      [instructor_id, instructor_name, style, level, videoURL, submitted_by]
-    );
+    } = await client.query(query, [
+      instructor_id,
+      instructor_name,
+      style,
+      level,
+      videoURL,
+      submitted_by,
+    ]);
+
     return videoClass;
   } catch (error) {
     throw error;
   }
 };
+
+// const createVideoClass = async ({
+//   instructor_id,
+//   instructor_name,
+//   style,
+//   level,
+//   videoURL,
+//   submitted_by,
+// }) => {
+//   try {
+//     // individual rows
+//     const {
+//       rows: [videoClass],
+//     } = await client.query(
+//       // INSERT SQL query
+//       // insert into table(col1, col2, col3, col4, col5)
+//       // VALUES(var1, var2, var3, var4, var5)
+//       // RETURNING everything
+//       `
+//         INSERT INTO videoclasses(instructor_id, instructor_name, style ,level, "videoURL", submitted_by)
+//         VALUES($1, $2, $3, $4, $5, $6)
+//         RETURNING *;
+//       `,
+//       [instructor_id, instructor_name, style, level, videoURL, submitted_by]
+//     );
+//     return videoClass;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 // GET all videos
 
