@@ -10,20 +10,17 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import { VideosContextProvider } from "./context/VideosContext";
+import { useSelector } from "react-redux";
+import {
+  selectCurrentToken,
+  selectCurrentUserId,
+  selectCurrentUsername,
+} from "./Redux/authslice";
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
-
-  useEffect(() => {
-    setToken(window.localStorage.getItem("token"));
-    setUserId(window.localStorage.getItem("userId"));
-    const storedToken = window.localStorage.getItem("token");
-    const storedUserId = window.localStorage.getItem("userId");
-    setToken(storedToken);
-    setUserId(storedUserId);
-    console.log("storage id: ", userId);
-  }, []);
+  const token = useSelector(selectCurrentToken);
+  const userId = useSelector(selectCurrentUserId);
+  const currentUsername = useSelector(selectCurrentUsername);
 
   return (
     <>
@@ -32,13 +29,17 @@ function App() {
         <Routes>
           {/* <div className="main-container"> */}
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register setToken={setToken} />} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/logout" element={<Logout setToken={setToken} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route
-            path="/myprofile/:userId"
+            path="/myprofile"
             element={
-              <Profile token={token} setToken={setToken} userId={userId} />
+              <Profile
+                token={token}
+                userId={userId}
+                currentUser={currentUsername}
+              />
             }
           />
           <Route

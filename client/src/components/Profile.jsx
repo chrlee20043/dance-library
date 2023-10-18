@@ -6,22 +6,23 @@ import { myUserData } from "../helpers/fetching";
 import { VideosContext } from "../context/VideosContext";
 // import { MyAddedVideos } from "/MyAddedVideos";
 
-export default function Profile({ token }) {
+export default function Profile({ token, userId, currentUser }) {
   const { videos } = useContext(VideosContext);
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { userId } = useParams();
+
+  console.log(userId);
 
   useEffect(() => {
     async function fetchUserData() {
       try {
         const userInfo = await myUserData(userId);
-        console.log("token in profile: ", token);
-        console.log("profile user id: ", userId);
+        // console.log("profile user id: ", userId);
+        console.log(userInfo);
         // console.log("data from API", userInfo);
-        setUser(userInfo);
+        // setUser(userInfo);
       } catch (error) {
         setError("An error occurred while fetching user data");
         console.error(error);
@@ -40,11 +41,11 @@ export default function Profile({ token }) {
 
   return (
     <div>
-      <h2>Welcome {user.username}!</h2>
+      <h2>Welcome {currentUser}!</h2>
       <button onClick={handleClick}>Browse classes</button>
       {/* <MyAddedVideos token={token} /> */}
 
-      {user ? (
+      {token ? (
         videos
           .filter((video) => video.submitted_by === userId)
           .map((video) => (

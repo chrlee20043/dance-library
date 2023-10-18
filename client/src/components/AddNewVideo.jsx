@@ -43,6 +43,9 @@ export default function AddNewVideo({ token, userId }) {
 
     // const userId = { submittedBy };
     async function makeAVideo() {
+      const submittedBy = userId;
+      console.log(submittedBy);
+
       const result = await addVideoClass(
         instructorId,
         instructorName,
@@ -104,16 +107,16 @@ export default function AddNewVideo({ token, userId }) {
                 ))}
               </select>
             </div>
-            <div className="col">
+            {/* <div className="col">
               <label>Your Id: </label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Your User ID"
-                value={submittedBy} // Set the value to the submittedBy state
+                value={userId}
                 disabled
               />
-            </div>
+            </div> */}
             <div className="col">
               <label>Style: </label>
               <input

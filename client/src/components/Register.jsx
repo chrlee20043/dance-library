@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../Redux/authslice";
 import { createUser } from "../helpers/fetching";
 
 // import Avatar from "@mui/material/Avatar";
@@ -25,6 +27,7 @@ export default function Register({ setToken }) {
 
   // const defaultTheme = createTheme();
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -32,14 +35,22 @@ export default function Register({ setToken }) {
     try {
       const register = await createUser(username, password, name);
       console.log("user: ", register);
-      setToken(register.token);
-      // console.log(register.token);
-      setName("");
-      setUsername("");
-      setPassword("");
-      setSuccessMessage("Yay, you are signed up!");
-      navigate("/login");
-      // return register;
+
+      if (register) {
+        dispatch(
+          setCredentials({
+            username: register.user.username,
+            userId: register.user.user_id,
+            token: register.token,
+            isLoggedIn: false,
+          })
+        );
+        setName("");
+        setUsername("");
+        setPassword("");
+        setSuccessMessage("Yay, you are signed up!");
+        navigate("/login");
+      }
     } catch (error) {
       setError("Please provide valid credentials");
       console.error(error);

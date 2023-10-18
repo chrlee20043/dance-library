@@ -20,18 +20,6 @@ router.use(express.json());
 
 const users = require("../db/seedData");
 
-const requireToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-    const user = await getUserByToken(token);
-    req.user = user;
-    console.log("user info: ", user);
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
-
 // Auth routes
 
 // POST - /api/users/register - register route
