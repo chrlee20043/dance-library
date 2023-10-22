@@ -20,15 +20,6 @@ export default function AddNewVideo({ token, userId }) {
 
   console.log("add video id:", userId);
 
-  // useEffect(() => {
-  //   const fetchUserId = async () => {
-  //     const response = await myUserData(userId);
-  //     // console.log("my id ", response);s
-  //     setSubmittedBy(response.userId);
-  //   };
-  //   fetchUserId();
-  // }, []);
-
   // Fetch the list of instructors when the component mounts
   useEffect(() => {
     const fetchInstructorList = async () => {
@@ -43,16 +34,13 @@ export default function AddNewVideo({ token, userId }) {
 
     // const userId = { submittedBy };
     async function makeAVideo() {
-      const submittedBy = userId;
-      console.log(submittedBy);
-
       const result = await addVideoClass(
         instructorId,
         instructorName,
         style,
         level,
         videoURL,
-        submittedBy
+        userId
       );
 
       // console.log("Me trying to add a new video: ", result);
@@ -106,17 +94,9 @@ export default function AddNewVideo({ token, userId }) {
                   </option>
                 ))}
               </select>
+              <button>Add an instructor</button>
             </div>
-            {/* <div className="col">
-              <label>Your Id: </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Your User ID"
-                value={userId}
-                disabled
-              />
-            </div> */}
+
             <div className="col">
               <label>Style: </label>
               <input

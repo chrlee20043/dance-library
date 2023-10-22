@@ -13,12 +13,10 @@ const favoriteSlice = createSlice({
     },
     addFavorite: (state, action) => {
       const favorite = action.payload;
-      if (
-        !state.favorites.some((item) => item.museumId === favorite.museumId)
-      ) {
+      if (!state.favorites.some((item) => item.videoId === favorite.videoId)) {
         state.favorites.push(favorite);
       }
-      console.log("museumId in slice", favorite.museumId);
+      console.log("videoId in slice", favorite.videoId);
     },
     removeFavorite: (state, action) => {
       const favoriteIdToRemove = action.payload.favoriteId;
@@ -39,4 +37,4 @@ export const { setFavorites, addFavorite, removeFavorite, resetFavorites } =
 
 export default favoriteSlice.reducer;
 
-export const selectFavorites = (state) => state.favoriteMuseum.favorites;
+export const selectFavorites = (state) => state.favoriteClass.favorites;

@@ -86,4 +86,9 @@ const subscriptions = [
   { user_id: 3, annual: false, monthly: false, studentDiscount: false },
 ];
 
-module.exports = { users, instructors, videoClasses, subscriptions };
+const favorites = [
+  { favoriteId: 1, userId: 1, videoId: 1 },
+  { favoriteId: 2, userId: 1, videoId: 2 },
+];
+
+module.exports = { users, instructors, videoClasses, subscriptions, favorites };
