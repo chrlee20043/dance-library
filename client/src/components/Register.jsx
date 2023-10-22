@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../Redux/authslice";
-import { createUser } from "../helpers/fetching";
+import { setCredentials } from "../Redux/authSlice";
+import { setFavorites } from "../Redux/favoriteSlice";
+import { createUser, fetchFavoritesByUserId } from "../helpers/fetching";
 
 // import Avatar from "@mui/material/Avatar";
 // import Button from "@mui/material/Button";
@@ -45,6 +46,9 @@ export default function Register({ setToken }) {
             isLoggedIn: false,
           })
         );
+        const myFavorites = await fetchFavoritesByUserId(register.user.user_id);
+
+        dispatch(setFavorites(myFavorites));
         setName("");
         setUsername("");
         setPassword("");

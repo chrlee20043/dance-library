@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logOut } from "../Redux/authslice";
+import { logOut } from "../Redux/authSlice";
 import { resetFavorites } from "../Redux/favoriteSlice";
 
 export default function Navbar({ token }) {
@@ -31,10 +31,10 @@ export default function Navbar({ token }) {
             <li>
               {token ? (
                 <button className="auth-btn" onClick={onLogout}>
-                  Log Out
+                  LOG OUT
                 </button>
               ) : (
-                <Link to="/login">Login</Link>
+                <Link to="/login">LOGIN</Link>
               )}
             </li>
           </ul>

@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
 import "./App.css";
 import Home from "./components/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
@@ -15,7 +14,7 @@ import {
   selectCurrentToken,
   selectCurrentUserId,
   selectCurrentUsername,
-} from "./Redux/authslice";
+} from "./Redux/authSlice";
 
 function App() {
   const token = useSelector(selectCurrentToken);

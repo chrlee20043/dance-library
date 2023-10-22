@@ -13,8 +13,6 @@ export default function AllVideos({ token, userId }) {
 
   // const navigate = useNavigate();
 
-  console.log("all video id: ", userId);
-
   const renderVideos = async () => {
     try {
       const videoArray = await fetchAllVideos();

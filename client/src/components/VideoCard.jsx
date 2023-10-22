@@ -4,29 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { VideosContext } from "../context/VideosContext";
 import { fetchSingleVideo, deleteVideo } from "../helpers/fetching";
 import EditVideo from "./EditVideo";
+import FavoriteClass from "./FavoriteClass";
 
-export default function VideoCard() {
+export default function VideoCard({ userId, token }) {
   const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
   const { videoId } = useParams();
   const navigate = useNavigate();
-
-  // const [isEditing, setIsEditing] = useState(false);
-
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // async function handleSave(videoId) {
-  //   try {
-  //     const response = await fetchSingleVideo(videoId);
-  //     console.log("response: ", response);
-  //     if (response) {
-  //       setSelectedVideo(response);
-  //     } else {
-  //       console.error("cannot save");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   const handleDelete = async (videoId) => {
     try {
@@ -38,14 +21,10 @@ export default function VideoCard() {
     }
   };
 
-  // Return to all videos
-  const handleReturnToVideos = () => {
-    navigate("/allvideos");
-  };
-
   return (
     // View single video class
     <div id="single-video-container">
+      <FavoriteClass userId={userId} videoId={videoId} token={token} />
       <div id="single-video-card">
         <h3>{selectedVideo.instructor_name}</h3>
         <img src={selectedVideo.imageURL}></img>
@@ -64,19 +43,17 @@ export default function VideoCard() {
         {/* <div className="editing-video-form">
         <EditVideo />
       </div> */}
-        {/* Buttons to save, delete, edit/update, return to all videos */}
+        {/* Buttons to  delete, edit/update, return to all videos */}
         <div className="edit-button-container">
-          <button
-            className="card-button"
-            // onClick={handleSave}
-          >
-            Save me
-          </button>
-
           <button className="card-button" onClick={() => handleDelete(videoId)}>
             Delete me
           </button>
-          <button className="card-button" onClick={handleReturnToVideos}>
+          <button
+            className="card-button"
+            onClick={() => {
+              navigate("/allvideos");
+            }}
+          >
             Return to All Classes
           </button>
         </div>

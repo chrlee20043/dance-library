@@ -5,7 +5,7 @@ import { fetchSingleVideo } from "../helpers/fetching";
 import { VideosContext } from "../context/VideosContext";
 import VideoCard from "./VideoCard";
 
-export default function RenderSingleVideo() {
+export default function RenderSingleVideo({ userId, token }) {
   const { videoId } = useParams();
   const { selectedVideo, setSelectedVideo } = useContext(VideosContext);
   const [error, setError] = useState(null);
@@ -33,7 +33,13 @@ export default function RenderSingleVideo() {
   return (
     <div>
       {error && <p>{error}</p>}
-      {selectedVideo && <VideoCard selectedVideo={selectedVideo} />}
+      {selectedVideo && (
+        <VideoCard
+          selectedVideo={selectedVideo}
+          userId={userId}
+          token={token}
+        />
+      )}
     </div>
   );
 }

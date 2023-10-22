@@ -18,12 +18,12 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["authenticate", "favoriteMuseum"],
+  whitelist: ["authenticate", "favoriteClass"],
 };
 
 const rootReducer = combineReducers({
   authenticate: authReducer,
-  favoriteMuseum: favoriteReducer,
+  favoriteClass: favoriteReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
