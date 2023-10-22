@@ -37,10 +37,7 @@ body {
   overflow: scroll;
 }
 
-.logo {
-  float: left;
-  line-height: 150px;
-}
+/* NAVBAR */
 
 #navbar-title {
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -121,6 +118,8 @@ body {
   margin-top: 100px;
 }
 
+/* HOME PAGE */
+
 .home-page-button {
   background-color: rgb(69, 2, 69);
   color: white;
@@ -142,6 +141,8 @@ body {
   border: solid 2px rgb(255, 123, 0);
 
 }
+
+/* SEARCH BAR */
 
 .search-name {
   font-weight: bold;
@@ -166,6 +167,8 @@ body {
 #search-bar input[type=text] {
   width: 300px;
 }
+
+/* VIDEO CARD */
 
 #video-card-container {
   display: inline-block;
@@ -238,6 +241,8 @@ img {
     position: relative;
   } */
 
+/* EDIT VIDEO FORM */
+
 .edit-video-form {
   display: flex;
   flex-direction: column;
@@ -255,16 +260,14 @@ img {
   float: left;
 }
 
-/* .editing-video-form {
-  display: flex;
-} */
-
 .edit-button-container {
   display: flex;
   /* flex-direction: column; */
   justify-content: space-between!;
   align-items: center;
 }
+
+/* BUTTON STYLING */
 
 .form-button {
   font-size: 15px;
@@ -302,6 +305,8 @@ img {
   transition: 0.3 ease-in-out;
 }
 
+/* AUTH FORMS */
+
 .register-form {
   display: flex;
   flex-direction: column;
@@ -335,9 +340,7 @@ img {
 
 }
 
-/* .new-video-container {
-   float: left;
-}  */
+/* NEW VIDEO FORM */
 
 .new-video-form {
   display: flex;
@@ -353,4 +356,26 @@ img {
   padding: 1em;
   background-color: rgb(219, 206, 219);
 
+}
+
+/* FAVORITES */
+
+.favorites-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  color: rgb(69, 2, 69);
+  background-color: rgb(219, 206, 219);
+  /* box-shadow: 0 5px 15px rgba(157, 93, 172, 0.5); */
+  width: 50em;
+  padding: 1em;
+}
+
+.fav-class {
+  text-transform: uppercase;
 }

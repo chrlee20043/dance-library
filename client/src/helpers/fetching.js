@@ -254,7 +254,7 @@ async function fetchAllFavorites() {
   }
 }
 
-// fetch single museum by id
+// fetch favorite video by id
 
 async function fetchFavoriteById(favoriteId) {
   try {
@@ -267,7 +267,7 @@ async function fetchFavoriteById(favoriteId) {
   }
 }
 
-// fetch single museum by name
+// fetch favorite video by video id
 
 async function fetchFavoritesByVideoId(videoId) {
   try {
@@ -280,7 +280,7 @@ async function fetchFavoritesByVideoId(videoId) {
   }
 }
 
-// fetch reviews by museumId
+// fetch favorites by user id
 
 async function fetchFavoritesByUserId(userId) {
   try {
@@ -316,7 +316,7 @@ async function addNewFavorite(userId, videoId, token) {
   }
 }
 
-// delete a review
+// delete a favorite
 
 async function deleteFavorite(favoriteId, token) {
   try {

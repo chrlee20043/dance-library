@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectFavorites } from "../Redux/favoriteSlice";
-import { fetchAllVideos } from "../helpers/fetching";
+import { fetchVideosWithInstructorName } from "../helpers/fetching";
 import FavoriteClass from "./FavoriteClass";
 import { VideosContext } from "../context/VideosContext";
 
@@ -13,15 +13,18 @@ export default function Profile({ token, userId, currentUser }) {
   const [favoriteClassesData, setFavoriteClassesData] = useState([]);
 
   const favoriteClasses = useSelector(selectFavorites);
-  console.log(favoriteClasses);
+  // console.log(favoriteClasses);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("Favorite Classes:", favoriteClasses);
     async function fetchFavoriteClassData() {
-      const allClasses = await fetchAllVideos();
+      const allClasses = await fetchVideosWithInstructorName();
+      console.log("all classes", allClasses);
       const filteredClasses = allClasses.filter((video) =>
-        favoriteClasses.some((favorite) => favorite.video_id === video.video_id)
+        favoriteClasses.some((favorite) => favorite.videoId === video.video_id)
       );
+      console.log("Filtered Classes:", filteredClasses);
       setFavoriteClassesData(filteredClasses);
     }
     fetchFavoriteClassData();
@@ -62,9 +65,11 @@ export default function Profile({ token, userId, currentUser }) {
                     />
                   )}
                 </div>
-                <h2 className="fav-class">{video.instructor_name}</h2>
-                <p>{video.style}</p>
-                <p>{video.level}</p>
+                <h2 className="fav-class">
+                  {video.level} {video.style} with {video.instructor_name}
+                </h2>
+                <img src={video.imageURL}></img>
+
                 <iframe
                   src={video.videoURL}
                   title="YouTube video player"
@@ -73,7 +78,7 @@ export default function Profile({ token, userId, currentUser }) {
                   allowFullScreen
                 ></iframe>
                 <button
-                  className="favorite-detail-btn"
+                  className="form-button"
                   onClick={() => {
                     navigate(`/allvideos/${video.video_id}`);
                   }}

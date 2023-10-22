@@ -7,7 +7,6 @@ import AllVideos from "./components/AllVideos";
 import SingleVideo from "./components/SingleVideo";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
 import { VideosContextProvider } from "./context/VideosContext";
 import { useSelector } from "react-redux";
 import {
@@ -30,7 +29,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
           <Route
             path="/myprofile"
             element={
