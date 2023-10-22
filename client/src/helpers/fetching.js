@@ -91,21 +91,6 @@ async function fetchAllInstructors() {
   }
 }
 
-// Retrieve my videos - video objects made by user
-
-async function myUserData(userId) {
-  try {
-    const response = await fetch(`${baseURL}/users/${userId}`);
-
-    // console.log("my user data response: ", response);
-    const result = await response.json();
-    // console.log("result from myUserData: ", result);
-    return result;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
 // VIDEOCLASSES QUERIES
 
 // fetch all videos
@@ -147,6 +132,21 @@ async function fetchSingleVideo(videoId) {
     return result;
   } catch (error) {
     console.error("cannot get single video", error);
+  }
+}
+
+// get videos by userId
+
+async function myAddedVideos(userId) {
+  try {
+    const response = await fetch(`${baseURL}/videoclasses/user/${userId}`);
+
+    // console.log("my user data response: ", response);
+    const result = await response.json();
+    // console.log("result from myUserData: ", result);
+    return result;
+  } catch (err) {
+    console.error(err);
   }
 }
 
@@ -344,7 +344,7 @@ export {
   createUser,
   loginToAccount,
   logoutUser,
-  myUserData,
+  myAddedVideos,
   fetchAllInstructors,
   addVideoClass,
   deleteVideo,

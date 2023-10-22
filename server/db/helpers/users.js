@@ -3,19 +3,24 @@ const client = require("../client");
 
 // POST - register user
 
-const registerNewUser = async ({ username, password, name }) => {
+const createUser = async ({ username, password, name }) => {
   try {
+    console.log({ username, password, name });
+    // individual rows
     const {
       rows: [user],
     } = await client.query(
+      // INSERT SQL query
+      // insert into table(col1, col2, col3, col4, col5)
+      // VALUES(var1, var2, var3, var4, var5)
+      // RETURNING everything
       `
-      INSERT INTO users(username, password, name)
-      VALUES($1, $2, $3)
-      RETURNING *;
+        INSERT INTO users(username, password, name)
+        VALUES($1, $2, $3)
+        RETURNING *;
     `,
       [username, password, name]
     );
-    console.log(user);
     return user;
   } catch (error) {
     throw error;
@@ -36,34 +41,6 @@ const loginUser = async ({ username, password }) => {
       AND password=${password}
     `);
     console.log(user);
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
-
-//  - logout user
-
-// Query to create a user
-
-const createUser = async ({ username, password, name }) => {
-  try {
-    console.log({ username, password, name });
-    // individual rows
-    const {
-      rows: [user],
-    } = await client.query(
-      // INSERT SQL query
-      // insert into table(col1, col2, col3, col4, col5)
-      // VALUES(var1, var2, var3, var4, var5)
-      // RETURNING everything
-      `
-        INSERT INTO users(username, password, name)
-        VALUES($1, $2, $3)
-        RETURNING *;
-    `,
-      [username, password, name]
-    );
     return user;
   } catch (error) {
     throw error;
@@ -118,24 +95,6 @@ const getUserByUsername = async (username) => {
       [username]
     );
     return user;
-  } catch (error) {
-    throw error;
-  }
-};
-
-// GET - get user by token
-
-const getUserByToken = async (token) => {
-  // console.log(token);
-
-  try {
-    const { userId } = jwt.verify(token, process.env.JWT);
-    const user = await getUserById(userId);
-    if (user) {
-      return user;
-    } else {
-      throw error;
-    }
   } catch (error) {
     throw error;
   }
@@ -206,13 +165,11 @@ const deleteUser = async (userId) => {
 };
 
 module.exports = {
-  registerNewUser,
   loginUser,
   createUser,
   getAllUsers,
   getUserById,
   getUserByUsername,
-  getUserByToken,
   updateUser,
   deleteUser,
 };

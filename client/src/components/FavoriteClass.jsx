@@ -12,8 +12,6 @@ export default function FavoriteClass({ userId, videoId, token }) {
   const favoriteClasses = useSelector(selectFavorites);
   const dispatch = useDispatch();
 
-  console.log("favoriteClass", favoriteClasses);
-
   const isFavorite = favoriteClasses.some(
     (item) => item.videoId === Number(videoId)
   );
@@ -34,14 +32,6 @@ export default function FavoriteClass({ userId, videoId, token }) {
           (favorite) =>
             favorite.userId === Number(userId) &&
             favorite.videoId === Number(videoId)
-        );
-        console.log(
-          "remove this",
-          favoriteClasses.find(
-            (favorite) =>
-              favorite.userId === Number(userId) &&
-              favorite.videoId === Number(videoId)
-          )
         );
 
         if (favoriteToRemove) {

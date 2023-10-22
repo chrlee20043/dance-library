@@ -2,20 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function VideoListName({ video }) {
-  // const [isSaved, setIsSaved] = useState(false);
-
   const navigate = useNavigate();
-
-  //   function handleSavedVideo(updatedVideo) {
-  //     const updatedVideoArray = videos.map((video) => {
-  //       if (video.video_id === updatedVideo.video_id) {
-  //         return updatedVideo;
-  //       } else {
-  //         return video;
-  //       }
-  //     });
-  //     setVideos(updatedVideoArray);
-  //   }
 
   return (
     <div id="video-card-container">

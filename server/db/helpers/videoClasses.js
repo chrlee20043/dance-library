@@ -38,36 +38,6 @@ const createVideoClass = async ({
   }
 };
 
-// const createVideoClass = async ({
-//   instructor_id,
-//   instructor_name,
-//   style,
-//   level,
-//   videoURL,
-//   submitted_by,
-// }) => {
-//   try {
-//     // individual rows
-//     const {
-//       rows: [videoClass],
-//     } = await client.query(
-//       // INSERT SQL query
-//       // insert into table(col1, col2, col3, col4, col5)
-//       // VALUES(var1, var2, var3, var4, var5)
-//       // RETURNING everything
-//       `
-//         INSERT INTO videoclasses(instructor_id, instructor_name, style ,level, "videoURL", submitted_by)
-//         VALUES($1, $2, $3, $4, $5, $6)
-//         RETURNING *;
-//       `,
-//       [instructor_id, instructor_name, style, level, videoURL, submitted_by]
-//     );
-//     return videoClass;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 // GET all videos
 
 const getAllVideos = async () => {
@@ -148,9 +118,9 @@ const getVideoClassBySubmitterId = async (userId) => {
         SELECT users.user_id AS user_id, users.username AS username, videoclasses.*
         FROM users
         JOIN videoclasses ON users.user_id = videoclasses.submitted_by
-        WHERE videoclasses.submitted_by = ${userId};
-      `
-      // [userId]
+        WHERE videoclasses.submitted_by = $1;
+      `,
+      [userId]
     );
     return videoClasses;
   } catch (error) {

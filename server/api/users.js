@@ -11,7 +11,6 @@ const {
   getAllUsers,
   getUserById,
   getUserByUsername,
-  // getUserByToken,
   updateUser,
   deleteUser,
 } = require("../db/helpers/users");
@@ -150,7 +149,7 @@ router.delete("/:userId", async (req, res, next) => {
   }
 });
 
-// PUT - /api/userse/:userId - edit user (only if it is me)
+// PUT - /api/users/:userId - edit user (only if it is me)
 
 router.put("/:userId", async (req, res, next) => {
   try {

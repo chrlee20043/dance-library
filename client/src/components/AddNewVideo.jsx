@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addVideoClass, fetchAllInstructors } from "../helpers/fetching"; // Create a function to fetch instructors
 import { VideosContext } from "../context/VideosContext";
-import { myUserData, fetchAllVideos } from "../helpers/fetching";
+import { fetchAllVideos } from "../helpers/fetching";
 
 export default function AddNewVideo({ token, userId }) {
   const { setVideos, addVideos } = useContext(VideosContext);

@@ -64,12 +64,11 @@ router.get("/:videoId", async (req, res, next) => {
 //   }
 // });
 
-// GET - /api/videoClasses/myprofile/:userId - get my user data and saved videos
+// GET - /api/videoClasses/user/:userId - get my added videos
 
-router.get("/myvideos/:userId", async (req, res, next) => {
+router.get("/user/:userId", async (req, res, next) => {
   try {
     const videoClasses = await getVideoClassBySubmitterId(req.params.userId);
-    console.log("my user id: ", userId);
     res.send(videoClasses);
   } catch (error) {
     next(error);
