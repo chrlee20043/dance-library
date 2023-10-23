@@ -36,7 +36,7 @@ export default function Profile({ token, userId, currentUser }) {
   async function fetchUserData() {
     try {
       const userInfo = await myAddedVideos(userId);
-      console.log(userInfo);
+      console.log("userinfo", userInfo);
       setAddedVideos(userInfo);
     } catch (error) {
       setError("An error occurred while fetching user data");
@@ -58,20 +58,20 @@ export default function Profile({ token, userId, currentUser }) {
     }
   };
 
-  console.log(addedVideos);
+  // console.log(addedVideos);
 
   return (
     <>
       <div>
-        <h2>Welcome {currentUser}!</h2>
+        <h1>Welcome {currentUser}!</h1>
         <br />
-        <div>My Saved Classes</div>
+        <div className="profile-title">My Saved Classes</div>
         <div className="favorites-container">
           {token && favoriteClassesData.length === 0 ? (
             <div className="empty-favorites-page">
               <p className="empty-favorites-title">No favorite classes yet.</p>
               <button
-                className="favorite-btn"
+                className="card-button"
                 onClick={() => {
                   navigate("/allvideos");
                 }}
@@ -117,9 +117,9 @@ export default function Profile({ token, userId, currentUser }) {
           )}
         </div>
 
-        <div>Classes I added</div>
+        <div className="profile-title">Classes I added</div>
         {token && addedVideos.length === 0 ? (
-          <div>
+          <div className="empty-class-container">
             <p>You haven't created any classes yet!</p>
             <button
               onClick={() => {
@@ -131,7 +131,7 @@ export default function Profile({ token, userId, currentUser }) {
           </div>
         ) : (
           <div>
-            <button className="details-button" onClick={handleDetails}>
+            <button className="card-button" onClick={handleDetails}>
               {isOpen ? "See Less" : "See More"}
             </button>
             {addedVideos
@@ -145,18 +145,19 @@ export default function Profile({ token, userId, currentUser }) {
                       </p>
                       <img src={video.imageURL} />
                       <p>{video.instructorBio}</p>
-                      <button
-                        className="card-button"
-                        onClick={() => handleDelete(video.video_id)}
-                      >
-                        Delete me
-                      </button>
+
                       <div id="editing-card">
                         <EditVideo
                           videoId={video.video_id}
                           onVideoEdit={() => fetchUserData()}
                         />
                       </div>
+                      <button
+                        className="card-button"
+                        onClick={() => handleDelete(video.video_id)}
+                      >
+                        Delete me
+                      </button>
                     </div>
                   )}
                 </div>

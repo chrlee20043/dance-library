@@ -78,15 +78,16 @@ export default function EditVideo({ videoId, onVideoEdit }) {
   return (
     <>
       {/* EDIT FORM! */}
-      <div className="edit-video-form">
-        <button className="card-toggle-button" onClick={handleClick}>
+      <div className="edit-container">
+        <button className="card-button" onClick={handleClick}>
           {isOpen ? "Cancel" : "Edit Details"}
         </button>
         {isOpen && (
-          <form onSubmit={handleEdit}>
+          <form className="edit-video-form" onSubmit={handleEdit}>
             <h4>Edit Your Class</h4>
             <div className="form-row">
               <div className="col">
+                <label htmlFor="style">Style: </label>
                 <input
                   type="text"
                   className="form-control"
@@ -96,6 +97,7 @@ export default function EditVideo({ videoId, onVideoEdit }) {
                 />
               </div>
               <div className="col">
+                <label htmlFor="level">Level: </label>
                 <input
                   id="edit-level-input"
                   type="text"
@@ -106,6 +108,7 @@ export default function EditVideo({ videoId, onVideoEdit }) {
                 />
               </div>
               <div className="col">
+                <label htmlFor="videoURL">Video URL: </label>
                 <input
                   type="text"
                   className="form-control"

@@ -92,11 +92,11 @@ export default function AddNewVideo({ token, userId }) {
                   </option>
                 ))}
               </select>
-              <button>Add an instructor</button>
+              <button className="new-instructor-btn">Add an instructor</button>
             </div>
 
             <div className="col">
-              <label>Style: </label>
+              <label htmlFor="style">Style: </label>
               <input
                 id="style"
                 type="text"
@@ -107,7 +107,7 @@ export default function AddNewVideo({ token, userId }) {
               />
             </div>
             <div className="col">
-              <label>Level: </label>
+              <label htmlFor="level">Level: </label>
 
               <input
                 type="text"
@@ -118,7 +118,7 @@ export default function AddNewVideo({ token, userId }) {
               />
             </div>
             <div className="col">
-              <label>Video URL: </label>
+              <label htmlFor="videoURL">Video URL: </label>
 
               <input
                 type="text"

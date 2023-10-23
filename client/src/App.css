@@ -170,19 +170,31 @@ body {
 
 /* VIDEO CARD */
 
-#video-card-container {
-  display: inline-block;
+.all-videos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 0.25rem;
+  width: 100%;
+  grid-auto-rows: 1fr;
+}
 
-  margin-left: auto;
-  margin-right: 10px;
-  margin-top: 10px;
+#all-video-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-radius: 5px;
   background-color: rgb(219, 206, 219);
   padding: 1em;
+  margin: 10px;
 }
 
 img {
   height: 30vh;
+}
+
+.videocard-title {
+text-transform: uppercase;
 }
 
 #single-video-container {
@@ -241,6 +253,28 @@ img {
     position: relative;
   } */
 
+  /* PROFILE EXPANDED CONTENT */
+
+  .profile-title {
+    font-size: 1.5rem;
+  }
+
+  .expanded-content {
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  color: rgb(69, 2, 69);
+  background-color: rgb(219, 206, 219);
+  /* box-shadow: 0 5px 15px rgba(157, 93, 172, 0.5); */
+  width: 50em;
+  padding: 1em;
+  }
+
 /* EDIT VIDEO FORM */
 
 .edit-video-form {
@@ -255,9 +289,9 @@ img {
   /* box-shadow: 0 5px 15px rgba(0, 0, 0, .5); */
   width: 20em;
   padding: 1em;
-  color: white;
+  /* color: white; */
   background-color: rgb(219, 206, 219);
-  float: left;
+  /* float: left;  */
 }
 
 .edit-button-container {
@@ -358,6 +392,11 @@ img {
 
 }
 
+.new-instructor-btn {
+  border: none;
+
+}
+
 /* FAVORITES */
 
 .favorites-card {
@@ -378,4 +417,25 @@ img {
 
 .fav-class {
   text-transform: uppercase;
+}
+
+.empty-favorites-title {
+  color: rgb(69, 2, 69);
+}
+
+.empty-favorites-page {
+  background-color: rgb(219, 206, 219);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  /* box-shadow: 0 5px 15px rgba(157, 93, 172, 0.5); */
+  width: 25%;
+  padding: 1em;
+  box-sizing: border-box;
 }
