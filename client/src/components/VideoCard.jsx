@@ -11,16 +11,6 @@ export default function VideoCard({ userId, token }) {
   const { videoId } = useParams();
   const navigate = useNavigate();
 
-  const handleDelete = async (videoId) => {
-    try {
-      const result = await deleteVideo(videoId);
-      console.log("deleted video: ", result);
-      navigate("/allvideos");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     // View single video class
     <div id="single-video-container">
@@ -45,9 +35,6 @@ export default function VideoCard({ userId, token }) {
       </div> */}
         {/* Buttons to  delete, edit/update, return to all videos */}
         <div className="edit-button-container">
-          <button className="card-button" onClick={() => handleDelete(videoId)}>
-            Delete me
-          </button>
           <button
             className="card-button"
             onClick={() => {
@@ -60,10 +47,6 @@ export default function VideoCard({ userId, token }) {
       </div>
 
       {/* EditVideo form */}
-
-      <div id="editing-card">
-        <EditVideo />
-      </div>
     </div>
   );
 }

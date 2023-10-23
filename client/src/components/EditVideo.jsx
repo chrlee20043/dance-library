@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { editVideo, fetchSingleVideo } from "../helpers/fetching";
 
-export default function EditVideo() {
-  const { videoId } = useParams();
-
+export default function EditVideo({ videoId, onVideoEdit }) {
   // SETTING THE STATE
   const [isOpen, setIsOpen] = useState(false);
   const [instructorId, setInstructorId] = useState("");
@@ -12,6 +10,8 @@ export default function EditVideo() {
   const [style, setStyle] = useState("");
   const [level, setLevel] = useState("");
   const [videoURL, setVideoURL] = useState("");
+
+  const navigate = useNavigate();
 
   // FETCH SINGLE VIDEO DATA
 
@@ -60,6 +60,13 @@ export default function EditVideo() {
           updatedVideo.videoURL
         );
 
+        setIsOpen(false);
+
+        if (onVideoEdit) {
+          onVideoEdit();
+        }
+
+        navigate("./", { replace: true });
         return editedVideo;
       } catch (error) {
         console.error("can't edit this video, error");
@@ -79,24 +86,6 @@ export default function EditVideo() {
           <form onSubmit={handleEdit}>
             <h4>Edit Your Class</h4>
             <div className="form-row">
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Instructor Id"
-                  value={instructorId}
-                  onChange={(event) => setInstructorId(event.target.value)}
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Instructor Name"
-                  value={instructorName}
-                  onChange={(event) => setInstructorName(event.target.value)}
-                />
-              </div>
               <div className="col">
                 <input
                   type="text"

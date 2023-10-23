@@ -52,7 +52,7 @@ export default function Profile({ token, userId, currentUser }) {
     try {
       const result = await deleteVideo(videoId);
       console.log("deleted video: ", result);
-      navigate("/allvideos");
+      navigate("./", { replace: true });
     } catch (error) {
       console.error(error);
     }
@@ -134,25 +134,28 @@ export default function Profile({ token, userId, currentUser }) {
             <button className="details-button" onClick={handleDetails}>
               {isOpen ? "See Less" : "See More"}
             </button>
-            {videos
+            {addedVideos
               .filter((video) => video.submitted_by === userId)
               .map((video) => (
                 <div key={video.video_id} className="my-videos">
                   {isOpen && (
                     <div className="expanded-content">
-                      <p>{video.instructor_name}</p>
-                      <p>{video.imageURL}</p>
+                      <p>
+                        {video.level} {video.style} with {video.instructor_name}
+                      </p>
+                      <img src={video.imageURL} />
                       <p>{video.instructorBio}</p>
-                      <p>{video.style}</p>
-                      <p>{video.level}</p>
                       <button
                         className="card-button"
-                        onClick={() => handleDelete(video.videoId)}
+                        onClick={() => handleDelete(video.video_id)}
                       >
                         Delete me
                       </button>
                       <div id="editing-card">
-                        <EditVideo />
+                        <EditVideo
+                          videoId={video.video_id}
+                          onVideoEdit={() => fetchUserData()}
+                        />
                       </div>
                     </div>
                   )}
