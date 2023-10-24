@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { editVideo, fetchSingleVideo } from "../helpers/fetching";
+import { editVideo, fetchSingleVideo } from "../../helpers/fetching";
 
 export default function EditVideo({ videoId, onVideoEdit }) {
   // SETTING THE STATE

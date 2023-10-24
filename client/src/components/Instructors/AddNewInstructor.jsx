@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addNewInstructor } from "../helpers/fetching";
+import { addNewInstructor } from "../../helpers/fetching";
 
 export default function AddNewInstructor({ token }) {
   const [name, setName] = useState("");

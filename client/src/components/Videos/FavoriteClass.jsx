@@ -3,8 +3,8 @@ import {
   addFavorite,
   removeFavorite,
   selectFavorites,
-} from "../Redux/favoriteSlice";
-import { addNewFavorite, deleteFavorite } from "../helpers/fetching";
+} from "../../Redux/favoriteSlice";
+import { addNewFavorite, deleteFavorite } from "../../helpers/fetching";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import "../App.css";
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { fetchSingleVideo } from "../helpers/fetching";
-import { VideosContext } from "../context/VideosContext";
+import { fetchSingleVideo } from "../../helpers/fetching";
+import { VideosContext } from "../../context/VideosContext";
 import VideoCard from "./VideoCard";
 
 export default function RenderSingleVideo({ userId, token }) {

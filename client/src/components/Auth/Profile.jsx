@@ -1,15 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectFavorites } from "../Redux/favoriteSlice";
+import { selectFavorites } from "../../Redux/favoriteSlice";
 import {
   fetchVideosWithInstructorName,
   myAddedVideos,
   deleteVideo,
-} from "../helpers/fetching";
-import FavoriteClass from "./FavoriteClass";
-import EditVideo from "./EditVideo";
-import { VideosContext } from "../context/VideosContext";
+} from "../../helpers/fetching";
+import FavoriteClass from "../Videos/FavoriteClass";
+import EditVideo from "../Videos/EditVideo";
+import { VideosContext } from "../../context/VideosContext";
 
 export default function Profile({ token, userId, currentUser }) {
   const { videos } = useContext(VideosContext);

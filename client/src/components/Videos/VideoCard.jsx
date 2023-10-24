@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { VideosContext } from "../context/VideosContext";
+import { VideosContext } from "../../context/VideosContext";
 
 import FavoriteClass from "./FavoriteClass";
 

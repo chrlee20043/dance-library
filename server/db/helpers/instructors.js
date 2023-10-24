@@ -1,16 +1,22 @@
 const client = require("../client");
 
-const createInstructor = async ({ name, bio, style, imageURL }) => {
+const createInstructor = async ({
+  name,
+  bio,
+  style,
+  imageURL,
+  submitted_by,
+}) => {
   try {
     const {
       rows: [instructor],
     } = await client.query(
       `
-        INSERT INTO instructors(name, bio, style, "imageURL")
-        VALUES($1, $2, $3, $4)
+        INSERT INTO instructors(name, bio, style, "imageURL", submitted_by)
+        VALUES($1, $2, $3, $4, $5)
         RETURNING *;
       `,
-      [name, bio, style, imageURL]
+      [name, bio, style, imageURL, submitted_by]
     );
     return instructor;
   } catch (error) {
@@ -53,10 +59,10 @@ const getInstructorsById = async (instructorId) => {
 
 const updateInstructor = async (instructorId, updatedFields) => {
   try {
-    const { name, bio, style, imageURL } = updatedFields;
+    const { name, bio, style, imageURL, submitted_by } = updatedFields;
     const query = `
       UPDATE instructors
-      SET name = $2, bio = $3, style = $4, "imageURL" = $5
+      SET name = $2, bio = $3, style = $4, "imageURL" = $5, submitted_by = $6
       WHERE instructor_id = $1
       RETURNING *;
     `;
@@ -67,6 +73,7 @@ const updateInstructor = async (instructorId, updatedFields) => {
       bio,
       style,
       imageURL,
+      submitted_by,
     ]);
 
     if (rows && rows.length > 0) {

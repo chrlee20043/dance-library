@@ -33,12 +33,14 @@ const instructors = [
     bio: "Aliya Janell is an L.A. based professional dancer, choreographer, and content creator. Aliya launched her own dance experience Queens N’ Lettos to create a space for women to feel empowered, confident, and most of all sexy in their own skin.",
     style: "heels",
     imageURL: "https://steezy.imgix.net/instructors/aliya-janell-col.jpg?w=300",
+    submitted_by: 2,
   },
   {
     name: "Karen Chuang",
     bio: "Specializing in Contemporary, Karen has performed and taught in workshops all over the world. She has worked with artists including Nicki Minaj, Kanye West, Lady Gaga, Billie Eilish, and Carly Rae Jepson.",
     style: "contemporary",
     imageURL: "https://steezy.imgix.net/instructors/karen-chuang-col.jpg?w=300",
+    submitted_by: 2,
   },
   {
     name: "Marie Poppins",
@@ -46,6 +48,7 @@ const instructors = [
     style: "popping",
     imageURL:
       "https://steezy.imgix.net/instructors/marie-poppins-col.jpg?w=300",
+    submitted_by: 2,
   },
 ];
 

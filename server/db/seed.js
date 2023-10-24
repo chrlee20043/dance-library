@@ -57,7 +57,8 @@ const createTables = async () => {
             name varchar(255) NOT NULL,
             bio varchar(255) NOT NULL,
             style varchar(255) NOT NULL,
-            "imageURL" varchar(255) NOT NULL
+            "imageURL" varchar(255) NOT NULL,
+            submitted_by INTEGER REFERENCES users(user_id) NOT NULL
         );
 
         CREATE TABLE videoclasses (
