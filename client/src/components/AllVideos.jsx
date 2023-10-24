@@ -1,28 +1,38 @@
-import React from "react";
-import { useState, useEffect, useContext } from "react";
-// import {  useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Grid, TextField, Typography } from "@mui/material";
 import { fetchAllVideos } from "../helpers/fetching";
 import VideoListName from "./VideoListName";
 import AddNewVideo from "./AddNewVideo";
 import { VideosContext } from "../context/VideosContext";
+// import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function AllVideos({ token, userId }) {
   const { videos, setVideos } = useContext(VideosContext);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState("");
 
-  // const navigate = useNavigate();
+  // const theme = createTheme();
+
+  // const useStyles = {
+  //   customInput: {
+  //     "& fieldset": {
+  //       border: "2px solid black",
+  //       borderColor: "rgb(255, 123, 0)",
+  //     },
+  //   },
+  // };
+
+  // const classes = useStyles;
 
   const renderVideos = async () => {
     try {
       const videoArray = await fetchAllVideos();
-      console.log("Video Array: ", videoArray);
       setVideos(videoArray);
-      return videoArray;
     } catch (error) {
       setError("Failed to fetch videos. Please try again later.");
     }
   };
+
   useEffect(() => {
     renderVideos();
   }, []);
@@ -37,37 +47,47 @@ export default function AllVideos({ token, userId }) {
     : videos;
 
   return (
-    <>
-      <div>
-        <div id="search-bar">
-          <label className="search-name">
-            Search:{" "}
-            <input
-              type="text"
-              placeholder="search by instructor, style or level"
-              id="search-input"
-              onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
-            />
-          </label>
-        </div>
-
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Typography variant="h4">Classes</Typography>
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <TextField
+          fullWidth
+          label="Search"
+          variant="outlined"
+          // placeholder="Search by instructor, style, or level"
+          onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
+          sx={{
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "rgb(255, 123, 0)",
+              },
+            "& .MuiFormLabel-root.Mui-focused": {
+              color: "rgb(255, 123, 0)",
+            },
+          }}
+        />
+      </Grid>
+      {token && (
+        <Grid item xs={12} md={4}>
+          <AddNewVideo token={token} userId={userId} />
+        </Grid>
+      )}
+      <Grid item xs={12}>
         {error && <p>{error}</p>}
         {token ? (
-          <div>
-            <h1>Classes</h1>
-            <div className="new-video-container">
-              <AddNewVideo token={token} userId={userId} />
-            </div>
-            <div className="all-videos-container">
-              {videosToDisplay.map((video) => (
-                <VideoListName key={video.video_id} video={video} />
-              ))}
-            </div>
-          </div>
+          <Grid container spacing={3}>
+            {videosToDisplay.map((video) => (
+              <Grid item key={video.video_id} xs={12} md={4}>
+                <VideoListName video={video} />
+              </Grid>
+            ))}
+          </Grid>
         ) : (
           <p>No classes available</p>
         )}
-      </div>
-    </>
+      </Grid>
+    </Grid>
   );
 }

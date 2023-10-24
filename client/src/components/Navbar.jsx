@@ -139,19 +139,20 @@ function DrawerAppBar(props) {
               variant="h4"
               component="div"
               sx={{
-                display: { xs: "none", sm: "block", fontWeight: "bold" },
+                flexGrow: 1,
+                display: { xs: "none", sm: "block" },
+                fontWeight: "bold",
               }}
             >
               MY DANCE LIBRARY
             </Typography>
-            <Box
-              sx={{ display: "flex", justifyContent: "flex-end", flexGrow: 1 }}
-            >
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <List
                 sx={{
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
+                  justifyContent: "right",
                 }}
               >
                 <ListItemButton

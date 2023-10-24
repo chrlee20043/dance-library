@@ -143,7 +143,15 @@ export default function Profile({ token, userId, currentUser }) {
                       <p>
                         {video.level} {video.style} with {video.instructor_name}
                       </p>
-                      <img src={video.imageURL} />
+                      <iframe
+                        // width="560"
+                        // height="315"
+                        src={video.videoURL}
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      ></iframe>
                       <p>{video.instructorBio}</p>
 
                       <div id="editing-card">
