@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { addVideoClass, fetchAllInstructors } from "../helpers/fetching"; // Create a function to fetch instructors
+import { addVideoClass, fetchAllInstructors } from "../helpers/fetching";
 import { VideosContext } from "../context/VideosContext";
 import { fetchAllVideos } from "../helpers/fetching";
+import AddNewInstructor from "./AddNewInstructor";
 
 export default function AddNewVideo({ token, userId }) {
   const { setVideos, addVideos } = useContext(VideosContext);
@@ -15,13 +16,14 @@ export default function AddNewVideo({ token, userId }) {
   const [videoURL, setVideoURL] = useState("");
   const [submittedBy, setSubmittedBy] = useState(userId);
   const [error, setError] = useState("");
+  const [showInstructorForm, setShowInstructorForm] = useState(false);
 
   const navigate = useNavigate();
 
   // Fetch the list of instructors when the component mounts
   useEffect(() => {
     const fetchInstructorList = async () => {
-      const instructorList = await fetchAllInstructors(); // Implement fetchInstructors function
+      const instructorList = await fetchAllInstructors();
       setInstructors(instructorList);
     };
     fetchInstructorList();
@@ -56,6 +58,10 @@ export default function AddNewVideo({ token, userId }) {
     navigate("./", { replace: true });
   };
 
+  const handleShowInstructorForm = () => {
+    setShowInstructorForm(true); // Show the instructor form when the button is clicked
+  };
+
   return (
     <div className="new-video-form">
       {token ? (
@@ -70,7 +76,6 @@ export default function AddNewVideo({ token, userId }) {
                   const selectedName = event.target.value;
                   setInstructorName(selectedName);
 
-                  // Find the corresponding instructorId based on the selected name
                   const selectedInstructor = instructors.find(
                     (instructor) => instructor.name === selectedName
                   );
@@ -92,34 +97,70 @@ export default function AddNewVideo({ token, userId }) {
                   </option>
                 ))}
               </select>
-              <button className="new-instructor-btn">Add an instructor</button>
+              <button className="new-btn" onClick={handleShowInstructorForm}>
+                Add an instructor
+              </button>
             </div>
-
             <div className="col">
-              <label htmlFor="style">Style: </label>
-              <input
-                id="style"
-                type="text"
+              <select
                 className="form-control"
-                placeholder="Style"
                 value={style}
-                onChange={(event) => setStyle(event.target.value)}
-              />
+                onChange={(event) => {
+                  setStyle(event.target.value);
+                }}
+              >
+                <option value="" disabled>
+                  Select Style
+                </option>
+                {instructors.map((instructor) => (
+                  <option
+                    key={instructor.instructor_id}
+                    value={instructor.style}
+                  >
+                    {instructor.style}
+                  </option>
+                ))}
+              </select>
+              <button className="new-btn">Add Style</button>
             </div>
             <div className="col">
-              <label htmlFor="level">Level: </label>
-
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Level"
-                value={level}
-                onChange={(event) => setLevel(event.target.value)}
-              />
+              <label>Level: </label>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value="beginner"
+                    checked={level === "beginner"}
+                    onChange={() => setLevel("beginner")}
+                  />
+                  Beginner
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value="intermediate"
+                    checked={level === "intermediate"}
+                    onChange={() => setLevel("intermediate")}
+                  />
+                  Intermediate
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value="advanced"
+                    checked={level === "advanced"}
+                    onChange={() => setLevel("advanced")}
+                  />
+                  Advanced
+                </label>
+              </div>
             </div>
             <div className="col">
-              <label htmlFor="videoURL">Video URL: </label>
-
+              <label>Video URL: </label>
               <input
                 type="text"
                 className="form-control"
@@ -128,13 +169,18 @@ export default function AddNewVideo({ token, userId }) {
                 onChange={(event) => setVideoURL(event.target.value)}
               />
             </div>
+            <button className="card-button" type="submit">
+              Submit
+            </button>
           </div>
-          <button className="card-button" type="submit">
-            Submit
-          </button>
         </form>
       ) : (
         <p>Please log in or register to add new classes</p>
+      )}
+      {showInstructorForm && (
+        <div className="instructor-form">
+          <AddNewInstructor token={token} />
+        </div>
       )}
     </div>
   );

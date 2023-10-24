@@ -117,6 +117,16 @@ function DrawerAppBar(props) {
     </Box>
   );
 
+  const listItemButtonSX = {
+    fontSize: "20px",
+    fontWeight: "bold",
+    borderBottom: "2px solid transparent",
+    transition: "border-bottom-color 0.3s ease",
+    "&:hover": {
+      borderBottom: "2px solid rgb(255, 123, 0)",
+    },
+  };
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -156,7 +166,7 @@ function DrawerAppBar(props) {
                 }}
               >
                 <ListItemButton
-                  sx={{ fontSize: "20px", fontWeight: "bold" }}
+                  sx={listItemButtonSX}
                   color="inherit"
                   component={Link}
                   to="/"
@@ -165,7 +175,7 @@ function DrawerAppBar(props) {
                 </ListItemButton>
                 {props.token && (
                   <ListItemButton
-                    sx={{ fontSize: "20px", fontWeight: "bold" }}
+                    sx={listItemButtonSX}
                     color="inherit"
                     component={Link}
                     to="/myprofile"
@@ -174,16 +184,17 @@ function DrawerAppBar(props) {
                   </ListItemButton>
                 )}
                 <ListItemButton
-                  sx={{ fontSize: "20px", fontWeight: "bold" }}
+                  sx={listItemButtonSX}
                   color="inherit"
                   component={Link}
                   to="/allvideos"
                 >
                   CLASSES
                 </ListItemButton>
+
                 {props.token ? (
                   <ListItemButton
-                    sx={{ fontSize: "20px", fontWeight: "bold" }}
+                    sx={listItemButtonSX}
                     color="inherit"
                     onClick={onLogout}
                   >
@@ -191,7 +202,7 @@ function DrawerAppBar(props) {
                   </ListItemButton>
                 ) : (
                   <ListItemButton
-                    sx={{ fontSize: "20px", fontWeight: "bold" }}
+                    sx={listItemButtonSX}
                     color="inherit"
                     component={Link}
                     to="/login"

@@ -91,6 +91,89 @@ async function fetchAllInstructors() {
   }
 }
 
+async function addNewInstructor(
+  // token,
+  name,
+  bio,
+  style,
+  imageURL,
+  token
+) {
+  try {
+    // console.log("am i getting this: ");
+    const response = await fetch(`${baseURL}/instructors`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        bio,
+        style,
+        imageURL,
+      }),
+    });
+    // console.log(response)
+    const result = await response.json();
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error(`You cannot create me`, error);
+  }
+}
+
+async function deleteInstructor(instructorId, token) {
+  try {
+    const response = await fetch(`${baseURL}/instructors/${instructorId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(`You cannot delete me`, error);
+  }
+}
+
+//   // Edit video from my list
+
+async function editInstructor(
+  instructor_id,
+  name,
+  bio,
+  style,
+  imageURL,
+  token
+) {
+  try {
+    const response = await fetch(`${baseURL}/instructors/${instructor_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        instructor_id,
+        name,
+        bio,
+        style,
+        imageURL,
+      }),
+    });
+    const result = await response.json();
+    console.log("Updated item", result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // VIDEOCLASSES QUERIES
 
 // fetch all videos
@@ -348,6 +431,9 @@ export {
   logoutUser,
   myAddedVideos,
   fetchAllInstructors,
+  addNewInstructor,
+  editInstructor,
+  deleteInstructor,
   addVideoClass,
   deleteVideo,
   editVideo,
