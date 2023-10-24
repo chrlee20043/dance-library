@@ -5,9 +5,9 @@ const {
   getAllVideos,
   createVideoClass,
   getVideoClassesWithInstructorName,
-  getVideoClassByInstructorId,
+  getVideoClassesByInstructorId,
   getVideoClassById,
-  getVideoClassBySubmitterId,
+  getVideoClassesBySubmitterId,
   updateVideoClass,
   deleteVideoClass,
 } = require("../db/helpers/videoClasses");
@@ -64,11 +64,11 @@ router.get("/:videoId", async (req, res, next) => {
 //   }
 // });
 
-// GET - /api/videoClasses/user/:userId - get my added videos
+// GET - /api/videoClasses/video/user/:userId - get my added videos
 
-router.get("/user/:userId", async (req, res, next) => {
+router.get("/video/user/:userId", async (req, res, next) => {
   try {
-    const videoClasses = await getVideoClassBySubmitterId(req.params.userId);
+    const videoClasses = await getVideoClassesBySubmitterId(req.params.userId);
     res.send(videoClasses);
   } catch (error) {
     next(error);

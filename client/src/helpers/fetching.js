@@ -139,7 +139,9 @@ async function fetchSingleVideo(videoId) {
 
 async function myAddedVideos(userId) {
   try {
-    const response = await fetch(`${baseURL}/videoclasses/user/${userId}`);
+    const response = await fetch(
+      `${baseURL}/videoclasses/video/user/${userId}`
+    );
 
     // console.log("my user data response: ", response);
     const result = await response.json();

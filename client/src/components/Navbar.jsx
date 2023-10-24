@@ -144,7 +144,9 @@ function DrawerAppBar(props) {
             >
               MY DANCE LIBRARY
             </Typography>
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Box
+              sx={{ display: "flex", justifyContent: "flex-end", flexGrow: 1 }}
+            >
               <List
                 sx={{
                   display: "flex",
