@@ -104,7 +104,7 @@ export default function Profile({ token, userId, currentUser }) {
                     allowFullScreen
                   ></iframe>
                   <button
-                    className="favorite-detail-btn"
+                    className="card-button"
                     onClick={() => {
                       navigate(`/allvideos/${video.video_id}`);
                     }}
