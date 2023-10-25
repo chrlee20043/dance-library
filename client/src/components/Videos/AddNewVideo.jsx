@@ -57,14 +57,6 @@ export default function AddNewVideo({ token, userId }) {
     navigate("./", { replace: true });
   };
 
-  const handleShowInstructorForm = () => {
-    setShowInstructorForm(true);
-  };
-
-  const handleCloseInstructorForm = () => {
-    setShowInstructorForm(false);
-  };
-
   return (
     <div className="new-video-form">
       {token ? (

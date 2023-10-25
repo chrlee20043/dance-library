@@ -1,9 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { TextField, Button, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { addNewInstructor } from "../../helpers/fetching";
+import { addNewInstructor, fetchAllInstructors } from "../../helpers/fetching";
 
-export default function AddNewInstructor({ token }) {
+export default function AddNewInstructor({ token, userId }) {
+  const [instructors, setInstructors] = useState([]);
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [style, setStyle] = useState("");
@@ -12,65 +13,121 @@ export default function AddNewInstructor({ token }) {
 
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   async function fetchInstructors() {
+  //     const updatedInstructors = await fetchAllInstructors();
+  //     setInstructors(updatedInstructors);
+  //   }
+  //   fetchInstructors();
+  // }, [instructors]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const result = await addNewInstructor(name, bio, style, imageURL, token);
+
+    async function newInstructor() {
+      const result = await addNewInstructor(
+        name,
+        bio,
+        style,
+        imageURL,
+        userId,
+        token
+      );
       console.log(result);
-      //   const updateReview = await fetchReviewsByMuseumId(museumId);
-      //   setReviews(updateReview);
-      //   console.log("New reviews", updateReview);
 
-      setName("");
-      setBio("");
-      setStyle("");
-      setImageURL("");
-      setError(null);
-
-      navigate("./", { replace: true });
-    } catch (error) {
-      setError("Failed to create the review. Please try again later.");
-      console.error("Error:", error);
+      const updatedInstructors = await fetchAllInstructors();
+      setInstructors(updatedInstructors);
     }
+    newInstructor();
+
+    setName("");
+    setBio("");
+    setStyle("");
+    setImageURL("");
+    setError(null);
+
+    navigate("./", { replace: true });
+  };
+
+  const textfieldSX = {
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "rgb(255, 123, 0)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(255, 123, 0)",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      color: "rgb(255, 123, 0)",
+    },
   };
 
   return (
-    <div className="new-instructor">
-      <h3 className="new-instructor-title">Add New Instructor</h3>
-
-      <form onSubmit={submitHandler} className="add-instructor-form">
-        <input
-          className="add-instructor-input"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          className="add-instructor-input"
-          placeholder="Biography"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
-        <input
-          className="add-instructor-input"
-          placeholder="Style"
-          value={style}
-          onChange={(e) => setStyle(e.target.value)}
-        />
-        <input
-          className="add-instructor-input"
-          placeholder="Image"
-          value={imageURL}
-          onChange={(e) => setImageURL(e.target.value)}
-        />
-        <br />
-
-        {error && <p className="error-message">{error}</p>}
-
-        <button type="submit" className="card-button">
-          Submit
-        </button>
-      </form>
-    </div>
+    <Grid container spacing={3} className="new-instructor">
+      <Grid item xs={12}>
+        <Typography variant="h4" className="new-instructor-title">
+          Add New Instructor
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <form onSubmit={submitHandler}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Name"
+              variant="outlined"
+              size="small"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              sx={textfieldSX}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Biography"
+              variant="outlined"
+              size="small"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              sx={textfieldSX}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Style"
+              variant="outlined"
+              size="small"
+              value={style}
+              onChange={(e) => setStyle(e.target.value)}
+              sx={textfieldSX}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Image URL"
+              variant="outlined"
+              size="small"
+              value={imageURL}
+              onChange={(e) => setImageURL(e.target.value)}
+              sx={textfieldSX}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            {error && (
+              <Typography variant="body2" color="error">
+                {error}
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </Grid>
+        </form>
+      </Grid>
+    </Grid>
   );
 }

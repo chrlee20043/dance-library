@@ -92,11 +92,11 @@ async function fetchAllInstructors() {
 }
 
 async function addNewInstructor(
-  // token,
   name,
   bio,
   style,
   imageURL,
+  submitted_by,
   token
 ) {
   try {
@@ -112,6 +112,7 @@ async function addNewInstructor(
         bio,
         style,
         imageURL,
+        submitted_by,
       }),
     });
     // console.log(response)

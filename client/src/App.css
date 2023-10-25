@@ -92,7 +92,7 @@ img {
 }
 
 .videocard-title {
-/* text-transform: uppercase; */
+text-transform: uppercase;
 }
 
 #single-video-container {
@@ -293,6 +293,19 @@ img {
 .new-instructor-btn {
   border: none;
 
+}
+
+/* INSTRUCTOR PAGE */
+
+#all-instructors-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgb(219, 206, 219);
+    padding: 1em;
+  margin: 10px;
 }
 
 /* FAVORITES */
