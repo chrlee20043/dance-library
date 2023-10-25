@@ -108,6 +108,7 @@ export default function AllInstructors({ token, userId }) {
           <AddNewInstructor token={token} userId={userId} />
         </Grid>
       )}
+
       <Grid item xs={12}>
         {error && <p>{error}</p>}
         {token ? (

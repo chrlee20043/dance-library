@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Home.jsx";
-import Navbar from "./components/Navbar.jsx";
-import Profile from "./components/Profile";
-import AllVideos from "./components/AllVideos";
-import SingleVideo from "./components/SingleVideo";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import AllInstructors from "./components/AllInstructors";
+import Home from "./components/Auth/Home.jsx";
+import Navbar from "./components/Navigation/Navbar.jsx";
+import Profile from "./components/Auth/Profile";
+import AllVideos from "./components/Videos/AllVideos";
+import SingleVideo from "./components/Videos/SingleVideo";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
+import AllInstructors from "./components/Instructors/AllInstructors";
 import { VideosContextProvider } from "./context/VideosContext";
 import { useSelector } from "react-redux";
 import {
@@ -41,11 +41,11 @@ function App() {
             }
           />
           <Route
-            path="/classes"
+            path="/allvideos"
             element={<AllVideos token={token} userId={userId} />}
           />
           <Route
-            path="/classes/:videoId"
+            path="/allvideos/:videoId"
             element={<SingleVideo token={token} userId={userId} />}
           />
           <Route

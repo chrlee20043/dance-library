@@ -100,7 +100,12 @@ export default function AddNewVideo({ token, userId }) {
                   </option>
                 ))}
               </select>
-              <button className="new-btn" onClick={handleShowInstructorForm}>
+              <button
+                className="new-btn"
+                onClick={() => {
+                  navigate("/instructors");
+                }}
+              >
                 Add an instructor
               </button>
             </div>
@@ -184,14 +189,6 @@ export default function AddNewVideo({ token, userId }) {
         </form>
       ) : (
         <p>Please log in or register to add new classes</p>
-      )}
-      {showInstructorForm && (
-        <div className="instructor-form">
-          <button className="card-button" onClick={handleCloseInstructorForm}>
-            Close
-          </button>
-          <AddNewInstructor token={token} />
-        </div>
       )}
     </div>
   );

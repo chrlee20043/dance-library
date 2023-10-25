@@ -6,7 +6,7 @@ import {
 } from "../../Redux/favoriteSlice";
 import { addNewFavorite, deleteFavorite } from "../../helpers/fetching";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
-import "../App.css";
+import "../../App.css";
 
 export default function FavoriteClass({ userId, videoId, token }) {
   const favoriteClasses = useSelector(selectFavorites);
