@@ -32,13 +32,6 @@ export default function AllVideos({ token, userId }) {
     "& .MuiFormLabel-root.Mui-focused": {
       color: "rgb(255, 123, 0)",
     },
-    "& .MuiOutlinedInput-root.Mui-focused": {
-      color: "rgb(255, 123, 0)",
-    },
-  };
-
-  const gridContainerSX = {
-    alignItems: "flex-start",
   };
 
   const uniqueStyles = [...new Set(videos.map((video) => video.style))];
@@ -78,27 +71,27 @@ export default function AllVideos({ token, userId }) {
   };
 
   return (
-    <Grid container spacing={3} sx={gridContainerSX}>
+    <Grid container spacing={3}>
       <Grid item xs={12}>
         <Typography variant="h4">Classes</Typography>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid container item xs={12} md={8} direction="column">
         <TextField
           fullWidth
           label="Search"
           variant="outlined"
+          size="small"
           onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
-          sx={textFieldSX}
+          sx={{ ...textFieldSX, width: "50%" }}
         />
-      </Grid>
-      <Grid item xs={12} md={4}>
         <Select
           value={selectedStyle}
           onChange={onStyleChange}
           displayEmpty
           fullWidth
           variant="outlined"
-          sx={textFieldSX}
+          size="small"
+          sx={{ ...textFieldSX, width: "50%", marginTop: 2 }}
         >
           <MenuItem value="">Select Style</MenuItem>
           {uniqueStyles.map((style) => (
@@ -107,9 +100,7 @@ export default function AllVideos({ token, userId }) {
             </MenuItem>
           ))}
         </Select>
-      </Grid>
-      <Grid>
-        <div className="filter-buttons">
+        <div className="filter-buttons" style={{ marginTop: 2, width: "50%" }}>
           <label>
             <input
               type="checkbox"

@@ -23,7 +23,6 @@ export default function AddNewVideo({ token, userId }) {
   const [style, setStyle] = useState("");
   const [level, setLevel] = useState("");
   const [videoURL, setVideoURL] = useState("");
-  const [submittedBy, setSubmittedBy] = useState(userId);
   const [isInstructorLabelFocused, setIsInstructorLabelFocused] =
     useState(false);
   const [isStyleLabelFocused, setIsStyleLabelFocused] = useState(false);
@@ -59,22 +58,23 @@ export default function AddNewVideo({ token, userId }) {
     }
     makeAVideo();
 
-    setInstructorId("");
     setInstructorName("");
     setStyle("");
     setLevel("");
     setVideoURL("");
-    setSubmittedBy("");
     navigate("./", { replace: true });
   };
 
   const gridSX = {
-    borderColor: "rgb(69, 2, 69)",
-    padding: "16px",
+    border: "1px solid rgb(69, 2, 69)",
+    padding: "8px",
+    borderRadius: "8px",
+    marginRight: "10px",
   };
 
   const textFieldSX = {
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid rgb(255, 123, 0)",
       borderColor: "rgb(255, 123, 0)",
     },
     "& .MuiFormLabel-root.Mui-focused": {
@@ -83,6 +83,7 @@ export default function AddNewVideo({ token, userId }) {
   };
 
   const selectSX = {
+    // margin: "5px",
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "rgb(255, 123, 0)",
     },
@@ -95,18 +96,32 @@ export default function AddNewVideo({ token, userId }) {
     color: "rgb(255, 123, 0)",
   };
 
+  const submitSX = {
+    border: "1px solid rgb(255, 123, 0)",
+    backgroundColor: "white",
+    color: "rgb(255, 123, 0)",
+    "&:hover": {
+      border: "2px solid rgb(255, 123, 0)",
+      backgroundColor: "white",
+      fontWeight: "bold",
+    },
+    "&.MuiButton-containedPrimary": {
+      backgroundColor: "lightorange",
+    },
+  };
+
   return (
     <Grid container spacing={3} sx={gridSX}>
       {token ? (
         <>
           <Grid item xs={12}>
-            <Typography variant="h4">Add New Video Class</Typography>
+            <Typography variant="h5">Add New Class</Typography>
           </Grid>
           <Grid item xs={12}>
             <form onSubmit={handleSubmit}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={4}>
-                  <FormControl fullWidth variant="outlined" sx={selectSX}>
+                  <FormControl component="fieldset" fullWidth sx={selectSX}>
                     <InputLabel
                       htmlFor="instructor-name"
                       focused={isInstructorLabelFocused}
@@ -115,6 +130,7 @@ export default function AddNewVideo({ token, userId }) {
                     </InputLabel>
                     <Select
                       value={instructorName}
+                      required
                       onChange={(event) => {
                         const selectedName = event.target.value;
                         setInstructorName(selectedName);
@@ -129,6 +145,7 @@ export default function AddNewVideo({ token, userId }) {
                       }}
                       onFocus={() => setIsInstructorLabelFocused(true)}
                       onBlur={() => setIsInstructorLabelFocused(false)}
+                      sx={selectSX}
                     >
                       <MenuItem value="" disabled>
                         Select Instructor
@@ -154,15 +171,17 @@ export default function AddNewVideo({ token, userId }) {
                   </Button>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <FormControl fullWidth variant="outlined" sx={selectSX}>
+                  <FormControl component="fieldset" fullWidth sx={selectSX}>
                     <InputLabel htmlFor="style">Style</InputLabel>
                     <Select
                       value={style}
+                      required
                       onChange={(event) => {
                         setStyle(event.target.value);
                       }}
                       onFocus={() => setIsStyleLabelFocused(true)}
                       onBlur={() => setIsStyleLabelFocused(false)}
+                      sx={selectSX}
                     >
                       <MenuItem value="" disabled>
                         Select Style
@@ -181,61 +200,50 @@ export default function AddNewVideo({ token, userId }) {
                     fullWidth
                     label="Add Style"
                     variant="outlined"
+                    required
                     value={style}
                     onChange={(event) => setStyle(event.target.value)}
                     sx={textFieldSX}
                   />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <div className="col">
-                    <Typography variant="body1">Level:</Typography>
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          value="beginner"
-                          checked={level === "beginner"}
-                          onChange={() => setLevel("beginner")}
-                        />
-                        Beginner
-                      </label>
-                    </div>
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          value="intermediate"
-                          checked={level === "intermediate"}
-                          onChange={() => setLevel("intermediate")}
-                        />
-                        Intermediate
-                      </label>
-                    </div>
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          value="advanced"
-                          checked={level === "advanced"}
-                          onChange={() => setLevel("advanced")}
-                        />
-                        Advanced
-                      </label>
-                    </div>
-                  </div>
+                  <FormControl component="fieldset" fullWidth sx={selectSX}>
+                    <InputLabel htmlFor="level">Level</InputLabel>
+                    <Select
+                      value={level}
+                      onChange={(event) => {
+                        setLevel(event.target.value);
+                      }}
+                      sx={selectSX}
+                    >
+                      <MenuItem value="" disabled>
+                        Select Level
+                      </MenuItem>
+                      <MenuItem value="beginner">Beginner</MenuItem>
+                      <MenuItem value="intermediate">Intermediate</MenuItem>
+                      <MenuItem value="advanced">Advanced</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
+
                 <Grid item xs={12} md={4}>
                   <FormControl fullWidth variant="outlined">
                     <TextField
                       value={videoURL}
+                      required
                       label="Video URL"
                       onChange={(event) => setVideoURL(event.target.value)}
                       sx={textFieldSX}
                     />
+                    {videoURL && !videoURL.includes("youtube.com") && (
+                      <Typography variant="body2" sx={{ color: "red" }}>
+                        *Please submit a YouTube embed link
+                      </Typography>
+                    )}{" "}
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button type="submit" variant="contained" color="primary">
+                  <Button type="submit" variant="contained" sx={submitSX}>
                     Submit
                   </Button>
                 </Grid>
@@ -253,254 +261,3 @@ export default function AddNewVideo({ token, userId }) {
     </Grid>
   );
 }
-
-// import React, { useState, useContext, useEffect } from "react";
-// import {
-//   Grid,
-//   TextField,
-//   Typography,
-//   Select,
-//   MenuItem,
-//   Button,
-//   InputLabel,
-// } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-// import { addVideoClass, fetchAllInstructors } from "../../helpers/fetching";
-// import { VideosContext } from "../../context/VideosContext";
-// import { fetchAllVideos } from "../../helpers/fetching";
-// import AddNewInstructor from "../Instructors/AddNewInstructor";
-
-// export default function AddNewVideo({ token, userId }) {
-//   const { setVideos, addVideos } = useContext(VideosContext);
-
-//   const [instructors, setInstructors] = useState([]);
-//   const [instructorId, setInstructorId] = useState("");
-//   const [instructorName, setInstructorName] = useState("");
-//   const [style, setStyle] = useState("");
-//   const [level, setLevel] = useState("");
-//   const [videoURL, setVideoURL] = useState("");
-//   const [submittedBy, setSubmittedBy] = useState(userId);
-//   const [error, setError] = useState("");
-
-//   const navigate = useNavigate();
-
-//   // Fetch the list of instructors when the component mounts
-//   useEffect(() => {
-//     const fetchInstructorList = async () => {
-//       const instructorList = await fetchAllInstructors();
-//       setInstructors(instructorList);
-//     };
-//     fetchInstructorList();
-//   }, []);
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     async function makeAVideo() {
-//       const result = await addVideoClass(
-//         instructorId,
-//         instructorName,
-//         style,
-//         level,
-//         videoURL,
-//         userId
-//       );
-//       console.log(result);
-//       const updatedVideos = await fetchAllVideos();
-//       setVideos(updatedVideos);
-//     }
-//     makeAVideo();
-
-//     setInstructorId("");
-//     setInstructorName("");
-//     setStyle("");
-//     setLevel("");
-//     setVideoURL("");
-//     setSubmittedBy("");
-//     navigate("./", { replace: true });
-//   };
-
-//   const gridSX = {
-//     borderColor: "rgb(69, 2, 69)",
-//     padding: "16px",
-//   };
-
-//   const textFieldSX = {
-//     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-//       borderColor: "rgb(255, 123, 0)",
-//     },
-//     "& .MuiFormLabel-root.Mui-focused": {
-//       color: "rgb(255, 123, 0)",
-//     },
-//     "& .MuiOutlinedInput-root.Mui-focused": {
-//       color: "rgb(255, 123, 0)",
-//     },
-//   };
-
-//   const selectSX = {
-//     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-//       borderColor: "rgb(255, 123, 0)",
-//     },
-//     "& .MuiFormLabel-root.Mui-focused": {
-//       color: "rgb(255, 123, 0)",
-//     },
-//   };
-
-//   const buttonSX = {
-//     color: "rgb(255, 123, 0)",
-//   };
-
-//   return (
-//     <Grid container spacing={3} sx={gridSX}>
-//       {token ? (
-//         <>
-//           <Grid item xs={12}>
-//             <Typography variant="h4">Add New Video Class</Typography>
-//           </Grid>
-//           <Grid item xs={12}>
-//             <form onSubmit={handleSubmit}>
-//               <Grid container spacing={3}>
-//                 <Grid item xs={12} md={4}>
-//                   <InputLabel htmlFor="instructor-name">Instructor</InputLabel>
-//                   <Select
-//                     fullWidth
-//                     label="Instructor"
-//                     variant="outlined"
-//                     value={instructorName}
-//                     onChange={(event) => {
-//                       const selectedName = event.target.value;
-//                       setInstructorName(selectedName);
-
-//                       const selectedInstructor = instructors.find(
-//                         (instructor) => instructor.name === selectedName
-//                       );
-
-//                       if (selectedInstructor) {
-//                         setInstructorId(selectedInstructor.instructor_id);
-//                       }
-//                     }}
-//                     sx={selectSX}
-//                   >
-//                     <MenuItem value="" disabled>
-//                       Select Instructor
-//                     </MenuItem>
-//                     {instructors.map((instructor) => (
-//                       <MenuItem
-//                         key={instructor.instructor_id}
-//                         value={instructor.name}
-//                       >
-//                         {instructor.name}
-//                       </MenuItem>
-//                     ))}
-//                   </Select>
-//                   <Button
-//                     className="new-btn"
-//                     onClick={() => {
-//                       navigate("/instructors");
-//                     }}
-//                     sx={buttonSX}
-//                   >
-//                     Add an instructor
-//                   </Button>
-//                 </Grid>
-//                 <Grid item xs={12} md={4}>
-//                   <InputLabel htmlFor="style">Style</InputLabel>
-
-//                   <Select
-//                     fullWidth
-//                     label="Style"
-//                     variant="outlined"
-//                     value={style}
-//                     onChange={(event) => {
-//                       setStyle(event.target.value);
-//                     }}
-//                     sx={selectSX}
-//                   >
-//                     <MenuItem value="" disabled>
-//                       Select Style
-//                     </MenuItem>
-//                     {instructors.map((instructor) => (
-//                       <MenuItem
-//                         key={instructor.instructor_id}
-//                         value={instructor.style}
-//                       >
-//                         {instructor.style}
-//                       </MenuItem>
-//                     ))}
-//                   </Select>
-//                   <TextField
-//                     fullWidth
-//                     label="Add Style"
-//                     variant="outlined"
-//                     value={style}
-//                     onChange={(event) => setStyle(event.target.value)}
-//                     sx={textFieldSX}
-//                   />
-//                 </Grid>
-//                 <Grid item xs={12} md={4}>
-//                   <div className="col">
-//                     <Typography variant="body1">Level:</Typography>
-//                     <div>
-//                       <label>
-//                         <input
-//                           type="radio"
-//                           value="beginner"
-//                           checked={level === "beginner"}
-//                           onChange={() => setLevel("beginner")}
-//                         />
-//                         Beginner
-//                       </label>
-//                     </div>
-//                     <div>
-//                       <label>
-//                         <input
-//                           type="radio"
-//                           value="intermediate"
-//                           checked={level === "intermediate"}
-//                           onChange={() => setLevel("intermediate")}
-//                         />
-//                         Intermediate
-//                       </label>
-//                     </div>
-//                     <div>
-//                       <label>
-//                         <input
-//                           type="radio"
-//                           value="advanced"
-//                           checked={level === "advanced"}
-//                           onChange={() => setLevel("advanced")}
-//                         />
-//                         Advanced
-//                       </label>
-//                     </div>
-//                   </div>
-//                 </Grid>
-//                 <Grid item xs={12} md={4}>
-//                   <TextField
-//                     fullWidth
-//                     label="Video URL"
-//                     variant="outlined"
-//                     value={videoURL}
-//                     onChange={(event) => setVideoURL(event.target.value)}
-//                     sx={textFieldSX}
-//                   />
-//                 </Grid>
-//                 <Grid item xs={12}>
-//                   <Button type="submit" variant="contained" color="primary">
-//                     Submit
-//                   </Button>
-//                 </Grid>
-//               </Grid>
-//             </form>
-//           </Grid>
-//         </>
-//       ) : (
-//         <Grid item xs={12}>
-//           <Typography variant="body1">
-//             Please log in or register to add new classes
-//           </Typography>
-//         </Grid>
-//       )}
-//     </Grid>
-//   );
-// }
