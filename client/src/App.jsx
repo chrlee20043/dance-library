@@ -8,6 +8,7 @@ import SingleVideo from "./components/Videos/SingleVideo";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
 import AllInstructors from "./components/Instructors/AllInstructors";
+import SingleInstructor from "./components/Instructors/SingleInstructor";
 import { VideosContextProvider } from "./context/VideosContext";
 import { useSelector } from "react-redux";
 import {
@@ -51,6 +52,10 @@ function App() {
           <Route
             path="/instructors"
             element={<AllInstructors token={token} userId={userId} />}
+          />
+          <Route
+            path="/instructors/:instructorId"
+            element={<SingleInstructor token={token} userId={userId} />}
           />
         </Routes>
       </VideosContextProvider>
