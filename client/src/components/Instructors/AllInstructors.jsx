@@ -43,22 +43,21 @@ export default function AllInstructors({ token, userId }) {
     alignItems: "flex-start",
   };
 
-  const uniqueStyles = [...new Set(videos.map((video) => video.style))];
+  const uniqueStyles = [
+    ...new Set(instructors.map((instructor) => instructor.style)),
+  ];
 
   const instructorsToDisplay = instructors.filter((instructor) => {
     const instructorName = instructor.name.toLowerCase();
     const style = instructor.style.toLowerCase();
 
-    const typeMatch = selectedStyle !== ""; // Check if a style is selected
-
     const searchMatch =
       instructorName.includes(searchParam) || style.includes(searchParam);
 
-    return (
-      typeMatch &&
-      (searchParam === "" || searchMatch) &&
-      (selectedStyle === "" || style === selectedStyle)
-    );
+    const styleMatch =
+      selectedStyle === "" || style === selectedStyle.toLowerCase();
+
+    return styleMatch && (searchParam === "" || searchMatch);
   });
 
   const onStyleChange = (e) => {
