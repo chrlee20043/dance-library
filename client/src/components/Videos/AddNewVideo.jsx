@@ -1,4 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
+import {
+  Grid,
+  TextField,
+  Typography,
+  Select,
+  MenuItem,
+  Button,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { addVideoClass, fetchAllInstructors } from "../../helpers/fetching";
 import { VideosContext } from "../../context/VideosContext";
@@ -32,7 +40,6 @@ export default function AddNewVideo({ token, userId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const userId = { submittedBy };
     async function makeAVideo() {
       const result = await addVideoClass(
         instructorId,
@@ -57,131 +64,169 @@ export default function AddNewVideo({ token, userId }) {
     navigate("./", { replace: true });
   };
 
+  const gridSX = {
+    borderColor: "rgb(69, 2, 69)",
+    padding: "16px",
+  };
+
+  const textFieldSX = {
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "rgb(255, 123, 0)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(255, 123, 0)",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      color: "rgb(255, 123, 0)",
+    },
+  };
+
   return (
-    <div className="new-video-form">
+    <Grid container spacing={3} sx={gridSX}>
       {token ? (
-        <form onSubmit={handleSubmit}>
-          <h4>Add New Video Class</h4>
-          <div className="form-row">
-            <div className="col">
-              <select
-                className="form-control"
-                value={instructorName}
-                onChange={(event) => {
-                  const selectedName = event.target.value;
-                  setInstructorName(selectedName);
+        <>
+          <Grid item xs={12}>
+            <Typography variant="h4">Add New Video Class</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={4}>
+                  <Select
+                    fullWidth
+                    label="Instructor"
+                    variant="outlined"
+                    value={instructorName}
+                    onChange={(event) => {
+                      const selectedName = event.target.value;
+                      setInstructorName(selectedName);
 
-                  const selectedInstructor = instructors.find(
-                    (instructor) => instructor.name === selectedName
-                  );
+                      const selectedInstructor = instructors.find(
+                        (instructor) => instructor.name === selectedName
+                      );
 
-                  if (selectedInstructor) {
-                    setInstructorId(selectedInstructor.instructor_id);
-                  }
-                }}
-              >
-                <option value="" disabled>
-                  Select Instructor
-                </option>
-                {instructors.map((instructor) => (
-                  <option
-                    key={instructor.instructor_id}
-                    value={instructor.name}
+                      if (selectedInstructor) {
+                        setInstructorId(selectedInstructor.instructor_id);
+                      }
+                    }}
+                    sx={textFieldSX}
                   >
-                    {instructor.name}
-                  </option>
-                ))}
-              </select>
-              <button
-                className="new-btn"
-                onClick={() => {
-                  navigate("/instructors");
-                }}
-              >
-                Add an instructor
-              </button>
-            </div>
-            <div className="col">
-              <select
-                className="form-control"
-                value={style}
-                onChange={(event) => {
-                  setStyle(event.target.value);
-                }}
-              >
-                <option value="" disabled>
-                  Select Style
-                </option>
-                {instructors.map((instructor) => (
-                  <option
-                    key={instructor.instructor_id}
-                    value={instructor.style}
+                    <MenuItem value="" disabled>
+                      Select Instructor
+                    </MenuItem>
+                    {instructors.map((instructor) => (
+                      <MenuItem
+                        key={instructor.instructor_id}
+                        value={instructor.name}
+                      >
+                        {instructor.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <Button
+                    className="new-btn"
+                    onClick={() => {
+                      navigate("/instructors");
+                    }}
                   >
-                    {instructor.style}
-                  </option>
-                ))}
-              </select>
-              <input
-                className="new-style-input"
-                placeholder="Style"
-                value={style}
-                onChange={(e) => setStyle(e.target.value)}
-              />
-            </div>
-            <div className="col">
-              <label>Level: </label>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    value="beginner"
-                    checked={level === "beginner"}
-                    onChange={() => setLevel("beginner")}
+                    Add an instructor
+                  </Button>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Select
+                    fullWidth
+                    label="Style"
+                    variant="outlined"
+                    value={style}
+                    onChange={(event) => {
+                      setStyle(event.target.value);
+                    }}
+                  >
+                    <MenuItem value="" disabled>
+                      Select Style
+                    </MenuItem>
+                    {instructors.map((instructor) => (
+                      <MenuItem
+                        key={instructor.instructor_id}
+                        value={instructor.style}
+                      >
+                        {instructor.style}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <TextField
+                    fullWidth
+                    label="Add Style"
+                    variant="outlined"
+                    value={style}
+                    onChange={(event) => setStyle(event.target.value)}
+                    sx={textFieldSX}
                   />
-                  Beginner
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    value="intermediate"
-                    checked={level === "intermediate"}
-                    onChange={() => setLevel("intermediate")}
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <div className="col">
+                    <Typography variant="body1">Level:</Typography>
+                    <div>
+                      <label>
+                        <input
+                          type="radio"
+                          value="beginner"
+                          checked={level === "beginner"}
+                          onChange={() => setLevel("beginner")}
+                        />
+                        Beginner
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <input
+                          type="radio"
+                          value="intermediate"
+                          checked={level === "intermediate"}
+                          onChange={() => setLevel("intermediate")}
+                        />
+                        Intermediate
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <input
+                          type="radio"
+                          value="advanced"
+                          checked={level === "advanced"}
+                          onChange={() => setLevel("advanced")}
+                        />
+                        Advanced
+                      </label>
+                    </div>
+                  </div>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    fullWidth
+                    label="Video URL"
+                    variant="outlined"
+                    value={videoURL}
+                    onChange={(event) => setVideoURL(event.target.value)}
+                    sx={textFieldSX}
                   />
-                  Intermediate
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    value="advanced"
-                    checked={level === "advanced"}
-                    onChange={() => setLevel("advanced")}
-                  />
-                  Advanced
-                </label>
-              </div>
-            </div>
-            <div className="col">
-              <label>Video URL: </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Video URL"
-                value={videoURL}
-                onChange={(event) => setVideoURL(event.target.value)}
-              />
-            </div>
-            <button className="card-button" type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button type="submit" variant="contained" color="primary">
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Grid>
+        </>
       ) : (
-        <p>Please log in or register to add new classes</p>
+        <Grid item xs={12}>
+          <Typography variant="body1">
+            Please log in or register to add new classes
+          </Typography>
+        </Grid>
       )}
-    </div>
+    </Grid>
   );
 }

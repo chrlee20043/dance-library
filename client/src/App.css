@@ -275,7 +275,7 @@ text-transform: uppercase;
 /* NEW VIDEO FORM */
 
 .new-video-form {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -283,10 +283,10 @@ text-transform: uppercase;
   margin-right: auto;
   margin-top: 10px;
   border-radius: 5px;
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, .5); */
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
   width: 20em;
   padding: 1em;
-  background-color: rgb(219, 206, 219);
+  background-color: rgb(219, 206, 219); */
 
 }
 
