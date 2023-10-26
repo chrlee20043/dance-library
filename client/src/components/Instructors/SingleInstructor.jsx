@@ -3,10 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   fetchSingleInstructor,
   fetchVideosbyInstructorId,
+  deleteInstructor,
 } from "../../helpers/fetching";
 import { VideosContext } from "../../context/VideosContext";
 
-export default function SingleInstructor() {
+export default function SingleInstructor({ token, userId }) {
   const { videos, setVideos } = useContext(VideosContext);
   const [instructor, setInstructor] = useState({});
   const [error, setError] = useState(null);
@@ -43,11 +44,22 @@ export default function SingleInstructor() {
     videosByInstructorId(instructorId);
   }, [instructorId]);
 
+  const handleDelete = async (instructorId) => {
+    try {
+      const result = await deleteInstructor(instructorId);
+      console.log("deleted instructor: ", result);
+      navigate("/instructors");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="single-instructor-card">
-        <h1>{instructor.name}</h1>
+        <h1 className="class-title">{instructor.name}</h1>
         <div>
+          <p className="class-title">{instructor.style}</p>
           <img src={instructor.imageURL} alt={instructor.name} />
           <p>{instructor.bio}</p>
           <button
@@ -56,6 +68,13 @@ export default function SingleInstructor() {
           >
             Return to Instructors
           </button>
+          <button
+            className="card-button"
+            onClick={() => handleDelete(instructor.instructor_id)}
+          >
+            Delete
+          </button>
+          {/* <EditInstructor /> */}
         </div>
       </div>
       <div className="instructor-classes">

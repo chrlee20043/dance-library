@@ -164,7 +164,7 @@ export default function Profile({ token, userId, currentUser }) {
                         className="card-button"
                         onClick={() => handleDelete(video.video_id)}
                       >
-                        Delete me
+                        Delete
                       </button>
                     </div>
                   )}
