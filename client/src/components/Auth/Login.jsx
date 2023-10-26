@@ -1,27 +1,11 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../Redux/authslice";
+import { setCredentials } from "../../Redux/authSlice";
 import { loginToAccount } from "../../helpers/fetching";
+import { Grid, Typography, TextField, Button, Paper } from "@mui/material";
 
-// MUI IMPORTS
-
-// import Avatar from "@mui/material/Avatar";
-// import Button from "@mui/material/Button";
-// import CssBaseline from "@mui/material/CssBaseline";
-// import TextField from "@mui/material/TextField";
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import Checkbox from "@mui/material/Checkbox";
-// import Link from "@mui/material/Link";
-// import Grid from "@mui/material/Grid";
-// import Box from "@mui/material/Box";
-// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-// import Typography from "@mui/material/Typography";
-// import Container from "@mui/material/Container";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-export default function Login({ setToken, token }) {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
@@ -29,8 +13,6 @@ export default function Login({ setToken, token }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // const defaultTheme = createTheme();
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -67,122 +49,90 @@ export default function Login({ setToken, token }) {
     loggingInUser();
   };
 
+  const textFieldSX = {
+    margin: "5px",
+    width: "100%",
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid rgb(255, 123, 0)",
+      borderColor: "rgb(255, 123, 0)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(255, 123, 0)",
+    },
+  };
+
+  const loginBtnSX = {
+    backgroundColor: "rgb(219, 206, 219)",
+    border: "1px solid rgb(219, 206, 219) ",
+    marginTop: "2",
+    color: "black",
+    "&:hover": {
+      backgroundColor: "rgb(219, 206, 219)",
+      border: "2px solid rgb(255, 123, 0) ",
+    },
+    "&.MuiButtonBase-root.MuiButton-clicked": {
+      backgroundColor: "white",
+    },
+  };
+
+  const registerBtnSX = {
+    marginTop: 1,
+    color: "black",
+    "&:hover": {
+      borderBottom: "2px solid rgb(255, 123, 0)",
+      borderRadius: 0,
+      backgroundColor: "white",
+    },
+  };
+
   return (
-    // <ThemeProvider theme={defaultTheme}>
-    //   <Container component="main" maxWidth="xs">
-    //     <CssBaseline />
-    //     <Box
-    //       sx={{
-    //         marginTop: 8,
-    //         display: "flex",
-    //         flexDirection: "column",
-    //         alignItems: "center",
-    //       }}
-    //     >
-    //       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-    //         <LockOutlinedIcon />
-    //       </Avatar>
-    //       <Typography component="h1" variant="h5">
-    //         Sign in
-    //       </Typography>
-    //       <Box
-    //         component="form"
-    //         onSubmit={handleLogin}
-    //         noValidate
-    //         sx={{ mt: 1 }}
-    //       >
-    //         <TextField
-    //           onChange={(e) => setUsername(e.target.value)}
-    //           type="text"
-    //           placeholder="Username"
-    //           id="username"
-    //           name="username"
-    //           margin="normal"
-    //           label="username"
-    //           autoComplete="username"
-    //           value={username}
-    //           fullWidth
-    //           autoFocus
-    //           required
-    //         />
-    //         <TextField
-    //           onChange={(e) => setPassword(e.target.value)}
-    //           type="password"
-    //           placeholder="********"
-    //           id="password"
-    //           name="password"
-    //           margin="normal"
-    //           label="Password"
-    //           autoComplete="current-password"
-    //           value={password}
-    //           fullWidth
-    //           required
-    //         />
-    //         <FormControlLabel
-    //           control={<Checkbox value="remember" color="primary" />}
-    //           label="Remember me"
-    //         />
-    //         <Button
-    //           type="submit"
-    //           fullWidth
-    //           variant="contained"
-    //           sx={{ mt: 3, mb: 2 }}
-    //         >
-    //           Sign In
-    //         </Button>
-    //         <Grid container>
-    //           <Grid item xs>
-    //             <Link href="#" variant="body2">
-    //               Forgot password?
-    //             </Link>
-    //           </Grid>
-    //           <Grid item>
-    //             <Link href="#" variant="body2">
-    //               {"Don't have an account? Sign Up"}
-    //             </Link>
-    //           </Grid>
-    //         </Grid>
-    //       </Box>
-    //     </Box>
-    //     {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
-    //   </Container>
-    // </ThemeProvider>
-    //   );
-    // }
-    <div>
-      <form className="login-form" onSubmit={handleLogin}>
-        <h2>Login</h2>
-        <label className="label">Username</label>
-        <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          type="text"
-          placeholder="Username"
-          id="username"
-          name="username"
-          required
-        />
-        <label className="label">Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="********"
-          id="password"
-          name="password"
-          required
-        />
-        <button className="form-button" type="submit">
-          Log in
-        </button>
-      </form>
-      <button
-        type="button"
-        className="link-button"
-        onClick={() => navigate("/register")}
-      >
-        Don't have an account? Register here.
-      </button>
-    </div>
+    <Grid
+      container
+      justifyContent="center"
+      padding="10px"
+      margin="3"
+      // alignItems="center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item xs={12} sm={8} md={6} lg={4}>
+        <Paper elevation={3} sx={{ padding: 2, textAlign: "center" }}>
+          <Typography variant="h4">Login</Typography>
+          <Grid item xs={12}>
+            <form onSubmit={handleLogin}>
+              <TextField
+                label="Username"
+                type="text"
+                variant="outlined"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                sx={textFieldSX}
+                required
+              />
+              <TextField
+                label="Password"
+                type="password"
+                variant="outlined"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                sx={textFieldSX}
+                required
+              />
+              <Button type="submit" variant="contained" sx={loginBtnSX}>
+                Log in
+              </Button>
+            </form>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="text"
+              onClick={() => navigate("/register")}
+              sx={registerBtnSX}
+            >
+              Don't have an account? Register here.
+            </Button>
+          </Grid>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }
