@@ -12,6 +12,7 @@ export default function InstructorListName({ token, userId, instructor }) {
         <p>{instructor.style}</p>
         <p>{instructor.bio}</p>
         <button
+          className="card-button"
           onClick={() => {
             navigate(`/instructors/${instructor.instructor_id}`);
           }}

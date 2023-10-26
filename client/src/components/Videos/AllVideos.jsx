@@ -25,16 +25,9 @@ export default function AllVideos({ token, userId }) {
     renderVideos();
   }, []);
 
-  const textFieldSX = {
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "rgb(255, 123, 0)",
-    },
-    "& .MuiFormLabel-root.Mui-focused": {
-      color: "rgb(255, 123, 0)",
-    },
-  };
-
-  const uniqueStyles = [...new Set(videos.map((video) => video.style))];
+  const uniqueStyles = [
+    ...new Set(videos.map((video) => video.style.toUpperCase())),
+  ];
 
   const videosToDisplay = videos.filter((video) => {
     const instructorName = video.instructor_name.toLowerCase();
@@ -70,6 +63,31 @@ export default function AllVideos({ token, userId }) {
     setSelectedStyle(style);
   };
 
+  const textFieldSX = {
+    ml: 2,
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "rgb(255, 123, 0)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(255, 123, 0)",
+    },
+  };
+
+  const selectStyle = {
+    width: "50%",
+    mt: 2,
+    ml: 2,
+    mb: 2,
+    textAlign: "left",
+    pl: 2,
+    "& .MuiSelect-outlined": {
+      borderColor: "rgb(255, 123, 0)",
+      "& .MuiFormLabel-root.Mui-focused": {
+        color: "rgb(255, 123, 0)",
+      },
+    },
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -84,6 +102,7 @@ export default function AllVideos({ token, userId }) {
           onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           sx={{ ...textFieldSX, width: "50%" }}
         />
+
         <Select
           value={selectedStyle}
           onChange={onStyleChange}
@@ -91,7 +110,7 @@ export default function AllVideos({ token, userId }) {
           fullWidth
           variant="outlined"
           size="small"
-          sx={{ ...textFieldSX, width: "50%", marginTop: 2 }}
+          sx={selectStyle}
         >
           <MenuItem value="">Select Style</MenuItem>
           {uniqueStyles.map((style) => (
@@ -100,6 +119,7 @@ export default function AllVideos({ token, userId }) {
             </MenuItem>
           ))}
         </Select>
+
         <div className="filter-buttons" style={{ marginTop: 2, width: "50%" }}>
           <label>
             <input

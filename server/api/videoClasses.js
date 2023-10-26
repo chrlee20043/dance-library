@@ -53,16 +53,16 @@ router.get("/:videoId", async (req, res, next) => {
 
 // GET - /api/videoClasses/:instructorId - get video by instructor id
 
-// router.get("/video/:instructorId", async (req, res, next) => {
-//   try {
-//     const videoClass = await getVideoClassByInstructorId(
-//       req.params.instructorId
-//     );
-//     res.send(videoClass);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+router.get("/video/instructor/:instructorId", async (req, res, next) => {
+  try {
+    const videoClass = await getVideoClassesByInstructorId(
+      req.params.instructorId
+    );
+    res.send(videoClass);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // GET - /api/videoClasses/video/user/:userId - get my added videos
 

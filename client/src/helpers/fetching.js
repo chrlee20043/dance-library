@@ -91,6 +91,17 @@ async function fetchAllInstructors() {
   }
 }
 
+async function fetchSingleInstructor(instructorId) {
+  try {
+    const response = await fetch(`${baseURL}/instructors/${instructorId}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get single instructor", error);
+  }
+}
+
 async function addNewInstructor(
   name,
   bio,
@@ -190,6 +201,8 @@ async function fetchAllVideos() {
   }
 }
 
+// fetch all videos with instructor name
+
 export default async function fetchVideosWithInstructorName(
   videoId,
   instructorName
@@ -216,6 +229,21 @@ async function fetchSingleVideo(videoId) {
     return result;
   } catch (error) {
     console.error("cannot get single video", error);
+  }
+}
+
+// get videos by instructor Id
+
+async function fetchVideosbyInstructorId(instructorId) {
+  try {
+    const response = await fetch(
+      `${baseURL}/videoclasses/video/instructor/${instructorId}`
+    );
+    const result = await response.json();
+    // console.log("Fetched videos", result);
+    return result;
+  } catch (error) {
+    console.error("Videos not available at this time.");
   }
 }
 
@@ -432,6 +460,8 @@ export {
   logoutUser,
   myAddedVideos,
   fetchAllInstructors,
+  fetchSingleInstructor,
+  fetchVideosbyInstructorId,
   addNewInstructor,
   editInstructor,
   deleteInstructor,

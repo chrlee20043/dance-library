@@ -41,6 +41,17 @@ function DrawerAppBar(props) {
     console.log("logout token:", props.token);
   };
 
+  const listItemButtonSX = {
+    color: "white",
+    fontSize: "20px",
+    fontWeight: "bold",
+    borderBottom: "2px solid transparent",
+    transition: "border-bottom-color 0.3s ease",
+    "&:hover": {
+      borderBottom: "2px solid rgb(255, 123, 0)",
+    },
+  };
+
   const drawer = (
     <Box
       onClick={handleDrawerToggle}
@@ -66,7 +77,7 @@ function DrawerAppBar(props) {
         }}
       >
         <ListItemButton
-          sx={{ color: "white", fontWeight: "bold", fontSize: "20px" }}
+          sx={listItemButtonSX}
           color="inherit"
           component={Link}
           to="/"
@@ -75,9 +86,8 @@ function DrawerAppBar(props) {
         </ListItemButton>
         {props.token && (
           <ListItemButton
-            sx={{ color: "white", fontWeight: "bold", fontSize: "20px" }}
+            sx={listItemButtonSX}
             color="inherit"
-            fontWeight="bold"
             component={Link}
             to="/myprofile"
           >
@@ -85,18 +95,16 @@ function DrawerAppBar(props) {
           </ListItemButton>
         )}
         <ListItemButton
-          sx={{ color: "white", fontWeight: "bold", fontSize: "20px" }}
+          sx={listItemButtonSX}
           color="inherit"
-          fontWeight="bold"
           component={Link}
           to="/allvideos"
         >
           CLASSES
         </ListItemButton>
         <ListItemButton
-          sx={{ color: "white", fontWeight: "bold", fontSize: "20px" }}
+          sx={listItemButtonSX}
           color="inherit"
-          fontWeight="bold"
           component={Link}
           to="/instructors"
         >
@@ -104,18 +112,16 @@ function DrawerAppBar(props) {
         </ListItemButton>
         {props.token ? (
           <ListItemButton
-            sx={{ color: "white", fontWeight: "bold", fontSize: "20px" }}
+            sx={listItemButtonSX}
             color="inherit"
-            fontWeight="bold"
             onClick={onLogout}
           >
             LOG OUT
           </ListItemButton>
         ) : (
           <ListItemButton
-            sx={{ color: "white", fontWeight: "bold", fontSize: "20px" }}
+            sx={listItemButtonSX}
             color="inherit"
-            fontWeight="bold"
             component={Link}
             to="/login"
           >
@@ -125,16 +131,6 @@ function DrawerAppBar(props) {
       </List>
     </Box>
   );
-
-  const listItemButtonSX = {
-    fontSize: "20px",
-    fontWeight: "bold",
-    borderBottom: "2px solid transparent",
-    transition: "border-bottom-color 0.3s ease",
-    "&:hover": {
-      borderBottom: "2px solid rgb(255, 123, 0)",
-    },
-  };
 
   const container =
     window !== undefined ? () => window().document.body : undefined;

@@ -20,11 +20,13 @@ export default function VideoCard({ userId, token }) {
         <FavoriteClass userId={userId} videoId={videoId} token={token} />
       )}
       <div id="single-video-card">
-        <h3>{selectedVideo.instructor_name}</h3>
-        <img src={selectedVideo.imageURL} alt="Video Thumbnail" />
+        <h3 className="videocard-title">
+          {selectedVideo.level} {selectedVideo.style} with{" "}
+          {selectedVideo.instructor_name}
+        </h3>
+        {/* <img src={selectedVideo.imageURL} alt="Video Thumbnail" /> */}
         <h4>{selectedVideo.instructorBio}</h4>
-        <p>Style: {selectedVideo.style}</p>
-        <p>Level: {selectedVideo.level}</p>
+
         <iframe
           width="560"
           height="315"
