@@ -10,13 +10,10 @@ export default function VideoCard({ userId, token }) {
   const { videoId } = useParams();
   const navigate = useNavigate();
 
-  const renderFavoriteClass = userId !== selectedVideo.submitted_by;
-  console.log(selectedVideo.submitted_by);
-
   return (
     // View single video class
     <div id="single-video-container">
-      {renderFavoriteClass && (
+      {userId !== selectedVideo.submitted_by && (
         <FavoriteClass userId={userId} videoId={videoId} token={token} />
       )}
       <div id="single-video-card">

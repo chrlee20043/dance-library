@@ -5,6 +5,7 @@ import {
   fetchVideosbyInstructorId,
 } from "../../helpers/fetching";
 import { VideosContext } from "../../context/VideosContext";
+import FavoriteClass from "../Videos/FavoriteClass";
 
 export default function SingleInstructor({ token, userId }) {
   const { videos, setVideos } = useContext(VideosContext);
@@ -76,6 +77,13 @@ export default function SingleInstructor({ token, userId }) {
         ) : (
           videos.map((video) => (
             <div key={video.video_id} className="class-card">
+              {userId !== video.submitted_by && (
+                <FavoriteClass
+                  userId={userId}
+                  videoId={video.video_id}
+                  token={token}
+                />
+              )}
               <p className="class-title">
                 {video.level} {video.style}
               </p>
