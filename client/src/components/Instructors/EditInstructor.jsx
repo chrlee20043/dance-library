@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchSingleInstructor, editInstructor } from "../../helpers/fetching";
 import TextField from "@mui/material/TextField";
@@ -33,50 +33,41 @@ export default function EditInstructor({
     fetchInstructor();
   }, []);
 
-  // Toggle form
-
-  function handleClick() {
-    setIsOpen(!isOpen);
-  }
-
   // Function to edit the video
 
-  const handleEdit = (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
-    async function updatingInstructors() {
-      const updatedInstructor = {
-        instructorId,
-        instructorName,
-        bio,
-        style,
-        imageURL,
-        userId,
-      };
-      try {
-        console.log("editing instructor result: ", updatedInstructor);
-        const editedInstructor = await editInstructor(
-          updatedInstructor.instructorId,
-          updatedInstructor.instructorName,
-          updatedInstructor.bio,
-          updatedInstructor.style,
-          updatedInstructor.imageURL,
-          userId
-        );
+    const updatedInstructor = {
+      instructorId,
+      instructorName,
+      bio,
+      style,
+      imageURL,
+      userId,
+    };
+    try {
+      console.log("editing instructor result: ", updatedInstructor);
+      const editedInstructor = await editInstructor(
+        updatedInstructor.instructorId,
+        updatedInstructor.instructorName,
+        updatedInstructor.bio,
+        updatedInstructor.style,
+        updatedInstructor.imageURL,
+        userId
+      );
 
-        setIsOpen(false);
+      setIsOpen(false);
 
-        if (onInstructorEdit) {
-          onInstructorEdit();
-        }
-
-        navigate("./", { replace: true });
-
-        return editedInstructor;
-      } catch (error) {
-        console.error("can't edit this video, error");
+      if (onInstructorEdit) {
+        onInstructorEdit();
       }
+
+      navigate("./", { replace: true });
+
+      return editedInstructor;
+    } catch (error) {
+      console.error("can't edit this video, error");
     }
-    updatingInstructors();
   };
 
   const buttonSX = {
@@ -99,17 +90,13 @@ export default function EditInstructor({
 
   return (
     <>
-      {/* EDIT FORM! */}
-      <div className="edit-container">
-        <Button
-          variant="contained"
-          className="card-button"
-          onClick={handleClick}
-          sx={buttonSX}
-        >
-          {isOpen ? "Cancel" : "Edit Details"}
-        </Button>
-        {isOpen && (
+      {/* Edit Instructor button that opens the form */}
+      <button className="card-button" onClick={() => setIsOpen(true)}>
+        Edit Instructor
+      </button>
+
+      {isOpen && (
+        <div className="edit-container">
           <form className="edit-video-form" onSubmit={handleEdit}>
             <h4>Edit Instructor Info</h4>
             <div className="form-row">
@@ -159,8 +146,8 @@ export default function EditInstructor({
               Save Changes
             </Button>
           </form>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

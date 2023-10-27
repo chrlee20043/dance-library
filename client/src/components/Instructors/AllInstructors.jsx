@@ -123,6 +123,7 @@ export default function AllInstructors({ token, userId }) {
             {instructorsToDisplay.map((instructor) => (
               <Grid item key={instructor.instructor_id} xs={12} md={4}>
                 <InstructorListName
+                  onInstructorEdit={renderInstructors}
                   instructor={instructor}
                   userId={userId}
                   token={token}
