@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   fetchSingleInstructor,
   fetchVideosbyInstructorId,
-  deleteInstructor,
 } from "../../helpers/fetching";
 import { VideosContext } from "../../context/VideosContext";
 
@@ -44,16 +43,6 @@ export default function SingleInstructor({ token, userId }) {
     videosByInstructorId(instructorId);
   }, [instructorId]);
 
-  const handleDelete = async (instructorId) => {
-    try {
-      const result = await deleteInstructor(instructorId);
-      console.log("deleted instructor: ", result);
-      navigate("/instructors");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <>
       <div className="single-instructor-card">
@@ -68,13 +57,6 @@ export default function SingleInstructor({ token, userId }) {
           >
             Return to Instructors
           </button>
-          <button
-            className="card-button"
-            onClick={() => handleDelete(instructor.instructor_id)}
-          >
-            Delete
-          </button>
-          {/* <EditInstructor /> */}
         </div>
       </div>
       <div className="instructor-classes">

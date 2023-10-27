@@ -1,36 +1,36 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { editVideo, fetchSingleVideo } from "../../helpers/fetching";
+import { fetchSingleInstructor, editInstructor } from "../../helpers/fetching";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export default function EditVideo({ videoId, onVideoEdit }) {
-  // SETTING THE STATE
+export default function EditInstructor({
+  userId,
+  instructor_id,
+  onInstructorEdit,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [instructorId, setInstructorId] = useState("");
   const [instructorName, setInstructorName] = useState("");
+  const [bio, setBio] = useState("");
   const [style, setStyle] = useState("");
-  const [level, setLevel] = useState("");
-  const [videoURL, setVideoURL] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
   const navigate = useNavigate();
 
-  // FETCH SINGLE VIDEO DATA
-
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchSingleVideo(videoId);
+    const fetchInstructor = async () => {
+      const response = await fetchSingleInstructor(instructor_id);
       console.log(response);
 
       // SET THE STATE to the current info, this will show up in the form
-
       setInstructorId(response.instructor_id);
-      setInstructorName(response.instructor_name);
+      setInstructorName(response.name);
+      setBio(response.bio);
       setStyle(response.style);
-      setLevel(response.level);
-      setVideoURL(response.videoURL);
+      setImageURL(response.imageURL);
     };
-    fetchData();
+    fetchInstructor();
   }, []);
 
   // Toggle form
@@ -43,38 +43,40 @@ export default function EditVideo({ videoId, onVideoEdit }) {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    async function updatingVideos() {
-      const updatedVideo = {
+    async function updatingInstructors() {
+      const updatedInstructor = {
         instructorId,
         instructorName,
+        bio,
         style,
-        level,
-        videoURL,
+        imageURL,
+        userId,
       };
       try {
-        // console.log("editing video result: ", updatedVideo);
-        const editedVideo = await editVideo(
-          videoId,
-          updatedVideo.instructorId,
-          updatedVideo.instructorName,
-          updatedVideo.style,
-          updatedVideo.level,
-          updatedVideo.videoURL
+        console.log("editing instructor result: ", updatedInstructor);
+        const editedInstructor = await editInstructor(
+          updatedInstructor.instructorId,
+          updatedInstructor.instructorName,
+          updatedInstructor.bio,
+          updatedInstructor.style,
+          updatedInstructor.imageURL,
+          userId
         );
 
         setIsOpen(false);
 
-        if (onVideoEdit) {
-          onVideoEdit();
+        if (onInstructorEdit) {
+          onInstructorEdit();
         }
 
         navigate("./", { replace: true });
-        return editedVideo;
+
+        return editedInstructor;
       } catch (error) {
         console.error("can't edit this video, error");
       }
     }
-    updatingVideos();
+    updatingInstructors();
   };
 
   return (
@@ -86,8 +88,24 @@ export default function EditVideo({ videoId, onVideoEdit }) {
         </Button>
         {isOpen && (
           <form className="edit-video-form" onSubmit={handleEdit}>
-            <h4>Edit Your Class</h4>
+            <h4>Edit Instructor Info</h4>
             <div className="form-row">
+              <div className="col">
+                <TextField
+                  label="Instructor Name"
+                  variant="outlined"
+                  value={instructorName}
+                  onChange={(event) => setInstructorName(event.target.value)}
+                />
+              </div>
+              <div className="col">
+                <TextField
+                  label="Bio"
+                  variant="outlined"
+                  value={bio}
+                  onChange={(event) => setBio(event.target.value)}
+                />
+              </div>
               <div className="col">
                 <TextField
                   label="Style"
@@ -98,18 +116,10 @@ export default function EditVideo({ videoId, onVideoEdit }) {
               </div>
               <div className="col">
                 <TextField
-                  label="Level"
+                  label="Image URL"
                   variant="outlined"
-                  value={level}
-                  onChange={(event) => setLevel(event.target.value)}
-                />
-              </div>
-              <div className="col">
-                <TextField
-                  label="Video URL"
-                  variant="outlined"
-                  value={videoURL}
-                  onChange={(event) => setVideoURL(event.target.value)}
+                  value={imageURL}
+                  onChange={(event) => setImageURL(event.target.value)}
                 />
               </div>
             </div>

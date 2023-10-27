@@ -114,7 +114,12 @@ export default function AllInstructors({ token, userId }) {
           <Grid container spacing={3}>
             {instructorsToDisplay.map((instructor) => (
               <Grid item key={instructor.instructor_id} xs={12} md={4}>
-                <InstructorListName instructor={instructor} />
+                <InstructorListName
+                  instructor={instructor}
+                  userId={userId}
+                  token={token}
+                  onInstructorEdit={renderInstructors}
+                />
               </Grid>
             ))}
           </Grid>

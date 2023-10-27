@@ -161,6 +161,7 @@ async function editInstructor(
   bio,
   style,
   imageURL,
+  submitted_by,
   token
 ) {
   try {
@@ -176,6 +177,7 @@ async function editInstructor(
         bio,
         style,
         imageURL,
+        submitted_by,
       }),
     });
     const result = await response.json();
