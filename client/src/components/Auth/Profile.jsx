@@ -122,6 +122,7 @@ export default function Profile({ token, userId, currentUser }) {
           <div className="empty-class-container">
             <p>You haven't created any classes yet!</p>
             <button
+              className="card-button"
               onClick={() => {
                 navigate("/allvideos");
               }}
@@ -140,7 +141,7 @@ export default function Profile({ token, userId, currentUser }) {
                 <div key={video.video_id} className="my-videos">
                   {isOpen && (
                     <div className="expanded-content">
-                      <p>
+                      <p className="class-title">
                         {video.level} {video.style} with {video.instructor_name}
                       </p>
                       <iframe

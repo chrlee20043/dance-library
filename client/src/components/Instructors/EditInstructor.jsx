@@ -79,11 +79,34 @@ export default function EditInstructor({
     updatingInstructors();
   };
 
+  const buttonSX = {
+    backgroundColor: "rgb(69, 2, 69)",
+    "&:hover": {
+      backgroundColor: "rgb(219, 206, 219)",
+    },
+  };
+
+  const textfieldSX = {
+    margin: 1,
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid rgb(255, 123, 0)",
+      borderColor: "rgb(249, 236, 218)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(69, 2, 69)",
+    },
+  };
+
   return (
     <>
       {/* EDIT FORM! */}
       <div className="edit-container">
-        <Button variant="contained" color="primary" onClick={handleClick}>
+        <Button
+          variant="contained"
+          className="card-button"
+          onClick={handleClick}
+          sx={buttonSX}
+        >
           {isOpen ? "Cancel" : "Edit Details"}
         </Button>
         {isOpen && (
@@ -95,6 +118,7 @@ export default function EditInstructor({
                   label="Instructor Name"
                   variant="outlined"
                   value={instructorName}
+                  sx={textfieldSX}
                   onChange={(event) => setInstructorName(event.target.value)}
                 />
               </div>
@@ -103,6 +127,7 @@ export default function EditInstructor({
                   label="Bio"
                   variant="outlined"
                   value={bio}
+                  sx={textfieldSX}
                   onChange={(event) => setBio(event.target.value)}
                 />
               </div>
@@ -111,6 +136,7 @@ export default function EditInstructor({
                   label="Style"
                   variant="outlined"
                   value={style}
+                  sx={textfieldSX}
                   onChange={(event) => setStyle(event.target.value)}
                 />
               </div>
@@ -119,11 +145,17 @@ export default function EditInstructor({
                   label="Image URL"
                   variant="outlined"
                   value={imageURL}
+                  sx={textfieldSX}
                   onChange={(event) => setImageURL(event.target.value)}
                 />
               </div>
             </div>
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+              variant="contained"
+              className="card-button"
+              type="submit"
+              sx={buttonSX}
+            >
               Save Changes
             </Button>
           </form>

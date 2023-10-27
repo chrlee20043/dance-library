@@ -20,7 +20,7 @@ export default function VideoCard({ userId, token }) {
         <FavoriteClass userId={userId} videoId={videoId} token={token} />
       )}
       <div id="single-video-card">
-        <h3 className="videocard-title">
+        <h3 className="card-title">
           {selectedVideo.level} {selectedVideo.style} with{" "}
           {selectedVideo.instructor_name}
         </h3>
@@ -36,16 +36,15 @@ export default function VideoCard({ userId, token }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
-        <div className="edit-button-container">
-          <button
-            className="card-button"
-            onClick={() => {
-              navigate("/allvideos");
-            }}
-          >
-            Return to All Classes
-          </button>
-        </div>
+        <button
+          className="card-button"
+          id="video-card-button"
+          onClick={() => {
+            navigate("/allvideos");
+          }}
+        >
+          Return to All Classes
+        </button>
       </div>
     </div>
   );

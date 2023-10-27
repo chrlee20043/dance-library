@@ -10,14 +10,12 @@ export default function AllInstructors({ token, userId }) {
   const [instructors, setInstructors] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [selectedStyle, setSelectedStyle] = useState("");
-
   const [error, setError] = useState("");
 
   const renderInstructors = async () => {
     try {
       const instructorArray = await fetchAllInstructors();
       setInstructors(instructorArray);
-      console.log(instructorArray);
     } catch (error) {
       setError("Failed to fetch instructors. Please try again later.");
     }
@@ -28,19 +26,28 @@ export default function AllInstructors({ token, userId }) {
   }, []);
 
   const textFieldSX = {
+    ml: 2,
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "rgb(255, 123, 0)",
     },
     "& .MuiFormLabel-root.Mui-focused": {
       color: "rgb(255, 123, 0)",
     },
-    "& .MuiOutlinedInput-root.Mui-focused": {
-      color: "rgb(255, 123, 0)",
-    },
   };
 
-  const gridContainerSX = {
-    alignItems: "flex-start",
+  const selectStyle = {
+    width: "50%",
+    mt: 2,
+    ml: 2,
+    mb: 2,
+    textAlign: "left",
+    pl: 2,
+    "& .MuiSelect-outlined": {
+      borderColor: "rgb(255, 123, 0)",
+      "& .MuiFormLabel-root.Mui-focused": {
+        color: "rgb(255, 123, 0)",
+      },
+    },
   };
 
   const uniqueStyles = [
@@ -66,29 +73,30 @@ export default function AllInstructors({ token, userId }) {
   };
 
   return (
-    <Grid container spacing={3} sx={gridContainerSX}>
+    <Grid container spacing={3}>
       <Grid item xs={12}>
         <Typography variant="h4">Instructors</Typography>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid container item xs={12} md={8} direction="column">
         <TextField
           fullWidth
           label="Search"
           variant="outlined"
+          size="small"
           onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
-          sx={textFieldSX}
+          sx={{ ...textFieldSX, width: "50%" }}
         />
-      </Grid>
-      <Grid item xs={12} md={4}>
+
         <Select
           value={selectedStyle}
           onChange={onStyleChange}
           displayEmpty
           fullWidth
           variant="outlined"
-          sx={textFieldSX}
+          size="small"
+          sx={selectStyle}
         >
-          <MenuItem value="">Search by Style</MenuItem>
+          <MenuItem value="">Select Style</MenuItem>{" "}
           {uniqueStyles.map((style) => (
             <MenuItem key={style} value={style}>
               {style}
@@ -118,7 +126,6 @@ export default function AllInstructors({ token, userId }) {
                   instructor={instructor}
                   userId={userId}
                   token={token}
-                  onInstructorEdit={renderInstructors}
                 />
               </Grid>
             ))}

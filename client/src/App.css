@@ -92,8 +92,9 @@ img {
   height: 30vh;
 }
 
-.videocard-title {
+.card-title {
 text-transform: uppercase;
+color: black;
 }
 
 #single-video-container {
@@ -110,6 +111,21 @@ text-transform: uppercase;
   /* box-shadow: 0 5px 15px rgba(157, 93, 172, 0.5); */
   width: 50em;
   padding: 1em;
+}
+
+#single-video-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgb(219, 206, 219);
+  padding: 1em;
+  margin: 10px;
+}
+
+#video-card-button {
+  margin-top: 20px;
 }
 
 .single-instructor-card {
@@ -149,6 +165,7 @@ text-transform: uppercase;
 
 .class-title {
   text-transform: uppercase;
+  font-weight: bold;
 }
 
   .card-button {
@@ -162,6 +179,8 @@ text-transform: uppercase;
     padding: 10px;
     transition: 0.3s ease-in-out;
     margin: 10px;
+    text-transform: capitalize;
+
   }
 
   .card-button:hover {
@@ -346,6 +365,11 @@ text-transform: uppercase;
   background-color: rgb(219, 206, 219);
     padding: 1em;
   margin: 10px;
+}
+
+.style-title {
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
 /* FAVORITES */

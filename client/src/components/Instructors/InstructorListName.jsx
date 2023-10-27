@@ -30,7 +30,7 @@ export default function InstructorListName({
       <div id="all-instructors-card">
         <h3 className="instructor-title">{instructor.name}</h3>
         <img src={instructor.imageURL} alt={instructor.name} />
-        <p>{instructor.style}</p>
+        <p className="style-title">{instructor.style}</p>
         <p>{instructor.bio}</p>
         <button
           className="card-button"

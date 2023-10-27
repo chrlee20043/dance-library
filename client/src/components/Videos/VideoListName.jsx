@@ -7,7 +7,7 @@ export default function VideoListName({ video }) {
   return (
     <div id="video-card-container">
       <div id="all-video-card">
-        <h3 className="videocard-title">
+        <h3 className="card-title">
           {video.level} {video.style} with {video.instructor_name}
         </h3>
 

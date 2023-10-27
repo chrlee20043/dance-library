@@ -77,12 +77,35 @@ export default function EditVideo({ videoId, onVideoEdit }) {
     updatingVideos();
   };
 
+  const buttonSX = {
+    backgroundColor: "rgb(69, 2, 69)",
+    "&:hover": {
+      backgroundColor: "rgb(219, 206, 219)",
+    },
+  };
+
+  const textfieldSX = {
+    margin: 1,
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid rgb(255, 123, 0)",
+      borderColor: "rgb(249, 236, 218)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(69, 2, 69)",
+    },
+  };
+
   return (
     <>
       {/* EDIT FORM! */}
       <div className="edit-container">
-        <Button variant="contained" color="primary" onClick={handleClick}>
-          {isOpen ? "Cancel" : "Edit Details"}
+        <Button
+          variant="contained"
+          sx={buttonSX}
+          onClick={handleClick}
+          className="card-button"
+        >
+          {isOpen ? "Cancel" : "Edit"}
         </Button>
         {isOpen && (
           <form className="edit-video-form" onSubmit={handleEdit}>
@@ -93,6 +116,7 @@ export default function EditVideo({ videoId, onVideoEdit }) {
                   label="Style"
                   variant="outlined"
                   value={style}
+                  sx={textfieldSX}
                   onChange={(event) => setStyle(event.target.value)}
                 />
               </div>
@@ -101,6 +125,7 @@ export default function EditVideo({ videoId, onVideoEdit }) {
                   label="Level"
                   variant="outlined"
                   value={level}
+                  sx={textfieldSX}
                   onChange={(event) => setLevel(event.target.value)}
                 />
               </div>
@@ -109,11 +134,17 @@ export default function EditVideo({ videoId, onVideoEdit }) {
                   label="Video URL"
                   variant="outlined"
                   value={videoURL}
+                  sx={textfieldSX}
                   onChange={(event) => setVideoURL(event.target.value)}
                 />
               </div>
             </div>
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+              variant="contained"
+              sx={buttonSX}
+              type="submit"
+              className="card-button"
+            >
               Save Changes
             </Button>
           </form>
