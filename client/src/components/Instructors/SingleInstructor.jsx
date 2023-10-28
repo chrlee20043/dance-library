@@ -60,30 +60,31 @@ export default function SingleInstructor({ token, userId }) {
           </button>
         </div>
       </div>
+      {/* <div className="classes-header"> */}
       <div className="instructor-classes">
-        <h2>Classes</h2>
-        {videos.length === 0 ? (
-          <div className="empty-favorites-page">
-            <p className="empty-favorites-title">No classes yet.</p>
-            <button
-              className="card-button"
-              onClick={() => {
-                navigate("/allvideos");
-              }}
-            >
-              Add a class
-            </button>
-          </div>
-        ) : (
-          videos.map((video) => (
+        <h2 className="single-instructor-title">Classes</h2>
+      </div>
+      {videos.length === 0 ? (
+        <div className="empty-favorites-page">
+          <p className="empty-favorites-title">No classes yet.</p>
+          <button
+            className="card-button"
+            onClick={() => {
+              navigate("/allvideos");
+            }}
+          >
+            Add a class
+          </button>
+        </div>
+      ) : (
+        <div className="class-grid">
+          {videos.map((video) => (
             <div key={video.video_id} className="class-card">
-              {userId !== video.submitted_by && (
-                <FavoriteClass
-                  userId={userId}
-                  videoId={video.video_id}
-                  token={token}
-                />
-              )}
+              <FavoriteClass
+                userId={userId}
+                videoId={video.video_id}
+                token={token}
+              />
               <p className="class-title">
                 {video.level} {video.style}
               </p>
@@ -103,9 +104,10 @@ export default function SingleInstructor({ token, userId }) {
                 Class Details
               </button>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
+      {/* </div> */}
     </>
   );
 }

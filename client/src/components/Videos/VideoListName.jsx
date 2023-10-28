@@ -20,14 +20,24 @@ export default function VideoListName({ video }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
-        <button
-          className="card-button"
-          onClick={() => {
-            navigate(`/allvideos/${video.video_id}`);
-          }}
-        >
-          Class Details
-        </button>
+        <div className="instructor-buttons">
+          <button
+            className="card-button"
+            onClick={() => {
+              navigate(`/allvideos/${video.video_id}`);
+            }}
+          >
+            Class Details
+          </button>
+          <button
+            className="card-button"
+            onClick={() => {
+              navigate(`/instructors/${video.instructor_id}`);
+            }}
+          >
+            Instructor Details
+          </button>
+        </div>
       </div>
     </div>
   );

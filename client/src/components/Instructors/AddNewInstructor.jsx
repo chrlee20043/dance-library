@@ -1,9 +1,53 @@
+// import React, { useState, useEffect } from "react";
+// import { TextField, Button, Grid, Typography } from "@mui/material";
+// import { useNavigate } from "react-router-dom";
+// import { addNewInstructor, fetchAllInstructors } from "../../helpers/fetching";
+
+// export default function AddNewInstructor({ token, userId, renderInstructors }) {
+//   const [instructors, setInstructors] = useState([]);
+//   const [name, setName] = useState("");
+//   const [bio, setBio] = useState("");
+//   const [style, setStyle] = useState("");
+//   const [imageURL, setImageURL] = useState("");
+//   const [error, setError] = useState(null);
+
+//   const navigate = useNavigate();
+
+//   const submitHandler = async (e) => {
+//     e.preventDefault();
+
+//     async function newInstructor() {
+//       const result = await addNewInstructor(
+//         name,
+//         bio,
+//         style,
+//         imageURL,
+//         userId,
+//         token
+//       );
+//       console.log(result);
+
+//       if (renderInstructors) {
+//         renderInstructors();
+//       }
+//     }
+//     newInstructor();
+
+//     setName("");
+//     setBio("");
+//     setStyle("");
+//     setImageURL("");
+//     setError(null);
+
+//     navigate("./", { replace: true });
+//   };
+
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { addNewInstructor, fetchAllInstructors } from "../../helpers/fetching";
 
-export default function AddNewInstructor({ token, userId }) {
+export default function AddNewInstructor({ token, userId, renderInstructors }) {
   const [instructors, setInstructors] = useState([]);
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
@@ -13,45 +57,57 @@ export default function AddNewInstructor({ token, userId }) {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchInstructors();
+  }, []);
+
+  const fetchInstructors = async () => {
+    try {
+      const instructorList = await fetchAllInstructors();
+      setInstructors(instructorList);
+    } catch (error) {
+      console.error("Failed to fetch instructors:", error);
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    async function newInstructor() {
-      const result = await addNewInstructor(
-        name,
-        bio,
-        style,
-        imageURL,
-        userId,
-        token
-      );
-      console.log(result);
+    // Check if an instructor with the same name already exists
+    const instructorExists = instructors.some(
+      (instructor) => instructor.name.toLowerCase() === name.toLowerCase()
+    );
 
-      const updatedInstructors = await fetchAllInstructors();
-      setInstructors(updatedInstructors);
+    if (instructorExists) {
+      setError("An instructor with the same name already exists.");
+    } else {
+      // If no instructor with the same name exists, proceed to add the new instructor
+      setError(null);
+
+      async function newInstructor() {
+        const result = await addNewInstructor(
+          name,
+          bio,
+          style,
+          imageURL,
+          userId,
+          token
+        );
+        console.log(result);
+
+        if (renderInstructors) {
+          renderInstructors();
+        }
+      }
+      newInstructor();
+
+      setName("");
+      setBio("");
+      setStyle("");
+      setImageURL("");
+      navigate("./", { replace: true });
     }
-    newInstructor();
-
-    setName("");
-    setBio("");
-    setStyle("");
-    setImageURL("");
-    setError(null);
-
-    navigate("./", { replace: true });
   };
-
-  // const textfieldSX = {
-  //   "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-  //     borderColor: "rgb(255, 123, 0)",
-  //   },
-  //   "& .MuiFormLabel-root.Mui-focused": {
-  //     color: "rgb(255, 123, 0)",
-  //   },
-  //   "& .MuiOutlinedInput-root.Mui-focused": {
-  //     color: "rgb(255, 123, 0)",
-  //   },
-  // };
 
   const gridSX = {
     border: "1px solid rgb(69, 2, 69)",
@@ -70,10 +126,6 @@ export default function AddNewInstructor({ token, userId }) {
       color: "rgb(255, 123, 0)",
     },
   };
-
-  // const buttonSX = {
-  //   color: "rgb(255, 123, 0)",
-  // };
 
   const submitSX = {
     border: "1px solid rgb(255, 123, 0)",

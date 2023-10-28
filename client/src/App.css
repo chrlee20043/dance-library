@@ -144,13 +144,26 @@ color: black;
   padding: 1em;
 }
 
-.instructor-classes {
+
+.class-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-gap: 0.25rem;
-  width: 100%;
   grid-auto-rows: 1fr;
+  width: 100%;
 }
+
+/* .class-grid {
+  display: grid;
+  grid-gap: 0.25rem;
+  grid-auto-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.class-grid > div {
+  min-width: 25%;
+} */
 
 .class-card {
   display: flex;
@@ -454,4 +467,9 @@ color: black;
   padding: 10px;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.single-instructor-title {
+  text-align: center;
+  margin: 3rem;
 }

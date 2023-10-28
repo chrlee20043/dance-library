@@ -240,7 +240,7 @@ export default function AddNewVideo({ token, userId }) {
                       onChange={(event) => setVideoURL(event.target.value)}
                       sx={textFieldSX}
                     />
-                    {videoURL && !videoURL.includes("youtube.com") && (
+                    {videoURL && !videoURL.includes("youtube.com/embed") && (
                       <Typography variant="body2" sx={{ color: "red" }}>
                         *Please submit a YouTube embed link
                       </Typography>

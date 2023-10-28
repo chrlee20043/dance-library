@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 export default function EditInstructor({
   userId,
   instructor_id,
-  onInstructorEdit,
+  onInstructorChange,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [instructorId, setInstructorId] = useState("");
@@ -58,8 +58,8 @@ export default function EditInstructor({
 
       setIsOpen(false);
 
-      if (onInstructorEdit) {
-        onInstructorEdit();
+      if (onInstructorChange) {
+        onInstructorChange();
       }
 
       navigate("./", { replace: true });

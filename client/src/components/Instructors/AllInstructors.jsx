@@ -112,7 +112,11 @@ export default function AllInstructors({ token, userId }) {
           md={4}
           sx={{ display: "flex", justifyContent: "center" }}
         >
-          <AddNewInstructor token={token} userId={userId} />
+          <AddNewInstructor
+            token={token}
+            userId={userId}
+            renderInstructors={renderInstructors}
+          />
         </Grid>
       )}
 
@@ -123,7 +127,7 @@ export default function AllInstructors({ token, userId }) {
             {instructorsToDisplay.map((instructor) => (
               <Grid item key={instructor.instructor_id} xs={12} md={4}>
                 <InstructorListName
-                  onInstructorEdit={renderInstructors}
+                  onInstructorChange={renderInstructors}
                   instructor={instructor}
                   userId={userId}
                   token={token}

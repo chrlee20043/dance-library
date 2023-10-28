@@ -13,9 +13,7 @@ export default function VideoCard({ userId, token }) {
   return (
     // View single video class
     <div id="single-video-container">
-      {userId !== selectedVideo.submitted_by && (
-        <FavoriteClass userId={userId} videoId={videoId} token={token} />
-      )}
+      <FavoriteClass userId={userId} videoId={videoId} token={token} />
       <div id="single-video-card">
         <h3 className="card-title">
           {selectedVideo.level} {selectedVideo.style} with{" "}

@@ -11,7 +11,7 @@ export default function InstructorListName({
   token,
   userId,
   instructor,
-  onInstructorEdit,
+  onInstructorChange,
 }) {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -20,6 +20,11 @@ export default function InstructorListName({
     try {
       const result = await deleteInstructor(instructorId);
       console.log("deleted instructor: ", result);
+
+      if (onInstructorChange) {
+        onInstructorChange();
+      }
+
       navigate("/instructors");
     } catch (error) {
       console.error(error);
@@ -41,41 +46,43 @@ export default function InstructorListName({
         <img src={instructor.imageURL} alt={instructor.name} />
         <p className="style-title">{instructor.style}</p>
         <p>{instructor.bio}</p>
-        <button
-          className="card-button"
-          onClick={() => {
-            navigate(`/instructors/${instructor.instructor_id}`);
-          }}
-        >
-          Browse classes
-        </button>
-        {userId === instructor.submitted_by && (
-          <div className="instructor-buttons">
-            <button
-              className="card-button"
-              onClick={() => handleDelete(instructor.instructor_id)}
-            >
-              Remove Instructor
-            </button>
-            <button className="card-button" onClick={openPopup}>
-              Edit Instructor
-            </button>
-            {isPopupOpen && (
-              <div className="popup-overlay">
-                <div className="popup-content">
-                  <EditInstructor
-                    userId={userId}
-                    instructor_id={instructor.instructor_id}
-                    onInstructorEdit={onInstructorEdit}
-                  />
-                  <button className="card-button" onClick={closePopup}>
-                    Close
-                  </button>
+        <div className="instructor-buttons">
+          <button
+            className="card-button"
+            onClick={() => {
+              navigate(`/instructors/${instructor.instructor_id}`);
+            }}
+          >
+            Browse classes
+          </button>
+          {userId === instructor.submitted_by && (
+            <div>
+              <button className="card-button" onClick={openPopup}>
+                Edit Instructor
+              </button>
+              <button
+                className="card-button"
+                onClick={() => handleDelete(instructor.instructor_id)}
+              >
+                Remove Instructor
+              </button>
+              {isPopupOpen && (
+                <div className="popup-overlay">
+                  <div className="popup-content">
+                    <EditInstructor
+                      userId={userId}
+                      instructor_id={instructor.instructor_id}
+                      onInstructorEdit={onInstructorEdit}
+                    />
+                    <button className="card-button" onClick={closePopup}>
+                      Close
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        )}
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
