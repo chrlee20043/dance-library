@@ -80,11 +80,11 @@ export default function AllVideos({ token, userId }) {
     mb: 2,
     textAlign: "left",
     pl: 2,
-    "& .MuiSelect-outlined": {
-      borderColor: "rgb(255, 123, 0)",
-      "& .MuiFormLabel-root.Mui-focused": {
-        color: "rgb(255, 123, 0)",
-      },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid rgb(255, 123, 0)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(255, 123, 0)",
     },
   };
 
@@ -123,6 +123,7 @@ export default function AllVideos({ token, userId }) {
         <div className="filter-buttons" style={{ marginTop: 2, width: "50%" }}>
           <label>
             <input
+              className="class-level"
               type="checkbox"
               value="beginner"
               checked={selectedTypes.includes("beginner")}
@@ -132,6 +133,7 @@ export default function AllVideos({ token, userId }) {
           </label>
           <label>
             <input
+              className="class-level"
               type="checkbox"
               value="intermediate"
               checked={selectedTypes.includes("intermediate")}
@@ -141,6 +143,7 @@ export default function AllVideos({ token, userId }) {
           </label>
           <label>
             <input
+              className="class-level"
               type="checkbox"
               value="advanced"
               checked={selectedTypes.includes("advanced")}

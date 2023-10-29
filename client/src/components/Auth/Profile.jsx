@@ -98,9 +98,6 @@ export default function Profile({ token, userId, currentUser }) {
                           videoId={video.video_id}
                           token={token}
                         />
-                        <button className="card-button" onClick={closePopup}>
-                          Close
-                        </button>
                       </div>
                     )}
                   </div>
