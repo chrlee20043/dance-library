@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../Redux/authSlice";
 import { setFavorites } from "../../Redux/favoriteSlice";
-import { createUser, fetchFavoritesByUserId } from "../../helpers/fetching";
+import {
+  createUser,
+  fetchFavoritesByUserId,
+  fetchUserByUsername,
+} from "../../helpers/fetching";
 import {
   Grid,
   TextField,
   Button,
   Typography,
   Paper,
-  Link as MuiLink,
+  Alert,
 } from "@mui/material";
 
 export default function Register() {
@@ -26,32 +30,42 @@ export default function Register() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const register = await createUser(username, password, name);
+      // Check if the username already exists
+      const isUsernameExists = await fetchUserByUsername(username);
 
-      if (register) {
-        dispatch(
-          setCredentials({
-            username: register.user.username,
-            userId: register.user.user_id,
-            token: register.token,
-            isLoggedIn: false,
-          })
+      if (isUsernameExists) {
+        setError(
+          "Username already exists. Please choose a different username."
         );
-        const myFavorites = await fetchFavoritesByUserId(register.user.user_id);
+      } else {
+        const register = await createUser(username, password, name);
 
-        dispatch(setFavorites(myFavorites));
-        setName("");
-        setUsername("");
-        setPassword("");
-        setSuccessMessage("Yay, you are signed up!");
-        navigate("/login");
+        if (register) {
+          dispatch(
+            setCredentials({
+              username: register.user.username,
+              userId: register.user.user_id,
+              token: register.token,
+              isLoggedIn: false,
+            })
+          );
+          const myFavorites = await fetchFavoritesByUserId(
+            register.user.user_id
+          );
+
+          dispatch(setFavorites(myFavorites));
+          setName("");
+          setUsername("");
+          setPassword("");
+          setSuccessMessage("Yay, you are signed up!");
+          navigate("/login");
+        }
       }
     } catch (error) {
       setError("Please provide valid credentials");
-      console.error(error);
+      throw error;
     }
   }
-
   const textFieldSX = {
     margin: "5px",
     width: "100%",
@@ -66,12 +80,12 @@ export default function Register() {
 
   const registerBtnSX = {
     backgroundColor: "rgb(219, 206, 219)",
-    border: "1px solid rgb(219, 206, 219) ",
+    border: "1px solid rgb(219, 206, 219)",
     marginTop: "2",
     color: "black",
     "&:hover": {
       backgroundColor: "rgb(219, 206, 219)",
-      border: "2px solid rgb(255, 123, 0) ",
+      border: "2px solid rgb(255, 123, 0)",
     },
     "&.MuiButtonBase-root.MuiButton-clicked": {
       backgroundColor: "white",
@@ -88,13 +102,20 @@ export default function Register() {
     },
   };
 
+  const alertSX = {
+    backgroundColor: "rgba(255, 123, 0, 0.1)",
+    border: "1px solid rgba(255, 123, 0, 0.5)",
+    borderRadius: "4px",
+    padding: "8px",
+    marginBottom: "10px",
+  };
+
   return (
     <Grid
       container
       justifyContent="center"
       padding="10px"
       margin="3"
-      // alignItems="center"
       style={{ minHeight: "100vh" }}
     >
       <Grid item xs={12} sm={8} md={6} lg={4}>
@@ -102,12 +123,14 @@ export default function Register() {
           <form onSubmit={handleSubmit}>
             <Typography variant="h5">Create an Account</Typography>
             {successMessage && (
-              <div>
-                <Typography>{successMessage}</Typography>
-                <MuiLink component={Link} to="/login">
-                  Log in
-                </MuiLink>
-              </div>
+              <Alert severity="success" sx={alertSX}>
+                {successMessage}
+              </Alert>
+            )}
+            {error && (
+              <Alert severity="error" sx={alertSX}>
+                {error}
+              </Alert>
             )}
             <TextField
               label="Name"
@@ -135,6 +158,7 @@ export default function Register() {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               size="small"
+              inputProps={{ minLength: 6 }}
               sx={textFieldSX}
               required
               margin="normal"

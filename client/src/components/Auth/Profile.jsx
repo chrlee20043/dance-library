@@ -14,6 +14,8 @@ import { VideosContext } from "../../context/VideosContext";
 export default function Profile({ token, userId, currentUser }) {
   const { videos } = useContext(VideosContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [isWindowOpen, setIsWindowOpen] = useState(false);
+
   const [error, setError] = useState(null);
   const [favoriteClassesData, setFavoriteClassesData] = useState([]);
   const [addedVideos, setAddedVideos] = useState([]);
@@ -58,8 +60,13 @@ export default function Profile({ token, userId, currentUser }) {
     }
   };
 
-  // console.log(addedVideos);
+  const openPopup = () => {
+    setIsWindowOpen(true);
+  };
 
+  const closePopup = () => {
+    setIsWindowOpen(false);
+  };
   return (
     <>
       <div>
@@ -85,11 +92,16 @@ export default function Profile({ token, userId, currentUser }) {
                 <div className="favorites-card" key={video.video_id}>
                   <div className="flex items-center justify-center">
                     {token && (
-                      <FavoriteClass
-                        userId={userId}
-                        videoId={video.video_id}
-                        token={token}
-                      />
+                      <div>
+                        <FavoriteClass
+                          userId={userId}
+                          videoId={video.video_id}
+                          token={token}
+                        />
+                        <button className="card-button" onClick={closePopup}>
+                          Close
+                        </button>
+                      </div>
                     )}
                   </div>
                   <h2 className="fav-class">
@@ -154,13 +166,26 @@ export default function Profile({ token, userId, currentUser }) {
                         allowFullScreen
                       ></iframe>
                       <p>{video.instructorBio}</p>
-
-                      <div id="editing-card">
-                        <EditVideo
-                          videoId={video.video_id}
-                          onVideoEdit={() => fetchUserData()}
-                        />
-                      </div>
+                      <button className="card-button" onClick={openPopup}>
+                        Edit Class
+                      </button>
+                      {isWindowOpen && (
+                        <div className="popup-overlay">
+                          <div className="popup-content">
+                            <EditVideo
+                              videoId={video.video_id}
+                              onVideoEdit={() => fetchUserData()}
+                              isWindowOpen={isWindowOpen}
+                            />
+                            <button
+                              className="card-button"
+                              onClick={closePopup}
+                            >
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      )}
                       <button
                         className="card-button"
                         onClick={() => handleDelete(video.video_id)}

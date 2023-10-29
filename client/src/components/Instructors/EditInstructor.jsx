@@ -8,6 +8,7 @@ export default function EditInstructor({
   userId,
   instructor_id,
   onInstructorChange,
+  isPopupOpen,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [instructorId, setInstructorId] = useState("");
@@ -90,12 +91,7 @@ export default function EditInstructor({
 
   return (
     <>
-      {/* Edit Instructor button that opens the form */}
-      <button className="card-button" onClick={() => setIsOpen(true)}>
-        Edit Instructor
-      </button>
-
-      {isOpen && (
+      {isPopupOpen && (
         <div className="edit-container">
           <form className="edit-video-form" onSubmit={handleEdit}>
             <h4>Edit Instructor Info</h4>

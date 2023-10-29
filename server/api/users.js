@@ -136,6 +136,17 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+// GET - /api/users/username - get user by username
+
+router.get("/user/:username", async (req, res, next) => {
+  try {
+    const user = await getUserByUsername(req.params.username);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // });
 
 // DELETE - /api/users/:userId - delete a user (only if it is me)

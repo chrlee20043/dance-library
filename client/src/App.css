@@ -17,8 +17,7 @@ rgb(255, 123, 0) (orange)
 #root {
   /* max-width: 1280px; */
   margin: 0px;
-  /* margin: 0 auto;
-  padding: 2rem;*/
+
   text-align: center;
 }
 
@@ -27,10 +26,6 @@ body {
   background-size: cover;
   font-family: sans-serif;
   background-color:  white;
-  /* background-color: rgb(219, 206, 219); */
-
-  /* background-image: linear-gradient(19deg, #FFE26A */
-  /* 0%, #ABD699 100%); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: 'Courier New', Courier, monospace;
@@ -153,17 +148,7 @@ color: black;
   width: 100%;
 }
 
-/* .class-grid {
-  display: grid;
-  grid-gap: 0.25rem;
-  grid-auto-rows: 1fr;
-  justify-items: center;
-  align-items: center;
-}
 
-.class-grid > div {
-  min-width: 25%;
-} */
 
 .class-card {
   display: flex;
@@ -208,20 +193,6 @@ color: black;
     border: solid 2px rgb(255, 123, 0)
   }
 
-  /* .card-button:before {
-    content: "\2605";
-    position: absolute;
-    visibility: visible;
-  }
-
-  .card:checked:before {
-    content: "\2606";
-    position: absolute;
-  } */
-
-  /* #editing-card {
-    position: relative;
-  } */
 
   /* PROFILE EXPANDED CONTENT */
 
@@ -344,23 +315,6 @@ color: black;
 
 }
 
-/* NEW VIDEO FORM */
-
-.new-video-form {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  border-radius: 5px;
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
-  width: 20em;
-  padding: 1em;
-  background-color: rgb(219, 206, 219); */
-
-}
 
 .new-instructor-btn {
   border: none;

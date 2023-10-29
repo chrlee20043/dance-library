@@ -4,7 +4,7 @@ import { editVideo, fetchSingleVideo } from "../../helpers/fetching";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export default function EditVideo({ videoId, onVideoEdit }) {
+export default function EditVideo({ videoId, onVideoEdit, isWindowOpen }) {
   // SETTING THE STATE
   const [isOpen, setIsOpen] = useState(false);
   const [instructorId, setInstructorId] = useState("");
@@ -99,15 +99,15 @@ export default function EditVideo({ videoId, onVideoEdit }) {
     <>
       {/* EDIT FORM! */}
       <div className="edit-container">
-        <Button
+        {/* <Button
           variant="contained"
           sx={buttonSX}
           onClick={handleClick}
           className="card-button"
         >
           {isOpen ? "Cancel" : "Edit"}
-        </Button>
-        {isOpen && (
+        </Button> */}
+        {isWindowOpen && (
           <form className="edit-video-form" onSubmit={handleEdit}>
             <h4>Edit Your Class</h4>
             <div className="form-row">

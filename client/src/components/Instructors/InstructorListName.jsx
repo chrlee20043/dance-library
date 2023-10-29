@@ -72,7 +72,8 @@ export default function InstructorListName({
                     <EditInstructor
                       userId={userId}
                       instructor_id={instructor.instructor_id}
-                      onInstructorEdit={onInstructorEdit}
+                      onInstructorChange={onInstructorChange}
+                      isPopupOpen={isPopupOpen}
                     />
                     <button className="card-button" onClick={closePopup}>
                       Close

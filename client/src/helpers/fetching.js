@@ -76,6 +76,18 @@ async function logoutUser(username, password) {
   }
 }
 
+// Fetch user by username
+
+async function fetchUserByUsername(username) {
+  try {
+    const response = await fetch(`${baseURL}/users/user/${username}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get username", error);
+  }
+}
 // INSTRUCTORS QUERIES
 
 // fetch all instructors
@@ -460,6 +472,7 @@ export {
   createUser,
   loginToAccount,
   logoutUser,
+  fetchUserByUsername,
   myAddedVideos,
   fetchAllInstructors,
   fetchSingleInstructor,
