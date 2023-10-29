@@ -62,13 +62,11 @@ export default function Login() {
       throw error;
     }
   };
-
   const textFieldSX = {
-    margin: "5px",
-    width: "100%",
+    margin: 2,
+    width: "80%",
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       border: "2px solid rgb(255, 123, 0)",
-      borderColor: "rgb(255, 123, 0)",
     },
     "& .MuiFormLabel-root.Mui-focused": {
       color: "rgb(255, 123, 0)",
@@ -76,6 +74,7 @@ export default function Login() {
   };
 
   const loginBtnSX = {
+    ml: 1,
     backgroundColor: "rgb(219, 206, 219)",
     border: "1px solid rgb(219, 206, 219) ",
     marginTop: "2",
@@ -99,10 +98,12 @@ export default function Login() {
     },
   };
 
-  const errorAlertSX = {
-    marginTop: "20px",
-    color: "white",
-    backgroundColor: "rgb(255, 123, 0)",
+  const alertSX = {
+    backgroundColor: "rgba(255, 123, 0, 0.1)",
+    border: "1px solid rgba(255, 123, 0, 0.5)",
+    borderRadius: "4px",
+    padding: "8px",
+    marginBottom: "10px",
   };
 
   return (
@@ -117,7 +118,7 @@ export default function Login() {
         <Paper elevation={3} sx={{ padding: 2, textAlign: "center" }}>
           <Typography variant="h4">Login</Typography>
           {error && (
-            <Alert severity="error" sx={errorAlertSX}>
+            <Alert severity="error" sx={alertSX}>
               {error}
             </Alert>
           )}
@@ -126,6 +127,7 @@ export default function Login() {
               label="Username"
               type="text"
               variant="outlined"
+              size="small"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -135,6 +137,7 @@ export default function Login() {
               label="Password"
               type="password"
               variant="outlined"
+              size="small"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

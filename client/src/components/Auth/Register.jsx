@@ -67,11 +67,10 @@ export default function Register() {
     }
   }
   const textFieldSX = {
-    margin: "5px",
-    width: "100%",
+    margin: "10px",
+    width: "80%",
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       border: "2px solid rgb(255, 123, 0)",
-      borderColor: "rgb(255, 123, 0)",
     },
     "& .MuiFormLabel-root.Mui-focused": {
       color: "rgb(255, 123, 0)",

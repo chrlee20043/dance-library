@@ -121,7 +121,7 @@ export default function AllVideos({ token, userId }) {
         </Select>
 
         <div className="filter-buttons" style={{ marginTop: 2, width: "50%" }}>
-          <label>
+          <label className="checkbox-label">
             <input
               className="class-level"
               type="checkbox"
@@ -131,7 +131,7 @@ export default function AllVideos({ token, userId }) {
             />
             Beginner
           </label>
-          <label>
+          <label className="checkbox-label">
             <input
               className="class-level"
               type="checkbox"
@@ -141,7 +141,7 @@ export default function AllVideos({ token, userId }) {
             />
             Intermediate
           </label>
-          <label>
+          <label className="checkbox-label">
             <input
               className="class-level"
               type="checkbox"

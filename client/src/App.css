@@ -476,5 +476,27 @@ padding: 20px;
 }
 
 .class-level {
-  color: rgb(255, 123, 0);
+  margin: 0;
+}
+
+.checkbox-label {
+  position: relative;
+  padding-left: 20px;
+  margin-left: 1rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+  position: absolute;
+}
+
+.checkbox-label input[type="checkbox"] {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  accent-color: rgb(69, 2, 69);
+  border: 1px solid rgb(255, 123, 0);
+  margin-right: 5px;
 }
