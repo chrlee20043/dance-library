@@ -6,8 +6,11 @@ https://dance-library.onrender.com/
 
 ## Key Features
 
-1. Browse classes to add to their library
-2. Add classes from their favorite instructors
-3. Edit and delete classes they created
-4. Add new instructors to the database
-5. Control subscription status
+1. Browse, search, filter classes and instructors
+2. Add classes and instructors to the library
+3. Users can edit and delete classes and instructors they added
+4. Favorite classes to save them to their profile for later viewing
+
+## Technologies
+
+JavaScript, React, HTML, CSS, Express, Node.js, SQL, PostgreSQL, Material UI, BCrypt, Cypress
