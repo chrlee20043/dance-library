@@ -491,6 +491,21 @@ padding: 20px;
   box-sizing: border-box;
 }
 
+.empty-class-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border: 1px solid rgb(208, 205, 205);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  width: 25%;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
 /* Instructor Form Popup */
 
 .popup-overlay {
