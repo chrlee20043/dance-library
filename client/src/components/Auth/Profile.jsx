@@ -23,6 +23,8 @@ export default function Profile({ token, userId, currentUser }) {
   const favoriteClasses = useSelector(selectFavorites);
   const navigate = useNavigate();
 
+  /* fetch favorite classes */
+
   useEffect(() => {
     async function fetchFavoriteClassData() {
       const allClasses = await fetchVideosWithInstructorName();
@@ -34,6 +36,8 @@ export default function Profile({ token, userId, currentUser }) {
     fetchFavoriteClassData();
     fetchUserData();
   }, [favoriteClasses]);
+
+  /* fetch user data */
 
   async function fetchUserData() {
     try {
