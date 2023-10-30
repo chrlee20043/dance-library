@@ -60,7 +60,6 @@ export default function SingleInstructor({ token, userId }) {
           </button>
         </div>
       </div>
-      {/* <div className="classes-header"> */}
       <div className="instructor-classes">
         <h2 className="single-instructor-title">Classes</h2>
       </div>
@@ -107,7 +106,6 @@ export default function SingleInstructor({ token, userId }) {
           ))}
         </div>
       )}
-      {/* </div> */}
     </>
   );
 }
