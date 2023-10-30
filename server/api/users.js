@@ -136,7 +136,7 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-// GET - /api/users/username - get user by username
+// GET - /api/users/user/username - get user by username
 
 router.get("/user/:username", async (req, res, next) => {
   try {

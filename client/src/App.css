@@ -5,18 +5,20 @@ rgb(69, 2, 69) (dark purple)
 rgb(219, 206, 219) (light purple)
 white
 rgb(255, 123, 0) (orange)
+rgb(245, 176, 112) (light orange)
 */
-
 
 
 * {
   box-sizing: border-box;
   /* margin: 0; */
-  text-align: center;
+  /* text-align: center; */
 }
 
 #root {
   margin: 0px;
+  text-align: center;
+
 
 }
 

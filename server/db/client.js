@@ -3,7 +3,7 @@ const { Client } = require("pg");
 
 // Establishing connect to database
 
-const dbName = "dancelibrary";
+// const dancelibrary = "dancelibrary";
 
 // const client = new Client(`postgres://localhost:5433/${dancelibrary}`);
 const client = new Client(

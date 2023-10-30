@@ -87,8 +87,10 @@ export default function AddNewVideo({ token, userId }) {
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       border: "2px solid rgb(255, 123, 0)",
     },
+
     "& .MuiFormLabel-root.Mui-focused": {
       color: "rgb(255, 123, 0)",
+      visibility: "hidden",
     },
   };
 
@@ -128,7 +130,8 @@ export default function AddNewVideo({ token, userId }) {
                   <FormControl component="fieldset" fullWidth sx={selectSX}>
                     <InputLabel
                       htmlFor="instructor-name"
-                      focused={isInstructorLabelFocused}
+                      // focused={isInstructorLabelFocused}
+                      sx={{ color: "transparent" }}
                     >
                       Instructor
                     </InputLabel>
@@ -151,9 +154,7 @@ export default function AddNewVideo({ token, userId }) {
                       onBlur={() => setIsInstructorLabelFocused(false)}
                       sx={selectSX}
                     >
-                      <MenuItem value="" disabled>
-                        Select Instructor
-                      </MenuItem>
+                      <MenuItem value="">Select Instructor</MenuItem>
                       {instructors.map((instructor) => (
                         <MenuItem
                           key={instructor.instructor_id}
@@ -176,7 +177,9 @@ export default function AddNewVideo({ token, userId }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <FormControl component="fieldset" fullWidth sx={selectSX}>
-                    <InputLabel htmlFor="style">Style</InputLabel>
+                    <InputLabel htmlFor="style" sx={{ color: "transparent" }}>
+                      Style
+                    </InputLabel>
                     <Select
                       value={style}
                       required
@@ -209,7 +212,11 @@ export default function AddNewVideo({ token, userId }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <FormControl component="fieldset" fullWidth sx={selectSX}>
-                    <InputLabel htmlFor="level" focused={isLevelLabelFocused}>
+                    <InputLabel
+                      htmlFor="level"
+                      sx={{ color: "transparent" }}
+                      focused={isLevelLabelFocused}
+                    >
                       Level
                     </InputLabel>
                     <Select
