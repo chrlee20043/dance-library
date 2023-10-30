@@ -7,7 +7,7 @@ const dbName = "dancelibrary";
 
 // const client = new Client(`postgres://localhost:5433/${dancelibrary}`);
 const client = new Client(
-  `postgres://dancelibrary_user:IDld0Vrsbb7IsOIfCnn71YzJ7uP2bRjE@dpg-ckmvahv83ejs738j3v1g-a/dancelibrary`
+  `postgres://dancelibrary_2qwe_user:AruzamZbTU0GzYyZFJ2K7u6S2K8RCB6C@dpg-cl00gr6b0mos73di1o5g-a/dancelibrary_2qwe`
 );
 
 // Export for use in other files
