@@ -8,28 +8,20 @@ export default function Home() {
     navigate("/register");
   };
 
-  // const handleLogin = () => {
-  //   navigate("/login");
-  // };
-
   return (
-    <div>
-      <h1>Welcome to your personal dance studio!</h1>
-      <p>
-        Train with your favorite instructors, learn a new style, and gain new
-        skills!
-      </p>
-      <p>
-        {/* <Register />
-        <Login /> */}
-        <button onClick={handleRegister} className="home-page-button">
-          Register
-        </button>
-        {/* or{" "}
-        <button onClick={handleLogin} className="home-page-button">
-          Login
-        </button> */}
-      </p>
+    <div className="home-container">
+      <div className="home-content">
+        <h1 className="home-text">Welcome to your personal dance library!</h1>
+        <h3 className="home-text">
+          Train with your favorite instructors, learn a new style, and gain new
+          skills!
+        </h3>
+        <p>
+          <button onClick={handleRegister} className="home-page-button">
+            Create an Account
+          </button>
+        </p>
+      </div>
     </div>
   );
 }

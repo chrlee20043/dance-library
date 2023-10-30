@@ -75,7 +75,9 @@ export default function AllInstructors({ token, userId }) {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Typography variant="h4">Instructors</Typography>
+        <Typography variant="h4" sx={{ mt: 2 }}>
+          Instructors
+        </Typography>
       </Grid>
       <Grid container item xs={12} md={8} direction="column">
         <TextField

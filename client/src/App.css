@@ -11,8 +11,7 @@ rgb(245, 176, 112) (light orange)
 
 * {
   box-sizing: border-box;
-  /* margin: 0; */
-  /* text-align: center; */
+
 }
 
 #root {
@@ -45,6 +44,36 @@ body {
 }
 
 /* HOME PAGE */
+
+.home-text {
+  margin: 0;
+  color: white;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+
+}
+
+.home-container {
+  background-image: url("/home-img.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
 
 .home-page-button {
   background-color: rgb(69, 2, 69);
@@ -87,7 +116,7 @@ body {
   border-radius: 5px;
   background-color: rgb(219, 206, 219);
     padding: 1em;
-  margin: 10px;
+  margin: 2rem;
 }
 
 img {
@@ -106,7 +135,7 @@ color: black;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
+  margin-top: 2rem;
   border-radius: 5px;
   color: rgb(69, 2, 69);
   background-color: rgb(219, 206, 219);
@@ -137,7 +166,7 @@ color: black;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
+  margin-top: 2rem;
   border-radius: 5px;
   color: rgb(69, 2, 69);
   background-color: rgb(219, 206, 219);

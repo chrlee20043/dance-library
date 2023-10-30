@@ -91,7 +91,9 @@ export default function AllVideos({ token, userId }) {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Typography variant="h4">Classes</Typography>
+        <Typography variant="h4" sx={{ mt: 2 }}>
+          Classes
+        </Typography>
       </Grid>
       <Grid container item xs={12} md={8} direction="column">
         <TextField

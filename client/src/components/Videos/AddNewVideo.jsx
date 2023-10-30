@@ -130,8 +130,7 @@ export default function AddNewVideo({ token, userId }) {
                   <FormControl component="fieldset" fullWidth sx={selectSX}>
                     <InputLabel
                       htmlFor="instructor-name"
-                      // focused={isInstructorLabelFocused}
-                      sx={{ color: "transparent" }}
+                      focused={isInstructorLabelFocused}
                     >
                       Instructor
                     </InputLabel>
@@ -177,9 +176,7 @@ export default function AddNewVideo({ token, userId }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <FormControl component="fieldset" fullWidth sx={selectSX}>
-                    <InputLabel htmlFor="style" sx={{ color: "transparent" }}>
-                      Style
-                    </InputLabel>
+                    <InputLabel htmlFor="style">Style</InputLabel>
                     <Select
                       value={style}
                       required
@@ -212,11 +209,7 @@ export default function AddNewVideo({ token, userId }) {
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <FormControl component="fieldset" fullWidth sx={selectSX}>
-                    <InputLabel
-                      htmlFor="level"
-                      sx={{ color: "transparent" }}
-                      focused={isLevelLabelFocused}
-                    >
+                    <InputLabel htmlFor="level" focused={isLevelLabelFocused}>
                       Level
                     </InputLabel>
                     <Select
