@@ -18,7 +18,7 @@ const createSubscription = async ({
       // VALUES(var1, var2, var3, var4, var5)
       // RETURNING everything
       `
-        INSERT INTO subscriptions(user_id, annual, monthly, "studentDiscount")
+        INSERT INTO subscriptions("userId", annual, monthly, "studentDiscount")
         VALUES($1, $2, $3, $4)
         RETURNING *;
       `,

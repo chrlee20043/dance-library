@@ -1,29 +1,26 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
 import "./App.css";
-import Home from "./components/Home.jsx";
-import Navbar from "./components/Navbar.jsx";
-import Profile from "./components/Profile";
-import AllVideos from "./components/AllVideos";
-import SingleVideo from "./components/SingleVideo";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Logout from "./components/Logout";
+import Home from "./components/Auth/Home.jsx";
+import Navbar from "./components/Navigation/Navbar.jsx";
+import Profile from "./components/Auth/Profile";
+import AllVideos from "./components/Videos/AllVideos";
+import SingleVideo from "./components/Videos/SingleVideo";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
+import AllInstructors from "./components/Instructors/AllInstructors";
+import SingleInstructor from "./components/Instructors/SingleInstructor";
 import { VideosContextProvider } from "./context/VideosContext";
+import { useSelector } from "react-redux";
+import {
+  selectCurrentToken,
+  selectCurrentUserId,
+  selectCurrentUsername,
+} from "./Redux/authSlice";
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
-
-  useEffect(() => {
-    setToken(window.localStorage.getItem("token"));
-    setUserId(window.localStorage.getItem("userId"));
-    const storedToken = window.localStorage.getItem("token");
-    const storedUserId = window.localStorage.getItem("userId");
-    setToken(storedToken);
-    setUserId(storedUserId);
-    console.log("storage id: ", userId);
-  }, []);
+  const token = useSelector(selectCurrentToken);
+  const userId = useSelector(selectCurrentUserId);
+  const currentUsername = useSelector(selectCurrentUsername);
 
   return (
     <>
@@ -32,13 +29,16 @@ function App() {
         <Routes>
           {/* <div className="main-container"> */}
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register setToken={setToken} />} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/logout" element={<Logout setToken={setToken} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route
-            path="/myprofile/:userId"
+            path="/myprofile"
             element={
-              <Profile token={token} setToken={setToken} userId={userId} />
+              <Profile
+                token={token}
+                userId={userId}
+                currentUser={currentUsername}
+              />
             }
           />
           <Route
@@ -49,7 +49,14 @@ function App() {
             path="/allvideos/:videoId"
             element={<SingleVideo token={token} userId={userId} />}
           />
-          {/* </div> */}
+          <Route
+            path="/instructors"
+            element={<AllInstructors token={token} userId={userId} />}
+          />
+          <Route
+            path="/instructors/:instructorId"
+            element={<SingleInstructor token={token} userId={userId} />}
+          />
         </Routes>
       </VideosContextProvider>
     </>

@@ -23,4 +23,8 @@ router.use("/subscriptions", require("./subscriptions"));
 
 router.use("/auth", require("./auth"));
 
+// ROUTER: /api/favorites
+
+router.use("/favorites", require("./favorites"));
+
 module.exports = router;

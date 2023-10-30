@@ -38,36 +38,6 @@ const createVideoClass = async ({
   }
 };
 
-// const createVideoClass = async ({
-//   instructor_id,
-//   instructor_name,
-//   style,
-//   level,
-//   videoURL,
-//   submitted_by,
-// }) => {
-//   try {
-//     // individual rows
-//     const {
-//       rows: [videoClass],
-//     } = await client.query(
-//       // INSERT SQL query
-//       // insert into table(col1, col2, col3, col4, col5)
-//       // VALUES(var1, var2, var3, var4, var5)
-//       // RETURNING everything
-//       `
-//         INSERT INTO videoclasses(instructor_id, instructor_name, style ,level, "videoURL", submitted_by)
-//         VALUES($1, $2, $3, $4, $5, $6)
-//         RETURNING *;
-//       `,
-//       [instructor_id, instructor_name, style, level, videoURL, submitted_by]
-//     );
-//     return videoClass;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 // GET all videos
 
 const getAllVideos = async () => {
@@ -120,18 +90,16 @@ const getVideoClassById = async (videoId) => {
 
 // GET video by instructor id
 
-const getVideoClassByInstructorId = async (instructorId) => {
+const getVideoClassesByInstructorId = async (instructorId) => {
   try {
-    const {
-      rows: [videoClasses],
-    } = await client.query(
+    const { rows } = await client.query(
       `
         SELECT instructors.name AS instructor_name, videoclasses.*
         FROM instructors
         JOIN videoclasses ON instructors.instructor_id = videoclasses.instructor_id WHERE videoclasses.instructor_id = ${instructorId};
       `
     );
-    return videoClasses;
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -139,20 +107,18 @@ const getVideoClassByInstructorId = async (instructorId) => {
 
 // GET - get video by user id (if you submitted it)
 
-const getVideoClassBySubmitterId = async (userId) => {
+const getVideoClassesBySubmitterId = async (userId) => {
   try {
-    const {
-      rows: [videoClasses],
-    } = await client.query(
+    const { rows } = await client.query(
       `
-        SELECT users.user_id AS user_id, users.username AS username, videoclasses.*
+        SELECT users.user_id AS "userId", users.username AS username, videoclasses.*
         FROM users
         JOIN videoclasses ON users.user_id = videoclasses.submitted_by
-        WHERE videoclasses.submitted_by = ${userId};
-      `
-      // [userId]
+        WHERE videoclasses.submitted_by = $1;
+      `,
+      [userId]
     );
-    return videoClasses;
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -213,8 +179,8 @@ module.exports = {
   createVideoClass,
   getVideoClassesWithInstructorName,
   getVideoClassById,
-  getVideoClassByInstructorId,
-  getVideoClassBySubmitterId,
+  getVideoClassesByInstructorId,
+  getVideoClassesBySubmitterId,
   updateVideoClass,
   deleteVideoClass,
 };

@@ -10,6 +10,7 @@ const {
 } = require("./helpers/instructors");
 const { createVideoClass } = require("./helpers/videoClasses");
 const { createSubscription } = require("./helpers/subscriptions");
+const { createFavorite } = require("./helpers/favorites");
 
 // imports
 const {
@@ -17,6 +18,7 @@ const {
   instructors,
   videoClasses,
   subscriptions,
+  favorites,
 } = require("./seedData");
 
 // Drop tables
@@ -24,10 +26,11 @@ const dropTables = async () => {
   try {
     console.log("Starting to drop tables");
     await client.query(`
-        DROP TABLE IF EXISTS users CASCADE;
-        DROP TABLE IF EXISTS instructors CASCADE;
-        DROP TABLE IF EXISTS videoClasses CASCADE;
-        DROP TABLE IF EXISTS subscriptions CASCADE;
+    DROP TABLE IF EXISTS favorites;
+    DROP TABLE IF EXISTS subscriptions;
+    DROP TABLE IF EXISTS videoClasses;
+    DROP TABLE IF EXISTS instructors;
+    DROP TABLE IF EXISTS users;
         `);
     console.log("Tables dropped");
   } catch (error) {
@@ -54,7 +57,8 @@ const createTables = async () => {
             name varchar(255) NOT NULL,
             bio varchar(255) NOT NULL,
             style varchar(255) NOT NULL,
-            "imageURL" varchar(255) NOT NULL
+            "imageURL" varchar(255) NOT NULL,
+            submitted_by INTEGER REFERENCES users(user_id) NOT NULL
         );
 
         CREATE TABLE videoclasses (
@@ -68,11 +72,17 @@ const createTables = async () => {
         );
 
         CREATE TABLE subscriptions (
-            user_id INTEGER REFERENCES users(user_id) NOT NULL,
+          subscription_id SERIAL PRIMARY KEY,
+          "userId" INTEGER REFERENCES users(user_id) NOT NULL,
             annual BOOLEAN NOT NULL,
             monthly BOOLEAN NOT NULL,
             "studentDiscount" BOOLEAN NOT NULL
         );
+        CREATE TABLE favorites (
+          "favoriteId" SERIAL PRIMARY KEY,
+          "userId" INTEGER REFERENCES users(user_id) NOT NULL,
+          "videoId" INTEGER REFERENCES videoclasses(video_id) NOT NULL
+        )
     `);
   console.log("Tables built!");
 };
@@ -132,6 +142,18 @@ const createInitialSubscriptions = async () => {
   }
 };
 
+// Create favorites
+const createInitialFavorites = async () => {
+  try {
+    for (const favorite of favorites) {
+      await createFavorite(favorite);
+    }
+    console.log("created favorites");
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Call all functions and 'BUILD' my database
 
 const rebuildDb = async () => {
@@ -148,6 +170,7 @@ const rebuildDb = async () => {
     await createInitialInstructors();
     await createInitialVideoClasses();
     await createInitialSubscriptions();
+    await createInitialFavorites();
     // await getInstructorsById(1);
     // await getUserById(1);
   } catch (error) {

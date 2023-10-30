@@ -11,7 +11,6 @@ const {
   getAllUsers,
   getUserById,
   getUserByUsername,
-  // getUserByToken,
   updateUser,
   deleteUser,
 } = require("../db/helpers/users");
@@ -19,18 +18,6 @@ const {
 router.use(express.json());
 
 const users = require("../db/seedData");
-
-const requireToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-    const user = await getUserByToken(token);
-    req.user = user;
-    console.log("user info: ", user);
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
 
 // Auth routes
 
@@ -149,6 +136,17 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+// GET - /api/users/username - get user by username
+
+router.get("/user/:username", async (req, res, next) => {
+  try {
+    const user = await getUserByUsername(req.params.username);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // });
 
 // DELETE - /api/users/:userId - delete a user (only if it is me)
@@ -162,7 +160,7 @@ router.delete("/:userId", async (req, res, next) => {
   }
 });
 
-// PUT - /api/userse/:userId - edit user (only if it is me)
+// PUT - /api/users/:userId - edit user (only if it is me)
 
 router.put("/:userId", async (req, res, next) => {
   try {

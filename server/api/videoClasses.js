@@ -5,9 +5,9 @@ const {
   getAllVideos,
   createVideoClass,
   getVideoClassesWithInstructorName,
-  getVideoClassByInstructorId,
+  getVideoClassesByInstructorId,
   getVideoClassById,
-  getVideoClassBySubmitterId,
+  getVideoClassesBySubmitterId,
   updateVideoClass,
   deleteVideoClass,
 } = require("../db/helpers/videoClasses");
@@ -53,23 +53,22 @@ router.get("/:videoId", async (req, res, next) => {
 
 // GET - /api/videoClasses/:instructorId - get video by instructor id
 
-// router.get("/video/:instructorId", async (req, res, next) => {
-//   try {
-//     const videoClass = await getVideoClassByInstructorId(
-//       req.params.instructorId
-//     );
-//     res.send(videoClass);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-// GET - /api/videoClasses/myprofile/:userId - get my user data and saved videos
-
-router.get("/myvideos/:userId", async (req, res, next) => {
+router.get("/video/instructor/:instructorId", async (req, res, next) => {
   try {
-    const videoClasses = await getVideoClassBySubmitterId(req.params.userId);
-    console.log("my user id: ", userId);
+    const videoClass = await getVideoClassesByInstructorId(
+      req.params.instructorId
+    );
+    res.send(videoClass);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// GET - /api/videoClasses/video/user/:userId - get my added videos
+
+router.get("/video/user/:userId", async (req, res, next) => {
+  try {
+    const videoClasses = await getVideoClassesBySubmitterId(req.params.userId);
     res.send(videoClasses);
   } catch (error) {
     next(error);

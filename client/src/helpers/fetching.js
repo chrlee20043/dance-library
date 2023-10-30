@@ -76,6 +76,18 @@ async function logoutUser(username, password) {
   }
 }
 
+// Fetch user by username
+
+async function fetchUserByUsername(username) {
+  try {
+    const response = await fetch(`${baseURL}/users/user/${username}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get username", error);
+  }
+}
 // INSTRUCTORS QUERIES
 
 // fetch all instructors
@@ -91,15 +103,97 @@ async function fetchAllInstructors() {
   }
 }
 
-// Retrieve my videos - video objects made by user
-
-async function myUserData(userId) {
+async function fetchSingleInstructor(instructorId) {
   try {
-    const response = await fetch(`${baseURL}/users/${userId}`);
-
-    // console.log("my user data response: ", response);
+    const response = await fetch(`${baseURL}/instructors/${instructorId}`);
     const result = await response.json();
-    // console.log("result from myUserData: ", result);
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get single instructor", error);
+  }
+}
+
+async function addNewInstructor(
+  name,
+  bio,
+  style,
+  imageURL,
+  submitted_by,
+  token
+) {
+  try {
+    // console.log("am i getting this: ");
+    const response = await fetch(`${baseURL}/instructors`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        bio,
+        style,
+        imageURL,
+        submitted_by,
+      }),
+    });
+    // console.log(response)
+    const result = await response.json();
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error(`You cannot create me`, error);
+  }
+}
+
+async function deleteInstructor(instructorId, token) {
+  try {
+    const response = await fetch(`${baseURL}/instructors/${instructorId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(`You cannot delete me`, error);
+  }
+}
+
+//   // Edit video from my list
+
+async function editInstructor(
+  instructor_id,
+  name,
+  bio,
+  style,
+  imageURL,
+  submitted_by,
+  token
+) {
+  try {
+    const response = await fetch(`${baseURL}/instructors/${instructor_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        instructor_id,
+        name,
+        bio,
+        style,
+        imageURL,
+        submitted_by,
+      }),
+    });
+    const result = await response.json();
+    console.log("Updated item", result);
     return result;
   } catch (err) {
     console.error(err);
@@ -120,6 +214,8 @@ async function fetchAllVideos() {
     console.error("Cannot get classes", error);
   }
 }
+
+// fetch all videos with instructor name
 
 export default async function fetchVideosWithInstructorName(
   videoId,
@@ -147,6 +243,38 @@ async function fetchSingleVideo(videoId) {
     return result;
   } catch (error) {
     console.error("cannot get single video", error);
+  }
+}
+
+// get videos by instructor Id
+
+async function fetchVideosbyInstructorId(instructorId) {
+  try {
+    const response = await fetch(
+      `${baseURL}/videoclasses/video/instructor/${instructorId}`
+    );
+    const result = await response.json();
+    // console.log("Fetched videos", result);
+    return result;
+  } catch (error) {
+    console.error("Videos not available at this time.");
+  }
+}
+
+// get videos by userId
+
+async function myAddedVideos(userId) {
+  try {
+    const response = await fetch(
+      `${baseURL}/videoclasses/video/user/${userId}`
+    );
+
+    // console.log("my user data response: ", response);
+    const result = await response.json();
+    // console.log("result from myUserData: ", result);
+    return result;
+  } catch (err) {
+    console.error(err);
   }
 }
 
@@ -241,6 +369,101 @@ async function editVideo(
   }
 }
 
+// FAVORITES QUERIES
+
+async function fetchAllFavorites() {
+  try {
+    const response = await fetch(`${baseURL}/favorites`);
+    const result = await response.json();
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Cannot get favorites", error);
+  }
+}
+
+// fetch favorite video by id
+
+async function fetchFavoriteById(favoriteId) {
+  try {
+    const response = await fetch(`${baseURL}/favorites/${favoriteId}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get single rfavorite", error);
+  }
+}
+
+// fetch favorite video by video id
+
+async function fetchFavoritesByVideoId(videoId) {
+  try {
+    const response = await fetch(`${baseURL}/favorites/museum/${videoId}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get favorite by museum name", error);
+  }
+}
+
+// fetch favorites by user id
+
+async function fetchFavoritesByUserId(userId) {
+  try {
+    const response = await fetch(`${baseURL}/favorites/user/${userId}`);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("cannot get favorites by user Id", error);
+  }
+}
+
+// add a favorite
+
+async function addNewFavorite(userId, videoId, token) {
+  try {
+    const response = await fetch(`${baseURL}/favorites`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        userId,
+        videoId,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("You cannot add a favorite", error);
+    throw error;
+  }
+}
+
+// delete a favorite
+
+async function deleteFavorite(favoriteId, token) {
+  try {
+    const response = await fetch(`${baseURL}/favorites/${favoriteId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(`You cannot delete this favorite museum`, error);
+  }
+}
+
 //export functions
 export {
   fetchAllVideos,
@@ -249,9 +472,21 @@ export {
   createUser,
   loginToAccount,
   logoutUser,
-  myUserData,
+  fetchUserByUsername,
+  myAddedVideos,
   fetchAllInstructors,
+  fetchSingleInstructor,
+  fetchVideosbyInstructorId,
+  addNewInstructor,
+  editInstructor,
+  deleteInstructor,
   addVideoClass,
   deleteVideo,
   editVideo,
+  fetchAllFavorites,
+  fetchFavoriteById,
+  fetchFavoritesByUserId,
+  fetchFavoritesByVideoId,
+  addNewFavorite,
+  deleteFavorite,
 };

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { editVideo, fetchSingleVideo } from "../helpers/fetching";
+import { useNavigate } from "react-router-dom";
+import { editVideo, fetchSingleVideo } from "../../helpers/fetching";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
-export default function EditVideo() {
-  const { videoId } = useParams();
-
+export default function EditVideo({ videoId, onVideoEdit, isWindowOpen }) {
   // SETTING THE STATE
   const [isOpen, setIsOpen] = useState(false);
   const [instructorId, setInstructorId] = useState("");
@@ -12,6 +12,8 @@ export default function EditVideo() {
   const [style, setStyle] = useState("");
   const [level, setLevel] = useState("");
   const [videoURL, setVideoURL] = useState("");
+
+  const navigate = useNavigate();
 
   // FETCH SINGLE VIDEO DATA
 
@@ -60,6 +62,13 @@ export default function EditVideo() {
           updatedVideo.videoURL
         );
 
+        setIsOpen(false);
+
+        if (onVideoEdit) {
+          onVideoEdit();
+        }
+
+        navigate("./", { replace: true });
         return editedVideo;
       } catch (error) {
         console.error("can't edit this video, error");
@@ -68,67 +77,68 @@ export default function EditVideo() {
     updatingVideos();
   };
 
+  const buttonSX = {
+    backgroundColor: "rgb(69, 2, 69)",
+    "&:hover": {
+      backgroundColor: "rgb(219, 206, 219)",
+    },
+  };
+
+  const textfieldSX = {
+    margin: 1,
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid rgb(255, 123, 0)",
+      borderColor: "rgb(249, 236, 218)",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "rgb(69, 2, 69)",
+    },
+  };
+
   return (
     <>
       {/* EDIT FORM! */}
-      <div className="edit-video-form">
-        <button className="card-toggle-button" onClick={handleClick}>
-          {isOpen ? "Cancel" : "Edit Details"}
-        </button>
-        {isOpen && (
-          <form onSubmit={handleEdit}>
+      <div className="edit-container">
+        {isWindowOpen && (
+          <form className="edit-video-form" onSubmit={handleEdit}>
             <h4>Edit Your Class</h4>
             <div className="form-row">
               <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Instructor Id"
-                  value={instructorId}
-                  onChange={(event) => setInstructorId(event.target.value)}
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Instructor Name"
-                  value={instructorName}
-                  onChange={(event) => setInstructorName(event.target.value)}
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Style"
+                <TextField
+                  label="Style"
+                  variant="outlined"
                   value={style}
+                  sx={textfieldSX}
                   onChange={(event) => setStyle(event.target.value)}
                 />
               </div>
               <div className="col">
-                <input
-                  id="edit-level-input"
-                  type="text"
-                  className="form-control"
-                  placeholder="Level"
+                <TextField
+                  label="Level"
+                  variant="outlined"
                   value={level}
+                  sx={textfieldSX}
                   onChange={(event) => setLevel(event.target.value)}
                 />
               </div>
               <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Video URL"
+                <TextField
+                  label="Video URL"
+                  variant="outlined"
                   value={videoURL}
+                  sx={textfieldSX}
                   onChange={(event) => setVideoURL(event.target.value)}
                 />
               </div>
             </div>
-            <button className="card-button" type="submit">
+            <Button
+              variant="contained"
+              sx={buttonSX}
+              type="submit"
+              className="card-button"
+            >
               Save Changes
-            </button>
+            </Button>
           </form>
         )}
       </div>
