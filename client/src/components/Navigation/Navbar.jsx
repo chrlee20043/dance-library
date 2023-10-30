@@ -20,8 +20,6 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 
 const drawerWidth = 240;
 
@@ -155,6 +153,7 @@ function DrawerAppBar(props) {
             <Typography
               variant="h4"
               component="div"
+              id="navbar-title"
               sx={{
                 flexGrow: 1,
                 display: { xs: "none", sm: "block" },
@@ -164,53 +163,7 @@ function DrawerAppBar(props) {
               MY DANCE LIBRARY
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <Stack direction="row" spacing={2}>
-                <Button
-                  color="inherit"
-                  sx={listItemButtonSX}
-                  component={Link}
-                  to="/myprofile"
-                >
-                  PROFILE
-                </Button>
-
-                <Button
-                  color="inherit"
-                  sx={listItemButtonSX}
-                  component={Link}
-                  to="/allvideos"
-                >
-                  CLASSES
-                </Button>
-
-                <Button
-                  color="inherit"
-                  sx={listItemButtonSX}
-                  component={Link}
-                  to="/instructors"
-                >
-                  INSTRUCTORS
-                </Button>
-                {props.token ? (
-                  <Button
-                    sx={listItemButtonSX}
-                    color="inherit"
-                    onClick={onLogout}
-                  >
-                    LOG OUT
-                  </Button>
-                ) : (
-                  <Button
-                    sx={listItemButtonSX}
-                    color="inherit"
-                    component={Link}
-                    to="/login"
-                  >
-                    LOGIN
-                  </Button>
-                )}
-              </Stack>
-              {/* <List
+              <List
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -272,7 +225,7 @@ function DrawerAppBar(props) {
                     LOGIN
                   </ListItemButton>
                 )}
-              </List> */}
+              </List>
             </Box>
           </Toolbar>
         </AppBar>

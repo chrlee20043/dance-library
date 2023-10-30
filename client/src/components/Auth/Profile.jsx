@@ -70,7 +70,7 @@ export default function Profile({ token, userId, currentUser }) {
   return (
     <>
       <div>
-        <h1>Welcome {currentUser}!</h1>
+        <h1 className="profile-welcome">Welcome {currentUser}!</h1>
         <br />
         <div className="profile-title">My Saved Classes</div>
         <div className="favorites-container">
@@ -87,7 +87,8 @@ export default function Profile({ token, userId, currentUser }) {
               </button>
             </div>
           ) : (
-            <ul>
+            // <ul>
+            <div>
               {favoriteClassesData.map((video) => (
                 <div className="favorites-card" key={video.video_id}>
                   <div className="flex items-center justify-center">
@@ -122,7 +123,8 @@ export default function Profile({ token, userId, currentUser }) {
                   </button>
                 </div>
               ))}
-            </ul>
+            </div>
+            // </ul>
           )}
         </div>
 
@@ -141,7 +143,7 @@ export default function Profile({ token, userId, currentUser }) {
           </div>
         ) : (
           <div>
-            <button className="card-button" onClick={handleDetails}>
+            <button className="profile-button " onClick={handleDetails}>
               {isOpen ? "See Less" : "See More"}
             </button>
             {addedVideos

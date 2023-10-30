@@ -12,10 +12,10 @@ rgb(255, 123, 0) (orange)
 * {
   box-sizing: border-box;
   /* margin: 0; */
+  text-align: center;
 }
 
 #root {
-  /* max-width: 1280px; */
   margin: 0px;
 
 }
@@ -36,6 +36,11 @@ body {
   margin-top: 100px;
 }
 
+/* NAVBAR */
+
+#navbar-title {
+  text-align: left;
+}
 
 /* HOME PAGE */
 
@@ -196,8 +201,28 @@ color: black;
 
   /* PROFILE EXPANDED CONTENT */
 
+  .profile-welcome {
+    text-align: center;
+  }
+
+
   .profile-title {
     font-size: 1.5rem;
+    text-align: center;
+    padding-top: 1em;
+  }
+
+  .profile-button {
+  font-size: 15px;
+  cursor: pointer;
+  color: white;
+  background-color:rgb(69, 2, 69);
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  transition: 0.3s ease-in-out;
+  text-transform: capitalize;
+margin-left: 10px;
   }
 
   .expanded-content {
@@ -384,8 +409,8 @@ padding: 20px;
 
 .heart-button {
   position: absolute;
-  /* color: #95BF74; */
-  cursor: pointer;
+  color: rgb(69, 2, 69);
+     cursor: pointer;
   width: 36px;
   height: 36px;
   left: 0;
@@ -443,11 +468,11 @@ padding: 20px;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* semi-transparent background */
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* ensure it appears on top of other content */
+  z-index: 999;
 }
 
 /* CSS for the popup content */
@@ -499,4 +524,41 @@ padding: 20px;
   accent-color: rgb(69, 2, 69);
   border: 1px solid rgb(255, 123, 0);
   margin-right: 5px;
+}
+
+
+@media (max-width: 768px) {
+  .favorites-card {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .my-videos {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+margin-right: 0;
+  }
+
+  .single-instructor-card {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .instructor-classes {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+
+  }
+
+
+  .single-instructor-title {
+    text-align: center;
+  }
+
 }

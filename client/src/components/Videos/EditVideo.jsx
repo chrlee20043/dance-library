@@ -99,14 +99,6 @@ export default function EditVideo({ videoId, onVideoEdit, isWindowOpen }) {
     <>
       {/* EDIT FORM! */}
       <div className="edit-container">
-        {/* <Button
-          variant="contained"
-          sx={buttonSX}
-          onClick={handleClick}
-          className="card-button"
-        >
-          {isOpen ? "Cancel" : "Edit"}
-        </Button> */}
         {isWindowOpen && (
           <form className="edit-video-form" onSubmit={handleEdit}>
             <h4>Edit Your Class</h4>
