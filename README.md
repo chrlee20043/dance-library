@@ -13,4 +13,4 @@ https://dance-library.onrender.com/
 
 ## Technologies
 
-JavaScript, React, HTML, CSS, Express, Node.js, SQL, PostgreSQL, Material UI, BCrypt, Cypress
+JavaScript, React, Redux, HTML, CSS, Express, Node.js, SQL, PostgreSQL, Material UI, BCrypt, Cypress
