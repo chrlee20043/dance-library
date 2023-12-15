@@ -22,9 +22,9 @@ https://dance-library.onrender.com/
 
 Clone this repository: git clone https://github.com/chrlee20043/dance-library.git
 
-CD into client directory: cd client
-Install dependencies: npm install and npm install create-vite
-Start the development server: npm run dev
+CD into client directory: ```cd client```
+Install dependencies: ```npm install``` and ```npm install create-vite```
+Start the development server: ```npm run dev```
 Open your browser
 
 CD into server directory: cd server
