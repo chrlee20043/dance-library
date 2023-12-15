@@ -22,15 +22,15 @@ https://dance-library.onrender.com/
 
 Clone this repository: git clone https://github.com/chrlee20043/dance-library.git
 
-CD into client directory: ```cd client```
-Install dependencies: ```npm install``` and ```npm install create-vite```
-Start the development server: ```npm run dev```
-Open your browser
+CD into client directory: ```cd client```<br>
+Install dependencies: ```npm install``` and ```npm install create-vite```<br>
+Start the development server: ```npm run dev```<br>
+Open your browser<br>
 
-CD into server directory: cd server
-In your terminal, enter ```psql``` and type ```CREATE DATABASE museumdb;```
-Seed the database ```npm run seed```
-In the server directory, run ```npm run start```
+CD into server directory: cd server<br>
+In your terminal, enter ```psql``` and type ```CREATE DATABASE museumdb;```<br>
+Seed the database ```npm run seed```<br>
+In the server directory, run ```npm run start```<br>
 
 ## Technologies
 
