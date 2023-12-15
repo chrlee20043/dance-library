@@ -45,3 +45,7 @@ In the server directory, run ```npm run start```<br>
 <img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" alt="Material UI" />
 <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" alt="JWT" />
 <img src="https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white" alt="Cypress" />
+
+## Contact
+
+For any questions or feedback, feel free to reach out to me at [chrlee93@gmail.com](mailto:chrlee93@gmail.com).
