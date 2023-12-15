@@ -28,7 +28,7 @@ Start the development server: ```npm run dev```<br>
 Open your browser<br>
 
 CD into server directory: cd server<br>
-In your terminal, enter ```psql``` and type ```CREATE DATABASE dance-library;```<br>
+In your terminal, enter ```psql``` and type ```CREATE DATABASE dancelibrary;```<br>
 Seed the database ```npm run seed```<br>
 In the server directory, run ```npm run start```<br>
 
